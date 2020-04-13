@@ -1,4 +1,4 @@
- const {app, BrowserWindow, ipcMain} = require('electron')
+import {app, BrowserWindow} from "electron";
 
 function createWindow () {
   // Create the browser window.
@@ -13,20 +13,15 @@ function createWindow () {
       defaultEncoding: "utf-8",
       devTools: true,
       nodeIntegrationInSubFrames: true,
-      nodeIntegration: true
+    
     }
   });
-
-  win.openDevTools();
  
   // and load the index.html of the app.
-  win.loadFile('../dist/index.html');
 
-  ipcMain.handle("userLogin", (event, someArgument) => {
-    console.log(event)
-    return result;
-  })
-  
+  console.log(app.getAppPath());
+  win.loadFile('../renderer/index.html');
+
 }
  
 app.on('ready', createWindow);

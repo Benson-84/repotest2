@@ -5,15 +5,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
-  entry: './src/index.tsx',
+  entry: './renderer/src/index.tsx',
   target: 'electron-renderer',
   output: {
     filename: 'app.bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist/renderer'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './renderer/src/index.html'
     })
   ],
   resolve: {

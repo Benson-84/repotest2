@@ -4,9 +4,10 @@
   "description": "",
   "main": "dist/app.bundle.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js",
-    "watch": "webpack --watch",
-    "start": "npm run build && electron ./electron/index.js"
+    "build-main": "webpack --config ./main/webpack.config.js",
+    "build-renderer": "webpack --config ./renderer/webpack.config.js",
+    "desktop": "electron ./dist/main/app.bundle.js",
+    "start": "npm run build-main && npm run build-renderer && npm run desktop"
   },
   "author": "",
   "license": "ISC",
