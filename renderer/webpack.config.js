@@ -12,6 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist/renderer'),
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './renderer/src/index.html'
     })
