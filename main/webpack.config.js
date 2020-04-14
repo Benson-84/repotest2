@@ -10,6 +10,12 @@ module.exports = {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, '../dist/main/'),
   },
+  plugins: [
+    new CleanWebpackPlugin()
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
       {
