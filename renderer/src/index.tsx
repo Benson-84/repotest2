@@ -12,9 +12,9 @@ class App extends React.Component<any, State> {
     super(props)
 
     // todo load information of active user here
-    // this.state = {
-    //   activeUser: 'somebody'
-    // }
+    this.state = {
+      activeUser: "xxx"
+    }
   }
 
   render() {
