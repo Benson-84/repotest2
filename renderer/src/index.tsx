@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './style.css'
-import SlideBar from './sidebar/sidebar'
+import NavigationApp from "./components/navigation/navigation-app";
 
 interface State {
   activeUser: any
@@ -20,12 +20,7 @@ class App extends React.Component<any, State> {
   render() {
     if (this.state.activeUser) {
       return (
-        <div className="main-container">
-          < div className='sidebar-container'>
-            <SlideBar />
-          </div>
-          <div className='content-container'></div>
-        </div>
+        <NavigationApp />
       );
     } else {
       return (

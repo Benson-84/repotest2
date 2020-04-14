@@ -22,9 +22,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
-        include: /src/,
-        use: [{ loader: 'ts-loader' }]
+        test: [
+          /\.tsx$/,
+          /\.ts$/
+        ],
+        include: [
+          /renderer\/src/,
+          /node_modules\/@weconnect\/appkit/
+        ],
+        loader: 'ts-loader',
+        options: { allowTsInNodeModules: true }
+
       },
       {
         test: /\.css$/,
@@ -43,7 +51,6 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
            presets: [
