@@ -4,11 +4,15 @@ import './style.css'
 
 const modules: Array<any> = require('./modules/module-list.json')
 
+interface Props {
+  
+}
+
 interface State {
   selected: number
 }
 
-export default class Sidebar extends React.Component<any, State> {
+export default class Sidebar extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {

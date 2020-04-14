@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './style.css'
-import SlideBar from './components/sidebar/sidebar'
+import SlideBar from './sidebar/sidebar'
 
 interface State {
   activeUser: any
