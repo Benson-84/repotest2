@@ -5,7 +5,7 @@ import './style.css'
 const modules: Array<any> = require('./modules/module-list.json')
 
 interface Props {
-  
+
 }
 
 interface State {
@@ -17,6 +17,13 @@ export default class Sidebar extends React.Component<Props, State> {
     super(props)
     this.state = {
       selected: 0
+    }
+  }
+
+  componentDidMount() {
+    let container = document.getElementById("content-container");
+    if (!container.hasChildNodes()) {
+      this.switchToMiniapp(0);
     }
   }
 
@@ -42,10 +49,26 @@ export default class Sidebar extends React.Component<Props, State> {
   }
 
   onSidebarItemClicked = (position: number) => {
+    console.log("navitate to module at position: " + position);
+    this.switchToMiniapp(position);
+  }
+
+  switchToMiniapp(position: number) {
     var element = modules[position];
-    console.log("clicked position: " + position);
-    console.log("clicked: " + element.name);
 
     this.setState({ selected: position })
+
+    let container = document.getElementById("content-container");
+    while (container.hasChildNodes()) {
+      container.removeChild(container.firstChild);
+    }
+
+    let miniapp = document.createElement('webview');
+    let url: string = '../miniapps/' + (element.url as string).replace("module:/", "") + '/index.html';
+
+    console.log("switch to module of url: " + url);
+
+    miniapp.setAttribute('src', url);
+    container.appendChild(miniapp);
   }
 }

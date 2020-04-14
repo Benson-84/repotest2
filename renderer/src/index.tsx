@@ -24,7 +24,7 @@ class App extends React.Component<any, State> {
           < div className='sidebar-container'>
             <SlideBar />
           </div>
-          <div className='content-container'></div>
+          <div className="content-container" id="content-container"></div>
         </div>
       );
     } else {
