@@ -21,8 +21,30 @@ html, body {
   height: 100%;
 }
 
+.main-container {
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
 
 .miniAppContainer {
   height: 100%;
   width: 100%;
+}
+
+.sidebar-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+}
+
+.content-container {
+  position: absolute;
+  top: 0;
+  left: 220px;
+  right: 0;
+  height: 100%;
 }
