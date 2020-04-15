@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './style.css'
+import reducer from './reducers';
 import NavigationApp from "./components/navigation/navigation-app";
 
 interface State {
