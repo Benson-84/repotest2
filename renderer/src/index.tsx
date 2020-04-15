@@ -16,7 +16,7 @@ class App extends React.Component<any, State> {
 
     // todo load information of active user here
     this.state = {
-      activeUser: null
+      activeUser: 'null'
     }
   }
 

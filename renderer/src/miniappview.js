@@ -12,7 +12,8 @@ export default class MiniAppView extends React.Component {
       <webview 
           className="miniAppContainer" 
           src="../miniapps/miniapp-login/index.html" 
-          nodeintegration="true" />
+          nodeintegration="true" 
+          useragent="Mozilla/5.0 (Desktop; )"/>
     )
   }
 }

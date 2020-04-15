@@ -18,6 +18,7 @@ export default class NetWorkChannel implements MethodChannel {
                 method:request.method,
                 host:request.host,
                 path:request.path,
+                protocol:request.protocol
             }) 
             for (var key in request.header){
                 req.setHeader(key,request.header[key])
@@ -25,25 +26,35 @@ export default class NetWorkChannel implements MethodChannel {
             console.log(req);
             req.on('response', (response) => {
                 var resp:ObjAnyType = {
-                    header:response.headers,
+                    // header:response.headers,
                     status:response.statusCode
                 }
                 response.on('data',(chuck:Buffer)=> {
                     var json = JSON.parse(chuck.toString())
-                    console.log(json);
+                    console.log(`data: ${json}`);
                     resp['data'] = json
+                    resolve({
+                        id:this.id,
+                        method:method,
+                        response:{
+                            code:0,
+                            message:null,
+                            data:resp
+                        }
+                    })
                 })
                 console.log(`STATUS: ${response.statusCode}`);
                 response.on('error', (error:any) => {
                   console.log(`ERROR: ${JSON.stringify(error)}`)
-                })
-                resolve({
+                  resolve({
                     id:this.id,
                     method:method,
-                    params:{
-                        status:0,
-                        data:resp
+                    response:{
+                        code:0,
+                        message:JSON.stringify(error),
+                        data:null
                     }
+                })
                 })
               })
             let buf = Buffer.from(JSON.stringify(request.params))
@@ -80,7 +91,11 @@ class ChannelRequest implements netRequest {
             this.host = 'api-staging.wework.cn/chinaos'
             this.path = url.split('api-staging.wework.cn/chinaos').pop()
         }
-        this.header = {"Authorization" : "X-CAT eyJraWQiOiJFRjRGMjJDMC01Q0IwLTQzNDgtOTY3Qi0wMjY0OTVFN0VGQzgiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJ3d2NoaW5hIiwiYXVkIjoid3djaGluYS1pb3MiLCJzdWIiOiIxMjEyZGFkMC1lMDM2LTAxMzYtZTdkZC0wMjQyYWMxMTM1MGQiLCJpYXQiOjE1ODY4NDk3MDQsImV4cCI6MTU4Njg1NjkwNCwianRpIjoiYjYyNDNhMWYtMzhlOS00ODc3LWJiOWMtZWMzZTg0ZmM1ZWQ1IiwidWlkIjoyMDM0NTR9.6PAeDzitVsiJBKinX9ohpePuRkz3mk2n6nAMadKaLzOd5g3kq6riK8CnCHC0vc5Dp71OApnJowsrfI1XDFA_XA"}
+        this.header = {}
+        // this.header = {"Authorization" : "X-CAT eyJraWQiOiJFRjRGMjJDMC01Q0IwLTQzNDgtOTY3Qi0wMjY0OTVFN0VGQzgiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJ3d2NoaW5hIiwiYXVkIjoid3djaGluYS1pb3MiLCJzdWIiOiIxMjEyZGFkMC1lMDM2LTAxMzYtZTdkZC0wMjQyYWMxMTM1MGQiLCJpYXQiOjE1ODY4NDk3MDQsImV4cCI6MTU4Njg1NjkwNCwianRpIjoiYjYyNDNhMWYtMzhlOS00ODc3LWJiOWMtZWMzZTg0ZmM1ZWQ1IiwidWlkIjoyMDM0NTR9.6PAeDzitVsiJBKinX9ohpePuRkz3mk2n6nAMadKaLzOd5g3kq6riK8CnCHC0vc5Dp71OApnJowsrfI1XDFA_XA"}
+        for (var key in params.header){
+            this.header[key] = params.header[key]
+        }
         this.protocol = 'https:'
         this.params = params.body || {}
     }

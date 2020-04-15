@@ -12,7 +12,9 @@ class Channel {
         return new Promise((resolve,reject) => {
             methodChannel.call(call.method,call.params)
             .then(res => {
-                resolve(res)
+                res['channelType'] = call.channelType
+                let jsonStr = JSON.stringify(res)
+                resolve(jsonStr)
             }).catch(err => {
                 reject(err)
             })
@@ -25,11 +27,13 @@ class ChannelCall {
     params:ObjStringType
     name:string
     id:string
+    channelType:string
     constructor(args:ObjAnyType) {
         this.method = args['method']
         this.params = args['params']
         this.name = args['name']
         this.id = args['id']
+        this.channelType = args['channelType']
     }    
 }
 
