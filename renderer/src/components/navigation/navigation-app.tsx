@@ -5,11 +5,11 @@ import NavigationView from './navigation';
 import '../../style.css';
 
 interface Props {
-  
+  activeUser: any
 }
 
 interface State {
-  activeUser: any
+  
 }
 
 
@@ -17,10 +17,6 @@ export default class NavigationApp extends React.Component<Props, State> {
 
   constructor(props: any) {
     super(props)
-
-    this.state = {
-      activeUser: ""
-    }
   }
 
   render() {
@@ -29,8 +25,7 @@ export default class NavigationApp extends React.Component<Props, State> {
         < div className='sidebar-container'>
           <SlideBar />
         </div>
-        <div className='content-container'>
-          <NavigationView />
+        <div className='content-container' id='content-container' >
         </div>
       </div>
     )

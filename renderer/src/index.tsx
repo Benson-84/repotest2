@@ -20,7 +20,7 @@ class App extends React.Component<any, State> {
   render() {
     if (this.state.activeUser) {
       return (
-        <NavigationApp />
+        <NavigationApp activeUser={this.state.activeUser} />
       );
     } else {
       return (
