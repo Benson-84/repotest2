@@ -1,5 +1,5 @@
-import {app, BrowserWindow} from "electron";
-
+import { app, BrowserWindow,ipcMain } from "electron";
+import { Channel } from './channels/channel'
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
@@ -18,6 +18,18 @@ function createWindow () {
   });
  
   // and load the index.html of the app.
+  let channel = new Channel()
+
+
+  ipcMain.on('internalMiniAppJsBridge',(event:Electron.IpcMainEvent,argument:any) => {
+    console.log(argument);
+    channel.invoke(argument)
+    .then(res=> {
+      event.reply('internalMiniAppJsBridgeCallback',res)
+    }).catch(err => {
+      event.reply('internalMiniAppJsBridgeCallback',err)
+    })
+  })
 
   console.log(app.getAppPath());
   win.loadFile('../renderer/index.html');
@@ -25,3 +37,5 @@ function createWindow () {
 }
  
 app.on('ready', createWindow);
+
+
