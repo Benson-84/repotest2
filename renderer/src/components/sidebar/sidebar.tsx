@@ -69,6 +69,7 @@ export default class Sidebar extends React.Component<Props, State> {
     console.log("switch to module of url: " + url);
 
     miniapp.setAttribute('src', url);
+    miniapp.setAttribute('nodeintegration', 'true');
     container.appendChild(miniapp);
   }
 }
