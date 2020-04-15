@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Support",
+    "icon": "support",
+    "url": "module:/miniapp-support",
+    "module-class": "miniapp"
+  },
+  {
+    "name": "Space Station",
+    "icon": "spaceStation",
+    "url": "module:/miniapp-login",
+    "module-class": "sschina"
+  }
+]
