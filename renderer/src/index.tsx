@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './style.css'
 import reducer from './reducers';
+import MiniAppView from './miniappview';
+
 import NavigationApp from "./components/navigation/navigation-app";
 
 interface State {
@@ -14,7 +16,7 @@ class App extends React.Component<any, State> {
 
     // todo load information of active user here
     this.state = {
-      activeUser: "xxx"
+      activeUser: null
     }
   }
 
@@ -25,7 +27,7 @@ class App extends React.Component<any, State> {
       );
     } else {
       return (
-        <webview className="miniAppContainer" src="../miniapps/miniapp-login/index.html"></webview>
+        <MiniAppView />
       );
     }
   }
