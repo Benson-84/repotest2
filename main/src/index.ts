@@ -13,7 +13,7 @@ function createWindow () {
       webviewTag: true,
       defaultEncoding: "utf-8",
       devTools: true,
-      nodeIntegrationInSubFrames: true,
+      nodeIntegrationInSubFrames: true
     }
   });
  
