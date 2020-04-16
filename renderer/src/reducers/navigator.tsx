@@ -8,15 +8,15 @@ import {
 } from "../constants/action-types";
 
 import {
-  AppState
+  NavigatorState
 } from "../store/store";
 
-const initialState: AppState = {
+const initialState: NavigatorState = {
   pages: [],
   presentedPages: []
 }
 
-export default function navigatorReducer(state = initialState, action: NavigatorActions): AppState {
+export default function navigatorReducer(state = initialState, action: NavigatorActions): NavigatorState {
   switch(action.type) {
     case NAVIGATOR_POP:
 
