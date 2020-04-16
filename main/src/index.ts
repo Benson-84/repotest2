@@ -29,9 +29,11 @@ function createWindow () {
     }
     channel.invoke(args)
     .then(res=> {
+      console.log(res);
+      
       event.reply('internalMiniAppJsBridgeCallback',res)
     }).catch(err => {
-      event.reply('internalMiniAppJsBridgeCallback',err)
+      // event.reply('internalMiniAppJsBridgeCallback',err)
     })
   })
 

@@ -11,6 +11,12 @@ export default class NavigationChannel implements MethodChannel {
         return new Promise((resolve,reject)=> {
             resolve({
                 id:this.id,
+                method:method,
+                response:{
+                    code:0,
+                    message:null,
+                    data:null
+                }
             })
         })
     }

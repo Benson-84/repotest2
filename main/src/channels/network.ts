@@ -9,8 +9,6 @@ export default class NetWorkChannel implements MethodChannel {
         this.id = id
     }
     call(method: string, params: ObjAnyType): Promise<ObjAnyType> {
-        console.log(method);
-        console.log(params);
         return new Promise((resolve,reject)=> {
             let request = new ChannelRequest(params)
             console.log(request);
@@ -30,11 +28,16 @@ export default class NetWorkChannel implements MethodChannel {
                     // header:response.headers,
                     status:response.statusCode
                 }
+                var chucks:Uint8Array[] = [];
+                var size = 0;
                 response.on('data',(chuck:Buffer)=> {
-                    var jsonString = chuck.toString('utf8').trim()
-                    console.log(jsonString);
+                    chucks.push(chuck);
+                    size+= chuck.length;
+                })
+                response.on('end',()=>{
+                    var buf = Buffer.concat(chucks,size);
+                    var jsonString = buf.toString('utf8').trim()
                     var json = JSON.parse(jsonString)
-                    console.log(json);
                     if (json.code === 0) {
                         if (json.data.accessToken != undefined) {
                             store.set('accessToken', json.data.accessToken);
@@ -65,8 +68,13 @@ export default class NetWorkChannel implements MethodChannel {
                 })
                 })
               })
-            let buf = Buffer.from(request.params)
-            req.end(buf)
+              if (JSON.stringify(request.params) !== '{}') {
+                let buf = Buffer.from(request.params)
+                req.end(buf)
+              } else {
+                req.end()
+              }
+            
         })
     }
     request() {

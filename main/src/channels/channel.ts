@@ -3,11 +3,14 @@ import NetworkChannel from './network'
 class Channel {
     invoke(args:ObjAnyType) {
         let call = new ChannelCall(args)
-        var methodChannel:MethodChannel
+        let methodChannel:MethodChannel
         if (call.name === "NavigationChannel") {
             methodChannel = new NavigationChannel(call.id)
         }else if (call.name == "FetchChannel") {
             methodChannel = new NetworkChannel(call.id)
+        } else {
+            console.log("no channel");
+            return;
         }
         return new Promise((resolve,reject) => {
             methodChannel.call(call.method,call.params)
