@@ -23,7 +23,11 @@ function createWindow () {
 
   ipcMain.on('internalMiniAppJsBridge',(event:Electron.IpcMainEvent,argument:any) => {
     console.log(argument);
-    channel.invoke(argument)
+    var args = argument
+    if (typeof argument === 'string') {
+      args = JSON.parse(argument.trim())
+    }
+    channel.invoke(args)
     .then(res=> {
       event.reply('internalMiniAppJsBridgeCallback',res)
     }).catch(err => {
