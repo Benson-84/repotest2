@@ -1,7 +1,8 @@
 import { MethodChannel, ObjAnyType,ObjStringType } from './channel'
-import { net } from 'electron'
+import { net, session } from 'electron'
+const Store = require('electron-store');
 
-
+const store = new Store();
 export default class NetWorkChannel implements MethodChannel {
     id: string
     constructor(id:string) {
@@ -30,8 +31,15 @@ export default class NetWorkChannel implements MethodChannel {
                     status:response.statusCode
                 }
                 response.on('data',(chuck:Buffer)=> {
-                    var json = JSON.parse(chuck.toString())
-                    console.log(`data: ${json}`);
+                    var jsonString = chuck.toString('utf8').trim()
+                    console.log(jsonString);
+                    var json = JSON.parse(jsonString)
+                    console.log(json);
+                    if (json.code === 0) {
+                        if (json.data.accessToken != undefined) {
+                            store.set('accessToken', json.data.accessToken);
+                        }
+                    }
                     resp['data'] = json
                     resolve({
                         id:this.id,
@@ -57,7 +65,7 @@ export default class NetWorkChannel implements MethodChannel {
                 })
                 })
               })
-            let buf = Buffer.from(JSON.stringify(request.params))
+            let buf = Buffer.from(request.params)
             req.end(buf)
         })
     }
@@ -92,7 +100,11 @@ class ChannelRequest implements netRequest {
             this.path = url.split('api-staging.wework.cn/chinaos').pop()
         }
         this.header = {}
-        // this.header = {"Authorization" : "X-CAT eyJraWQiOiJFRjRGMjJDMC01Q0IwLTQzNDgtOTY3Qi0wMjY0OTVFN0VGQzgiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJ3d2NoaW5hIiwiYXVkIjoid3djaGluYS1pb3MiLCJzdWIiOiIxMjEyZGFkMC1lMDM2LTAxMzYtZTdkZC0wMjQyYWMxMTM1MGQiLCJpYXQiOjE1ODY4NDk3MDQsImV4cCI6MTU4Njg1NjkwNCwianRpIjoiYjYyNDNhMWYtMzhlOS00ODc3LWJiOWMtZWMzZTg0ZmM1ZWQ1IiwidWlkIjoyMDM0NTR9.6PAeDzitVsiJBKinX9ohpePuRkz3mk2n6nAMadKaLzOd5g3kq6riK8CnCHC0vc5Dp71OApnJowsrfI1XDFA_XA"}
+        var accessToken = store.get('accessToken')
+        if (accessToken != undefined) {
+            this.header = {Authorization:`X-CAT ${accessToken}`}
+        }
+        console.log(accessToken);
         for (var key in params.header){
             this.header[key] = params.header[key]
         }
@@ -100,12 +112,4 @@ class ChannelRequest implements netRequest {
         this.params = params.body || {}
     }
    
-}
-
-
-interface NetResponse {
-    status:string
-    data:any
-    url:string
-    header:any
 }
