@@ -1,36 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './style.css'
-import reducer from './reducers';
-import MiniAppView from './miniappview';
+import { 
+  Provider 
+} from 'react-redux';
 
-import NavigationApp from "./components/navigation/navigation-app";
+import { 
+  Store, createStore 
+} from 'redux';
 
-interface State {
-  activeUser: any
-}
+import rootReducer from './reducers';
+import App from "./app";
 
-class App extends React.Component<any, State> {
-  constructor(props: any) {
-    super(props)
+const store: Store<any> = createStore(rootReducer);
 
-    // todo load information of active user here
-    this.state = {
-      activeUser: "null"
-    }
-  }
-
-  render() {
-    if (this.state.activeUser) {
-      return (
-        <NavigationApp activeUser={this.state.activeUser} />
-      );
-    } else {
-      return (
-        <MiniAppView />
-      );
-    }
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render((
+  <Provider store={store}>
+    <App />
+  </Provider>
+  ), document.getElementById('app'));

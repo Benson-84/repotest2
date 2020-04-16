@@ -2,6 +2,8 @@ import {
   Page
 } from "../store/store";
 
+
+/// Navigator
 export const NAVIGATOR_PUSH = "navigator.push"
 export const NAVIGATOR_POP = "navigator.pop"
 export const NAVIGATOR_RESET = "navigator.reset"
@@ -28,3 +30,19 @@ export interface NavigatorActionReset {
 }
 
 export type NavigatorActions =  NavigatorActionPop | NavigatorActionPush | NavigatorActionPresent | NavigatorActionReset
+
+/// User
+
+export const USER_LOGIN = "user.login"
+export const USER_LOGOUT = "user.logout"
+
+export interface UserActionLogin {
+  type: typeof USER_LOGIN
+  user: string
+}
+
+export interface UserActionLogout {
+  type: typeof USER_LOGOUT
+}
+
+export type UserActions = UserActionLogin | UserActionLogout

@@ -1,4 +1,4 @@
-import { app, BrowserWindow,ipcMain } from "electron";
+import { app, BrowserWindow,ipcMain, ipcRenderer } from "electron";
 import { Channel } from './channels/channel'
 function createWindow () {
   // Create the browser window.
@@ -13,14 +13,13 @@ function createWindow () {
       webviewTag: true,
       defaultEncoding: "utf-8",
       devTools: true,
-      nodeIntegrationInSubFrames: true,
+      nodeIntegrationInSubFrames: true
     }
   });
  
   // and load the index.html of the app.
   let channel = new Channel()
-
-
+  
   ipcMain.on('internalMiniAppJsBridge',(event:Electron.IpcMainEvent,argument:any) => {
     console.log(argument);
     var args = argument

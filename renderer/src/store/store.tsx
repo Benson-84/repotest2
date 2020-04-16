@@ -4,7 +4,11 @@ export interface Page {
   params: {string: any}
 }
 
-export interface AppState {
+export interface NavigatorState {
   pages: Page[]
   presentedPages: Page[]
+}
+
+export interface UserState {
+  activeUser: string
 }

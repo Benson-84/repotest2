@@ -65,9 +65,11 @@ export default class Sidebar extends React.Component<Props, State> {
 
     let miniapp = document.createElement('webview');
     let url: string = '../miniapps/' + (element.url as string).replace("module:/", "") + '/index.html';
-
-    console.log("switch to module of url: " + url);
-
+    // let url = "https://spacestation-staging.wework.cn/authority"
+    
+    miniapp.setAttribute("preload", "../../preload/preload.js");
+    miniapp.setAttribute("style", "width:100%;height:100%");
+    miniapp.setAttribute("webpreferences", "'web-security'=false")
     miniapp.setAttribute('src', url);
     miniapp.setAttribute('nodeintegration', 'true');
     container.appendChild(miniapp);

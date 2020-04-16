@@ -1,19 +1,22 @@
 import * as React from "react";
+
+import {
+  connect
+} from "react-redux";
+
 import SlideBar from '../sidebar/sidebar';
-import NavigationView from './navigation';
 
 import '../../style.css';
 
 interface Props {
-  activeUser: any
+  
 }
 
 interface State {
   
 }
 
-
-export default class NavigationApp extends React.Component<Props, State> {
+class NavigationApp extends React.Component<Props, State> {
 
   constructor(props: any) {
     super(props)
@@ -31,3 +34,11 @@ export default class NavigationApp extends React.Component<Props, State> {
     )
   }
 }
+
+
+function mapStateToProps(state:any): Props {
+  return {
+
+  }
+}
+export default connect(mapStateToProps)(NavigationApp);
