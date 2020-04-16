@@ -1,18 +1,23 @@
 import * as React from "react";
 import { getIcon } from './modules/icons/icons';
 import './style.css'
+  
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { Page } from "../../store/store";
+import { navigatorReset } from "../../actions";
 
 const modules: Array<any> = require('./modules/module-list.json')
 
 interface Props {
-
+  dispatch: Dispatch
 }
 
 interface State {
   selected: number
 }
 
-export default class Sidebar extends React.Component<Props, State> {
+class Sidebar extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -49,6 +54,7 @@ export default class Sidebar extends React.Component<Props, State> {
   }
 
   onSidebarItemClicked = (position: number) => {
+
     console.log("navitate to module at position: " + position);
     this.switchToMiniapp(position);
   }
@@ -56,22 +62,33 @@ export default class Sidebar extends React.Component<Props, State> {
   switchToMiniapp(position: number) {
     var element = modules[position];
 
-    this.setState({ selected: position })
 
-    let container = document.getElementById("content-container");
-    while (container.hasChildNodes()) {
-      container.removeChild(container.firstChild);
+    const dispatch = this.props.dispatch;
+
+    let page: Page
+    if(position == 0) {
+      page = {
+        miniapp: "../miniapps/miniapp-support/index.html",
+        params: null
+      }
+    } else if (position == 1) {
+      page = {
+        miniapp: "https://spacestation-staging.wework.cn/authority",
+        params: null
+      }
     }
 
-    let miniapp = document.createElement('webview');
-    let url: string = '../miniapps/' + (element.url as string).replace("module:/", "") + '/index.html';
-    // let url = "https://spacestation-staging.wework.cn/authority"
-    
-    miniapp.setAttribute("preload", "../../preload/preload.js");
-    miniapp.setAttribute("style", "width:100%;height:100%");
-    miniapp.setAttribute("webpreferences", "'web-security'=false")
-    miniapp.setAttribute('src', url);
-    miniapp.setAttribute('nodeintegration', 'true');
-    container.appendChild(miniapp);
+    dispatch(navigatorReset(page))
+
+    this.setState({ selected: position })
   }
 }
+
+
+
+function mapStateToProps(state:any) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(Sidebar);

@@ -3,8 +3,8 @@ import { Channel } from './channels/channel'
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1980,
+    height: 1020,
     titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: true,
@@ -21,7 +21,7 @@ function createWindow () {
   let channel = new Channel()
   
   ipcMain.on('internalMiniAppJsBridge',(event:Electron.IpcMainEvent,argument:any) => {
-    console.log(argument);
+    
     var args = argument
     if (typeof argument === 'string') {
       args = JSON.parse(argument.trim())
@@ -36,7 +36,6 @@ function createWindow () {
     })
   })
 
-  console.log(app.getAppPath());
   win.loadFile('../renderer/index.html');
 
 }

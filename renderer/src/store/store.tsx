@@ -1,7 +1,7 @@
 
 export interface Page {
   miniapp: string
-  params: {string: any}
+  params: Map<string, any>
 }
 
 export interface NavigatorState {
