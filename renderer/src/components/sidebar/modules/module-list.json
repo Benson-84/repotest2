@@ -8,7 +8,7 @@
   {
     "name": "Space Station",
     "icon": "spaceStation",
-    "url": "module:/miniapp-login",
+    "url": "https://spacestation-staging.wework.cn/authority",
     "module-class": "sschina"
   }
 ]

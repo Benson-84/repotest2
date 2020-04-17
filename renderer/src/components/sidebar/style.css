@@ -1,8 +1,16 @@
 .sidebar {
     width: 100%;
     height: 100%;
-    padding-top: 30px;
+    top: 0;
+    bottom: 0;
     background-color: #e5e5e5;
+}
+
+.sidebar-system-tool-region {
+    height: 34px;
+    width: 100%;
+    background-color: #e5e5e5;
+    -webkit-app-region: drag;
 }
 
 .sidebar-item {

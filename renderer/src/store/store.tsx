@@ -1,6 +1,8 @@
 
 export interface Page {
   miniapp: string
+  url: string
+  moduleClass: string
   params: Map<string, any>
 }
 

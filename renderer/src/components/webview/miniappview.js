@@ -17,7 +17,8 @@ export default class MiniAppView extends React.Component {
   }
   
   render() {
-    console.log("xxxxxxxxx url=" + this.state.url)
+    console.log("create a new webview with url=" + this.state.url)
+
     return (
       <webview 
           className="miniAppContainer" 

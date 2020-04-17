@@ -54,7 +54,6 @@ class Sidebar extends React.Component<Props, State> {
   }
 
   onSidebarItemClicked = (position: number) => {
-
     console.log("navitate to module at position: " + position);
     this.switchToMiniapp(position);
   }
@@ -62,21 +61,14 @@ class Sidebar extends React.Component<Props, State> {
   switchToMiniapp(position: number) {
     var element = modules[position];
 
+    let page: Page = {
+      miniapp: element.miniapp,
+      url: element.url,
+      moduleClass: element['module-class'],
+      params: null
+    }
 
     const dispatch = this.props.dispatch;
-
-    let page: Page
-    if(position == 0) {
-      page = {
-        miniapp: "../miniapps/miniapp-support/index.html",
-        params: null
-      }
-    } else if (position == 1) {
-      page = {
-        miniapp: "https://spacestation-staging.wework.cn/authority",
-        params: null
-      }
-    }
 
     dispatch(navigatorReset(page))
 
