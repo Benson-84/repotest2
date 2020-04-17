@@ -1,5 +1,7 @@
 import * as React from "react";
+import * as electron from "electron";
 
+import { Dispatch } from 'redux';
 import {
   connect
 } from "react-redux";
@@ -17,9 +19,11 @@ import {
 
 import '../../style.css';
 import MiniAppView from "../webview/miniappview";
+import { navigatorPush, navigatorPop } from "../../actions";
 
 interface Props {
-  navigatorState: NavigatorState
+  navigatorState: NavigatorState,
+  dispatch: Dispatch
 }
 
 interface State {
@@ -30,6 +34,12 @@ class NavigationApp extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
+
+    electron.ipcRenderer.on("navigator", (event, args) => {
+      console.log("NavigationApp received 'navigator' event:" + JSON.stringify(event));
+      console.log("args:" + JSON.stringify(args));
+      this.handleIpcMainNavigator(args);
+    })
 
     this.state = {
       pages: props.navigatorState.pages
@@ -74,14 +84,49 @@ class NavigationApp extends React.Component<Props, State> {
       } else if (miniappclass == 'sschina') {
         url = toppage.url
       }
+
+      url = url + "?";
+      if (toppage.params) {
+        toppage.params.forEach((value, key, ) => {
+          url = url + key + '=' + value + '&';
+        })
+      }
+
+      url = url.substring(0, url.length - 1);
     }
 
     return url;
   }
+
+  handleIpcMainNavigator(args: any) {
+    const dispatch = this.props.dispatch;
+    let method = args.method;
+
+    // convert json to Map
+    let params = new Map<string, any>();
+    for (var item in args.arg.params) {
+      params.set(item, args.arg.params[item]);
+    }
+
+    if (method == 'open') {
+      let page: Page = {
+        miniapp: args.arg.url,
+        url: args.arg.url,
+        moduleClass: 'miniapp',
+        params: params
+      }
+
+      dispatch(navigatorPush(page));
+    } else if (method == 'close') {
+      dispatch(navigatorPop());
+    } else {
+      console.log("Error: unknown navigator method=" + method)
+    }
+  }
 }
 
 
-function mapStateToProps(state: any): Props {
+function mapStateToProps(state: any) {
   return {
     navigatorState: state.navigatorReducer
   }

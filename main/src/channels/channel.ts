@@ -1,11 +1,15 @@
 import NavigationChannel from './navigationchannel'
 import NetworkChannel from './network'
+import NavigatorChannel from './navigator'
+
 class Channel {
     invoke(args:ObjAnyType) {
         let call = new ChannelCall(args)
         let methodChannel:MethodChannel
         if (call.name === "NavigationChannel") {
             methodChannel = new NavigationChannel(call.id)
+        }else if (call.name == "NavigatorChannel") {
+            methodChannel = new NavigatorChannel(call.id)
         }else if (call.name == "FetchChannel") {
             methodChannel = new NetworkChannel(call.id)
         } else {

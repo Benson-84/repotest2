@@ -1,5 +1,8 @@
 import { app, BrowserWindow,ipcMain, ipcRenderer } from "electron";
 import { Channel } from './channels/channel'
+
+export var mainWindowId: number = 0
+
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
@@ -37,7 +40,7 @@ function createWindow () {
   })
 
   win.loadFile('../renderer/index.html');
-
+  mainWindowId = win.id;
 }
  
 app.on('ready', createWindow);
