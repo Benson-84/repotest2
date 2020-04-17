@@ -5,23 +5,23 @@ import PropTypes from 'prop-types';
 export default class MiniAppView extends React.Component {
 
   static propTypes = {
-    page: PropTypes.object
+    url: PropTypes.string.isRequired
   }
 
   constructor(props){
     super(props)
 
     this.state = {
-      page: props.page
+      url: props.url
     }
   }
   
   render() {
+    console.log("xxxxxxxxx url=" + this.state.url)
     return (
-
       <webview 
           className="miniAppContainer" 
-          src={this.state.page.miniapp} 
+          src={this.state.url} 
           nodeintegration="true" 
           webpreferences="'web-security'=false"
           useragent="Mozilla/5.0 (Desktop; )"
@@ -31,7 +31,7 @@ export default class MiniAppView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      page: nextProps.page
+      url: nextProps.url
     })
   }
 

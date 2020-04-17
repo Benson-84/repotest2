@@ -21,20 +21,19 @@ class App extends React.Component<AppProps, State> {
   constructor(props: AppProps) {
     super(props)
 
-    // todo load information of active user here
     this.state = {
       user: props.user
     }
   }
 
   render() {
-    if (this.state.user.activeUser) {
+    if (this.state.user && this.state.user.activeUser) {
       return (
         <NavigationApp />
       );
     } else {
       return (
-        <MiniAppView />
+        <MiniAppView url='../miniapps/miniapp-login/index.html'/>
       );
     }
   }
