@@ -43,8 +43,27 @@ html, body {
 
 .content-container {
   position: absolute;
-  top: 0;
+  top: 56px;
   left: 220px;
   right: 0;
   height: 100%;
+}
+
+.navigation-bar {
+  position: absolute;
+  width: 100%;
+  height: 56px;
+  left: 220px;
+  right: 0;
+  flex-direction: row;
+  -webkit-app-region: drag;
+}
+
+.navigation-bar-icon {
+  width: 26px;
+  height: 26px;
+  float: left;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 10px;
 }

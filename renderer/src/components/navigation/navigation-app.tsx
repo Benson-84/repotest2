@@ -20,6 +20,7 @@ import {
 import '../../style.css';
 import MiniAppView from "../webview/miniappview";
 import { navigatorPush, navigatorPop } from "../../actions";
+import NavigationBar from '../navigationbar/navigation-bar';
 
 interface Props {
   navigatorState: NavigatorState,
@@ -61,8 +62,11 @@ class NavigationApp extends React.Component<Props, State> {
           <div className='sidebar-system-tool-region' />
           <SlideBar />
         </div>
-        <div className='content-container' id='content-container'>
-          {page}
+        <div>
+          <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.pages.length} />
+          <div className='content-container' id='content-container'>
+            {page}
+          </div>
         </div>
       </div>
     )
@@ -124,7 +128,6 @@ class NavigationApp extends React.Component<Props, State> {
     }
   }
 }
-
 
 function mapStateToProps(state: any) {
   return {
