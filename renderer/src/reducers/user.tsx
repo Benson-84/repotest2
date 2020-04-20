@@ -14,11 +14,11 @@ export default function userReducer(state = initialState, action: UserActions): 
   switch(action.type) {
     case USER_LOGIN:
       return {
-        ...state
+        activeUser:'xx'
       }
     case USER_LOGOUT:
       return {
-        ...state
+        activeUser:null
       }
     default:
       return state

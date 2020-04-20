@@ -35,7 +35,8 @@ function createWindow () {
       
       event.reply('internalMiniAppJsBridgeCallback',res)
     }).catch(err => {
-      // event.reply('internalMiniAppJsBridgeCallback',err)
+      console.log('tokenExprired')
+      BrowserWindow.fromId(mainWindowId).webContents.send('tokenExprired', null);
     })
   })
 

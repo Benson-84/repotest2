@@ -24,6 +24,10 @@ export default class NetWorkChannel implements MethodChannel {
             }
             console.log(req);
             req.on('response', (response) => {
+                if (response.statusCode == 405) {
+                    reject(null)
+                    return;
+                }
                 var resp:ObjAnyType = {
                     // header:response.headers,
                     status:response.statusCode
@@ -54,7 +58,6 @@ export default class NetWorkChannel implements MethodChannel {
                         }
                     })
                 })
-                console.log(`STATUS: ${response.statusCode}`);
                 response.on('error', (error:any) => {
                   console.log(`ERROR: ${JSON.stringify(error)}`)
                   resolve({

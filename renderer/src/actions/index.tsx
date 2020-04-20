@@ -3,12 +3,17 @@ import {
   NAVIGATOR_PRESENT,
   NAVIGATOR_POP,
   NAVIGATOR_RESET,
-  NavigatorActions
+  NavigatorActions,
+
+  UserActions,
+  USER_LOGOUT,
+  USER_LOGIN
 } from "../constants/action-types";
 
 import {
   Page
 } from "../store/store";
+import { useRef } from "react";
 
 
 export function navigatorPush(page: Page): NavigatorActions {
@@ -35,5 +40,18 @@ export function navigatorPresent(page: Page): NavigatorActions {
   return {
     type: NAVIGATOR_PRESENT,
     page: page
+  }
+}
+
+
+export function userLogout(): UserActions {
+  return {
+    type: USER_LOGOUT
+  }
+}
+export function userLogin(user:string): UserActions {
+  return {
+    type:USER_LOGIN,
+    user:user
   }
 }
