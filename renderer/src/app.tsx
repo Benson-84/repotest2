@@ -33,7 +33,6 @@ class App extends React.Component<AppProps, State> {
     }
     const dispatch = this.props.dispatch;
     ipcRenderer.on('tokenExprired',(event,arg)=> {
-      console.log('tokenExprired')
       dispatch(userLogout())
     })
   }

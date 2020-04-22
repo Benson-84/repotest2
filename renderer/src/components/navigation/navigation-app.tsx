@@ -19,7 +19,7 @@ import {
 
 import '../../style.css';
 import MiniAppView from "../webview/miniappview";
-import { navigatorPush, navigatorPop } from "../../actions";
+import { navigatorPush, navigatorPop,userLogin } from "../../actions";
 import NavigationBar from '../navigationbar/navigation-bar';
 
 interface Props {
@@ -105,11 +105,15 @@ class NavigationApp extends React.Component<Props, State> {
   handleIpcMainNavigator(args: any) {
     const dispatch = this.props.dispatch;
     let method = args.method;
-
+    
     // convert json to Map
     let params = new Map<string, any>();
     for (var item in args.arg.params) {
       params.set(item, args.arg.params[item]);
+    }
+    if (args.arg.url == 'desktop-home') {
+      dispatch(userLogin('xxx'))
+      return
     }
 
     if (method == 'open') {

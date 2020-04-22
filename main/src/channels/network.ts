@@ -25,7 +25,8 @@ export default class NetWorkChannel implements MethodChannel {
             console.log(req);
             req.on('response', (response) => {
                 if (response.statusCode == 405) {
-                    reject(null)
+                    reject('tokenExprired')
+                    console.log('tokenExprired');
                     return;
                 }
                 var resp:ObjAnyType = {
