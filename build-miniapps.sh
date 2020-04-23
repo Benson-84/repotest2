@@ -9,7 +9,7 @@ pushd WeWork-China-MiniApps
 
 echo -e "//npm.pkg.github.com/:_authToken=c362864c2539a07463a8e1067bfc1d817162c202 \nregistry=https://npm.pkg.github.com/WeConnect" > ./.npmrc
 
-./build.sh
+./build.sh build-desktop
 
 echo "Copying MiniApps into WeWork China App..."
 cp -rf ./output/*.zip ../dist/miniapps/
