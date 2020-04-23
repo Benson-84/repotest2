@@ -20,14 +20,28 @@ export default class MiniAppView extends React.Component {
     console.log("create a new webview with url=" + this.state.url)
 
     return (
-      <webview 
-          className="miniAppContainer" 
-          src={this.state.url} 
-          nodeintegration="true" 
-          webpreferences="'web-security'=false"
-          useragent="Mozilla/5.0 (Desktop; )"
-          preload="../../preload/preload.js"/>
+      <div className="miniAppContainer" >
+        { this.renderDebug() }
+        <webview  
+            ref="webview"
+            style={{width: "100%", height: "100%"}}    
+            src={this.state.url} 
+            nodeintegration="true" 
+            webpreferences="'web-security'=false"
+            useragent="Mozilla/5.0 (Desktop; )"
+            preload="../../preload/preload.js"/> 
+      </div>
     )
+  }
+
+  renderDebug = () => {
+    return (
+      <button onClick={this.handleDebugClick} style={{float:'right', clear:'both', position: 'absolute', marginRight: '6px', marginTop: '6px'}}>Debug</button>
+    )
+  }
+
+  handleDebugClick = () => {
+    this.refs.webview.openDevTools()
   }
 
   componentWillReceiveProps(nextProps) {
