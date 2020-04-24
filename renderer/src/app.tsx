@@ -10,7 +10,7 @@ import './style.css'
 import { UserState } from './store/store';
 
 import { ipcRenderer } from 'electron'
-import { userLogout } from './actions/index'
+import { userLogout,userLogin } from './actions/index'
 
 interface AppProps {
   user: UserState,
@@ -35,6 +35,21 @@ class App extends React.Component<AppProps, State> {
     ipcRenderer.on('tokenExprired',(event,arg)=> {
       dispatch(userLogout())
     })
+
+    ipcRenderer.on("navigator", (event, args) => {
+      console.log("NavigationApp received 'navigator' event:" + JSON.stringify(event));
+      console.log("args:" + JSON.stringify(args));
+      this.handleIpcMainNavigator(args);
+    })
+
+  }
+
+  handleIpcMainNavigator(args: any) {
+    const dispatch = this.props.dispatch;
+    if (args.arg.url == 'desktop-home') {
+      console.log('UserLogin')
+      dispatch(userLogin('xxx'))
+    }
   }
 
   render() {
@@ -58,6 +73,7 @@ class App extends React.Component<AppProps, State> {
 }
 
 function mapStateToProps(state:any) {
+  console.log(state)
   return {
     user: state.userReducer,
     dispatch:state.dispatch

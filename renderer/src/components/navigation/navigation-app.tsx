@@ -112,7 +112,6 @@ class NavigationApp extends React.Component<Props, State> {
       params.set(item, args.arg.params[item]);
     }
     if (args.arg.url == 'desktop-home') {
-      dispatch(userLogin('xxx'))
       return
     }
 
