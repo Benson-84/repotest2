@@ -48,7 +48,7 @@ class NavigationApp extends React.Component<Props, State> {
   }
 
   render() {
-    let url: string = this.getTopPageUrl();
+    let url: string = this.getTopPageUrl() ? this.getTopPageUrl() : '../miniapps/miniapp-support/index.html';
     console.log("Switching to: " + url);
 
     let page = url && url.length > 0 ?
