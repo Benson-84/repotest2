@@ -7,7 +7,7 @@ import {
 } from "../constants/action-types";
 
 const initialState: UserState = {
-  activeUser: "xxxx"
+  activeUser: null
 }
 
 export default function userReducer(state = initialState, action: UserActions): UserState {
