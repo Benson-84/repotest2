@@ -19,11 +19,12 @@ import {
 
 import '../../style.css';
 import MiniAppView from "../webview/miniappview";
-import { navigatorPush, navigatorPop,userLogin } from "../../actions";
+import { navigatorPush, navigatorPop, userLogin } from "../../actions";
 import NavigationBar from '../navigationbar/navigation-bar';
 
 interface Props {
   navigatorState: NavigatorState,
+  onRef: any,
   dispatch: Dispatch
 }
 
@@ -36,31 +37,23 @@ class NavigationApp extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
-    electron.ipcRenderer.on("navigator", (event, args) => {
-      console.log("NavigationApp received 'navigator' event:" + JSON.stringify(event));
-      console.log("args:" + JSON.stringify(args));
-      this.handleIpcMainNavigator(args);
-    })
-
     this.state = {
       pages: props.navigatorState.pages
     }
   }
 
   render() {
-    let url: string = this.getTopPageUrl() ? this.getTopPageUrl() : '../miniapps/miniapp-support/index.html';
+    let url: string = this.getTopPageUrl();
     console.log("Switching to: " + url);
 
-    let page = url && url.length > 0 ?
-      <MiniAppView url={url} />
-      :
-      <EmptyPage />
+    let miniappStarted = url && url.length > 0
+    let page = miniappStarted ? <MiniAppView url={url} /> : <div />;
 
     return (
       <div className="main-container">
         < div className='sidebar-container'>
           <div className='sidebar-system-tool-region' />
-          <SlideBar />
+          <SlideBar miniappStarted={miniappStarted} />
         </div>
         <div>
           <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.pages.length} />
@@ -76,6 +69,10 @@ class NavigationApp extends React.Component<Props, State> {
     this.setState({
       pages: nextProps.navigatorState.pages
     })
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
   }
 
   getTopPageUrl(): string {
@@ -102,10 +99,10 @@ class NavigationApp extends React.Component<Props, State> {
     return url;
   }
 
-  handleIpcMainNavigator(args: any) {
+  handleNavigation(args: any) {
     const dispatch = this.props.dispatch;
     let method = args.method;
-    
+
     // convert json to Map
     let params = new Map<string, any>();
     for (var item in args.arg.params) {

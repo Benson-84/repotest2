@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { connect  } from 'react-redux';
+import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import MiniAppView from './components/webview/miniappview';
@@ -10,7 +10,7 @@ import './style.css'
 import { UserState } from './store/store';
 
 import { ipcRenderer } from 'electron'
-import { userLogout,userLogin } from './actions/index'
+import { userLogout, userLogin } from './actions/index'
 
 interface AppProps {
   user: UserState,
@@ -23,16 +23,17 @@ interface State {
 }
 
 class App extends React.Component<AppProps, State> {
+  navigator: any;
+
   constructor(props: AppProps) {
     super(props)
 
-    
     console.log(props)
     this.state = {
       user: props.user
     }
     const dispatch = this.props.dispatch;
-    ipcRenderer.on('tokenExprired',(event,arg)=> {
+    ipcRenderer.on('tokenExprired', (event, arg) => {
       dispatch(userLogout())
     })
 
@@ -49,19 +50,25 @@ class App extends React.Component<AppProps, State> {
     if (args.arg.url == 'desktop-home') {
       console.log('UserLogin')
       dispatch(userLogin('xxx'))
+    } else {
+      this.navigator.handleNavigation(args)
     }
   }
 
   render() {
     if (this.state.user && this.state.user.activeUser) {
       return (
-        <NavigationApp />
+        <NavigationApp onRef={this.onRefNavigator} />
       );
     } else {
       return (
-        <MiniAppView url='../miniapps/miniapp-login/index.html'/>
+        <MiniAppView url='../miniapps/miniapp-login/index.html' />
       );
     }
+  }
+
+  onRefNavigator = (ref: any) => {
+    this.navigator = ref
   }
 
   componentWillReceiveProps(nextProps: AppProps) {
@@ -72,11 +79,11 @@ class App extends React.Component<AppProps, State> {
 
 }
 
-function mapStateToProps(state:any) {
+function mapStateToProps(state: any) {
   console.log(state)
   return {
     user: state.userReducer,
-    dispatch:state.dispatch
+    dispatch: state.dispatch
   }
 }
 

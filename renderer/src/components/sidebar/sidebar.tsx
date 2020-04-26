@@ -1,7 +1,7 @@
 import * as React from "react";
 import { getIcon } from './modules/icons/icons';
 import './style.css'
-  
+
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Page } from "../../store/store";
@@ -10,7 +10,8 @@ import { navigatorReset } from "../../actions";
 const modules: Array<any> = require('./modules/module-list.json')
 
 interface Props {
-  dispatch: Dispatch
+  dispatch: Dispatch,
+  miniappStarted: boolean
 }
 
 interface State {
@@ -26,8 +27,8 @@ class Sidebar extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    let container = document.getElementById("content-container");
-    if (!container.hasChildNodes()) {
+    if (!this.props.miniappStarted) {
+      console.log("no miniapp is opened, so start the first one of the embeded miniapps")
       this.switchToMiniapp(0);
     }
   }
@@ -76,9 +77,7 @@ class Sidebar extends React.Component<Props, State> {
   }
 }
 
-
-
-function mapStateToProps(state:any) {
+function mapStateToProps(state: any) {
   return {
   }
 }
