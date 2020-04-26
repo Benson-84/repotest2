@@ -18,22 +18,17 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: [ '.desktop.tsx', '.desktop.ts', '.desktop.js', '.desktop.jsx' , '.tsx', '.ts', '.js', 'jsx' ],
+    
   },
   module: {
     rules: [
       {
-        test: [
-          /\.tsx$/,
-          /\.ts$/
-        ],
+        test: /\.tsx?$/,
         include: [
           /renderer\/src/,
-          /node_modules\/@weconnect\/appkit/
         ],
-        loader: 'ts-loader',
-        options: { allowTsInNodeModules: true }
-
+        loader: 'ts-loader'
       },
       {
         test: /\.css$/,
