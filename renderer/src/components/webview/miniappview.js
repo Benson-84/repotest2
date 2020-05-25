@@ -36,7 +36,7 @@ export default class MiniAppView extends React.Component {
 
   renderDebug = () => {
     return (
-      <button onClick={this.handleDebugClick} style={{float:'right', clear:'both', position: 'absolute', marginRight: '6px', marginTop: '6px'}}>Debug</button>
+      <button onClick={this.handleDebugClick} style={{float:'right', clear:'both',  marginRight: '16px', marginTop: '16px'}}>Debug</button>
     )
   }
 
