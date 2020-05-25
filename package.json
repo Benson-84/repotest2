@@ -5,10 +5,11 @@
   "description": "WeWork Trim",
   "main": "dist/main/app.bundle.js",
   "scripts": {
+    "package": "electron-builder build",
     "build-main": "webpack --config ./main/webpack.config.js",
     "build-renderer": "webpack --config ./renderer/webpack.config.js",
     "desktop": "electron ./dist/main/app.bundle.js",
-    "start": "npm run build-main && npm run build-renderer && npm run desktop"
+    "start": "export ENV=development && npm run build-main && npm run build-renderer && npm run desktop"
   },
   "author": "WeWork",
   "license": "WeWork",
@@ -17,8 +18,14 @@
     "appId": "com.wework.trim",
     "copyright": "WeWork LLC",
     "directories": {
-      "output": "release-builds"
-    }
+      "output": "builds"
+    },
+    "asar": "false",
+    "files": [
+      "./dist/**/*",
+      "!node_modules/**/*",
+      "!**/*.d.ts"
+    ]
   },
   "dmg": {
     "contents": [
