@@ -27,6 +27,9 @@
       "!**/*.d.ts"
     ]
   },
+  "pkg": {
+    "installLocation": "/Applications"
+  },
   "dmg": {
     "contents": [
       {
