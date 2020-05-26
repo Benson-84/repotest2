@@ -7,7 +7,8 @@ jobs:
   build:
     macos:
       xcode: 11.5.0 # Specify the Xcode version to use
-
+    working_directory: /Users/distiller/project  
+    shell: /bin/bash --login -o pipefail
     steps:
       - checkout
       - run: ./build-miniapps.sh $CIRCLE_BRANCH
