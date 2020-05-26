@@ -10,8 +10,8 @@ jobs:
 
     steps:
       - checkout
-      - run: npm install
       - run: ./build-miniapps.sh $CIRCLE_BRANCH
+      - run: npm install
       - run: npm run build-main 
       - run: npm run build-renderer
       - run: npm run package
