@@ -20,12 +20,13 @@
     "directories": {
       "output": "builds"
     },
-    "asar": "false",
+    "asar": "true",
     "files": [
       "./dist/**/*",
       "!node_modules/**/*",
       "!**/*.d.ts"
-    ]
+    ],
+    "icon": "resources/Tars.icns"
   },
   "pkg": {
     "installLocation": "/Applications"
