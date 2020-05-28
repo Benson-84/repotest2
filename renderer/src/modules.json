@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Company List",
+        "url": "module:/miniapp-support",
+        "moduleClass": "miniapp"
+    },
+    {
+        "name": "Spacestation",
+        "url": "https://spacestation-staging.wework.cn/authority",
+        "moduleClass": "spacestation"
+    },
+    {
+        "name": "SS China",
+        "url": "https://spacestation-staging.wework.cn/authority",
+        "moduleClass": "spacestation"
+    }
+]

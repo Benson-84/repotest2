@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from 'prop-types';
+import '../../style.css';
 
 
 export default class MiniAppView extends React.Component {
@@ -20,7 +21,7 @@ export default class MiniAppView extends React.Component {
     console.log("create a new webview with url=" + this.state.url)
 
     return (
-      <div className="miniAppContainer" >
+      <div style={{width: "100%", height: "100%"}} >
         { this.renderDebug() }
         <webview  
             ref="webview"

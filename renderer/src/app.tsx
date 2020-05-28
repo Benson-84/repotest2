@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import MiniAppView from './components/webview/miniappview';
-import NavigationApp from "./components/navigation/navigation-app";
+import AppMain from "./app-main";
 
 import './style.css'
 import { UserState } from './store/store';
@@ -56,15 +56,15 @@ class App extends React.Component<AppProps, State> {
   }
 
   render() {
-    if (this.state.user && this.state.user.activeUser) {
+    // if (this.state.user && this.state.user.activeUser) {
       return (
-        <NavigationApp onRef={this.onRefNavigator} />
+        <AppMain onRef={this.onRefNavigator} />
       );
-    } else {
-      return (
-        <MiniAppView url='../miniapps/miniapp-login/index.html' />
-      );
-    }
+    // } else {
+    //   return (
+    //     <MiniAppView url='../miniapps/miniapp-login/index.html' />
+    //   );
+    // }
   }
 
   onRefNavigator = (ref: any) => {

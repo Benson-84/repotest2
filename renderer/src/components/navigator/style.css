@@ -1,0 +1,29 @@
+.menu {
+    width: '100%';
+    background: #001a99;
+}
+
+.menu-group {
+    width: '100%';
+    background: #001a99;
+    font: var(--font-p2-semibold);
+    color: var(--color-white);
+}
+
+.menu-item {
+    width: '100%';
+    background: #001a99;
+    font: var(--font-p2-semibold);
+    color: var(--color-white);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menu-item.selected {
+    width: '100%';
+    background: #2b44b7;
+    font: var(--font-p2-semibold);
+    color: var(--color-white);
+    margin-top: 0;
+    margin-bottom: 0;
+}

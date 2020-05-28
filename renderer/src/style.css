@@ -19,51 +19,131 @@ html, body {
 
 #app {
   height: 100%;
+  width: 100%;
 }
 
 .main-container {
+  display: flex;
   width: 100%;
   height: 100%;
   flex-direction: row;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.miniAppContainer {
+.full-screen-miniapp {
   height: 100%;
   width: 100%;
 }
 
-.sidebar-container {
+.embedded-miniapp {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.left-sidebar-container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 220px;
+  width: 256px;
   height: 100%;
+  background-color: #001a99;
+}
+
+.system-tool-region {
+  height: 22px;
+  width: 100%;
+  -webkit-app-region: drag;
+}
+
+.sidebar-logo-container {
+  height: 160px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-logo {
+  height: 32px;
+  width: 76px;
+  margin: 0 auto;
+}
+
+.sidebar-location-container {
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background-color: #001166;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font: var(--font-p2-semibold);
+  color: var(--color-white, white);
+}
+
+.sidebar-location-container img {
+  margin-right: 9px;
+  margin-top: 2px;
+}
+
+.sidebar-location-text {
+  align-self: flex-start;
+}
+
+.right-miniapp-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 256px;
+  right: 0;
+  bottom: 0;
 }
 
 .content-container {
-  position: absolute;
-  top: 56px;
-  left: 220px;
-  right: 0;
+  width: 100%;
   height: 100%;
 }
 
 .navigation-bar {
-  position: absolute;
-  width: 100%;
-  height: 56px;
-  left: 220px;
-  right: 0;
+  display: flex;
   flex-direction: row;
-  -webkit-app-region: drag;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
-.navigation-bar-icon {
-  width: 26px;
-  height: 26px;
-  float: left;
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-top: 10px;
+.navigation-bar-bottom-divider-line {
+  width: 100%;
+  height: 0.5px;
+  background-color: var(--color-gray-line, #e6e6e6);
+}
+
+.navigation-bar-left-part {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 24px;
+  height: 100%;
+}
+
+.navigation-bar-right-part {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  right: 32px;
+  align-items: center;
+  min-width: 24px;
+  height: 64px;
 }

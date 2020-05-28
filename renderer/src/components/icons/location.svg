@@ -1,0 +1,18 @@
+<svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Visual" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Company-Detail" transform="translate(-25.000000, -223.000000)">
+            <g id="Navigation" transform="translate(0.000000, 22.000000)">
+                <g id="Location" transform="translate(0.000000, 184.000000)">
+                    <g id="Icon" transform="translate(24.000000, 17.000000)">
+                        <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+                        <circle id="Combined-Shape" stroke="#FFFFFF" cx="8" cy="7" r="3"></circle>
+                        <path d="M8,0.5 C6.14465671,0.5 4.46562192,1.131439 3.27916149,2.31789943 C2.16964116,3.42741975 1.5,5.01765726 1.5,7 C1.5,9.77251529 3.72862521,12.5513687 7.99955099,15.4004224 C12.271097,12.5517151 14.5,9.7726881 14.5,7 C14.5,5.01765726 13.8303588,3.42741975 12.7208385,2.31789943 C11.5343781,1.131439 9.85534329,0.5 8,0.5 Z" id="Oval" stroke="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
