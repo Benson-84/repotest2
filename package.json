@@ -1,8 +1,8 @@
 {
-  "name": "wework-china-trim",
+  "name": "wework-china-tars",
   "version": "1.0.0",
-  "productName": "WeWork Trim",
-  "description": "WeWork Trim",
+  "productName": "WeWork TARS",
+  "description": "WeWork TARS",
   "main": "dist/main/app.bundle.js",
   "scripts": {
     "package": "electron-builder build",
@@ -14,8 +14,8 @@
   "author": "WeWork",
   "license": "WeWork",
   "build": {
-    "productName": "WeWork Trim",
-    "appId": "com.wework.trim",
+    "productName": "WeWork TARS",
+    "appId": "com.wework.tars",
     "copyright": "WeWork LLC",
     "directories": {
       "output": "builds"
