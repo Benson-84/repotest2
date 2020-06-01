@@ -15,11 +15,10 @@ interface Props {
 
 export default class NavigationBar extends React.Component<Props, any>{
   render() {
-    var backButton =
-      this.props.pageCount > 1 ?
-        <img src={Icons.navigationBack} onClick={this.onBackButtonClicked.bind(this)} />
-        :
-        <div></div>;
+    var backButton = this.props.pageCount > 1 ?
+      <img src={Icons.navigationBack} onClick={this.onBackButtonClicked.bind(this)} />
+      :
+      <div></div>;
 
     var searchbar = <div><img src={Icons.search} /></div>;
     var notificationbar = <img src={Icons.notification} />;

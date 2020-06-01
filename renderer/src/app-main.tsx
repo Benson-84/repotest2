@@ -111,7 +111,6 @@ class AppMain extends React.Component<Props, State> {
         </div>
         <div className='right-miniapp-container'>
           <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.openedPages.length} />
-          <div className='navigation-bar-bottom-divider-line'/>
           <div className='content-container' id='content-container'>
             {page}
           </div>

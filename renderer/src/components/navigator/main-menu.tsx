@@ -84,7 +84,7 @@ export class MainMenu extends React.Component<Props, State> {
 
     return (
       <Menu
-        style={{ width: '100%', background: '#001a99' }}
+        style={{ width: '100%', background: '#001a99', overflow:'scroll' }}
         theme='dark'
         onClick={this.onMenuItemClicked.bind(this)}
         mode="inline"

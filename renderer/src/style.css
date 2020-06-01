@@ -20,6 +20,12 @@ html, body {
 #app {
   height: 100%;
   width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
 }
 
 .main-container {
@@ -32,6 +38,7 @@ html, body {
   top: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
 
 .full-screen-miniapp {
@@ -43,18 +50,24 @@ html, body {
   display: flex;
   height: 100%;
   width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
 }
 
 .left-sidebar-container {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
   width: 256px;
   height: 100%;
   background-color: #001a99;
+  overflow: hidden;
 }
 
 .system-tool-region {
@@ -107,6 +120,7 @@ html, body {
   left: 256px;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
 
 .content-container {
@@ -120,14 +134,14 @@ html, body {
   align-items: center;
   width: 100%;
   height: 64px;
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
   padding-left: 32px;
   padding-right: 32px;
-}
-
-.navigation-bar-bottom-divider-line {
-  width: 100%;
-  height: 0.5px;
-  background-color: var(--color-gray-line, #e6e6e6);
+  border-bottom: 0.5px solid var(--color-gray-line, #e6e6e6);
+  justify-content: space-between;
 }
 
 .navigation-bar-left-part {
@@ -141,8 +155,6 @@ html, body {
 .navigation-bar-right-part {
   display: flex;
   flex-direction: row;
-  position: fixed;
-  right: 32px;
   align-items: center;
   min-width: 24px;
   height: 64px;
