@@ -17,7 +17,7 @@ export default class DataProvider {
                         "id": "1",
                         "name": "Member Gallery",
                         "label": "Member Gallery",
-                        "icon": "",
+                        "icon": "http://img2.imgtn.bdimg.com/it/u=2934236407,2961049037&fm=26&gp=0.jpg",
                         "miniapps": [
                             {
                                 "id": "11",
@@ -30,7 +30,7 @@ export default class DataProvider {
                         "id": "2",
                         "name": "",
                         "label": "",
-                        "icon": "",
+                        "icon": "http://bpic.588ku.com/element_origin_min_pic/01/42/02/28573d62ffba199.jpg",
                         "miniapps": [
                             {
                                 "id": "21",
@@ -43,7 +43,7 @@ export default class DataProvider {
                         "id": "3",
                         "name": "",
                         "label": "",
-                        "icon": "",
+                        "icon": "http://bpic.588ku.com/element_origin_min_pic/00/90/47/9256efcbf458c23.jpg",
                         "miniapps": [
                             {
                                 "id": "31",

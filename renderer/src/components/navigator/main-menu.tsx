@@ -51,7 +51,7 @@ export class MainMenu extends React.Component<Props, State> {
                   marginTop: 0
                 }}
                   key={miniapp.name}>
-                  <span style={{font: 'var(--font-p2-semibold)'}}>{miniapp.label}</span>
+                  <span style={{ font: 'var(--font-p2-semibold)' }}>{miniapp.label}</span>
                 </Menu.Item>
               )
             })
@@ -60,7 +60,13 @@ export class MainMenu extends React.Component<Props, State> {
           submenus.push(
             <Menu.SubMenu key={group.name}
               style={{ width: '100%', background: '#001a99', color: 'white', font: 'var(--font-p2-semibold)' }}
-              title={<span><img src={group.icon} /><span>{group.label}</span></span>}>
+              title={
+                <span>
+                  <img src={group.icon} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
+                  <span>{group.label}</span>
+                </span>
+              }
+            >
               {mitems}
             </Menu.SubMenu>
           );
@@ -75,7 +81,10 @@ export class MainMenu extends React.Component<Props, State> {
               marginTop: 0
             }}
               key={group.miniapps[0].name}>
-              <span><img src={group.icon} /><span style={{font: 'var(--font-p2-semibold)'}}>{group.miniapps[0].label}</span></span>
+              <span>
+                <img src={group.icon} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
+                <span style={{ font: 'var(--font-p2-semibold)' }}>{group.miniapps[0].label}</span>
+              </span>
             </Menu.Item>
           );
         }
@@ -84,7 +93,7 @@ export class MainMenu extends React.Component<Props, State> {
 
     return (
       <Menu
-        style={{ width: '100%', background: '#001a99', overflow:'scroll' }}
+        style={{ width: '100%', background: '#001a99', overflow: 'scroll' }}
         theme='dark'
         onClick={this.onMenuItemClicked.bind(this)}
         mode="inline"
