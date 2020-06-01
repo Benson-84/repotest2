@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Dispatch } from 'redux';
+import {P2} from '@weconnect/appkit';
 import {
   connect
 } from "react-redux";
@@ -22,7 +23,7 @@ export default class NavigationBar extends React.Component<Props, any>{
 
     var searchbar = <div><img src={Icons.search} /></div>;
     var notificationbar = <img src={Icons.notification} />;
-    var userinfobar = <div>user info</div>
+    var userinfobar = this.renderActiveUserAvatar()
 
     return (
       <div className='navigation-bar '>
@@ -40,9 +41,17 @@ export default class NavigationBar extends React.Component<Props, any>{
     );
   }
 
+  renderActiveUserAvatar() {
+    return (
+      <div className='navigation-bar-avatar '>
+        <img src={Icons.trimLogo} style={{ backgroundColor: '#001a99' }} />
+        <P2.Regular>Alex Edwards**</P2.Regular>
+      </div>
+    )
+  }
+
   onBackButtonClicked() {
     const dispatch = this.props.dispatch;
     dispatch(navigatorPop());
   }
-
 }
