@@ -7,10 +7,13 @@ import "antd/dist/antd.css";
 
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { MiniappGroup, Miniapp, Page } from "../../store/store";
+import { Miniapp, Page } from "../../store/store";
+import MiniappGroup from './miniapp-group';
 import { navigatorReset } from "../../actions";
 
 import { P2 } from '@weconnect/appkit';
+
+import Icons from '../icons/icons';
 
 // style.css does work here with antd menu, the file style.css can also be deleted
 // import './style.css';
@@ -18,7 +21,7 @@ import { P2 } from '@weconnect/appkit';
 interface Props {
   dispatch: Dispatch,
   miniappStarted: boolean
-  miniapps: MiniappGroup[],
+  miniapps: (Miniapp | MiniappGroup)[],
 }
 
 interface State {
@@ -35,58 +38,14 @@ export class MainMenu extends React.Component<Props, State> {
 
   render() {
     var submenus: any[] = [];
-    if (this.props.miniapps) {
-      this.props.miniapps.forEach((group: MiniappGroup) => {
-        if (group.name && group.name.length > 0) {
-          let mitems: any[] = [];
-          if (group.miniapps) {
-            group.miniapps.forEach((miniapp: Miniapp) => {
-              let selected = this.state.menuSelected == miniapp.name;
-              mitems.push(
-                <Menu.Item style={{
-                  width: '100%',
-                  background: selected ? '#2b44b7' : '#001a99',
-                  color: 'white',
-                  marginBottom: 0,
-                  marginTop: 0
-                }}
-                  key={miniapp.name}>
-                  <span style={{ font: 'var(--font-p2-semibold)' }}>{miniapp.label}</span>
-                </Menu.Item>
-              )
-            })
-          }
 
-          submenus.push(
-            <Menu.SubMenu key={group.name}
-              style={{ width: '100%', background: '#001a99', color: 'white', font: 'var(--font-p2-semibold)' }}
-              title={
-                <span>
-                  <img src={group.icon} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
-                  <span>{group.label}</span>
-                </span>
-              }
-            >
-              {mitems}
-            </Menu.SubMenu>
-          );
+    if (this.props.miniapps) {
+      // Miniapp | MiniappGroup
+      this.props.miniapps.forEach((element: any) => {
+        if (element.miniapps) {
+          submenus.push(this.renderMiniappGroup(element))
         } else {
-          let selected = this.state.menuSelected == group.miniapps[0].name;
-          submenus.push(
-            <Menu.Item style={{
-              width: '100%',
-              background: selected ? '#2b44b7' : '#001a99',
-              color: 'white',
-              marginBottom: 0,
-              marginTop: 0
-            }}
-              key={group.miniapps[0].name}>
-              <span>
-                <img src={group.icon} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
-                <span style={{ font: 'var(--font-p2-semibold)' }}>{group.miniapps[0].label}</span>
-              </span>
-            </Menu.Item>
-          );
+          submenus.push(this.renderMiniappItem(element))
         }
       })
     }
@@ -103,17 +62,77 @@ export class MainMenu extends React.Component<Props, State> {
     );
   }
 
+  renderMiniappGroup(group: MiniappGroup) {
+    let mitems: any[] = [];
+    if (!group.miniapps || group.miniapps.length < 1) {
+      return <div></div>;
+    }
+    group.miniapps.forEach((miniapp: Miniapp) => {
+      let selected = this.state.menuSelected == miniapp.label;
+      mitems.push(
+        this.renderMiniappItem(miniapp)
+      )
+    })
+
+
+    return (
+      <Menu.SubMenu key={group.name}
+        style={{ width: '100%', background: '#001a99', color: 'white', font: 'var(--font-p2-semibold)' }}
+        title={
+          <span>
+            {group.icon && group.icon.length > 0 ?
+              <img src={(Icons as any)[group.icon]} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
+              :
+              <div></div>
+            }
+            <span>{group.label}</span>
+          </span>
+        }
+      >
+        {mitems}
+      </Menu.SubMenu>
+    );
+  }
+
+  renderMiniappItem(mp: Miniapp) {
+    let selected = this.state.menuSelected == mp.name;
+    return (
+      <Menu.Item style={{
+        width: '100%',
+        background: selected ? '#2b44b7' : '#001a99',
+        color: 'white',
+        marginBottom: 0,
+        marginTop: 0
+      }}
+        key={mp.name}>
+        <span>
+          {mp.icon && mp.icon.length > 0 ?
+            <img src={(Icons as any)[mp.icon]} style={{ width: '16px', height: '16px', marginRight: '8px', objectFit: 'contain' }} />
+            :
+            <div></div>
+          }
+          <span style={{ font: 'var(--font-p2-semibold)' }}>{mp.label}</span>
+        </span>
+      </Menu.Item>
+    );
+  }
+
   onMenuItemClicked(param: any) {
     this.setState({ menuSelected: param.key });
 
-    var target = null;
-    this.props.miniapps.forEach((group: MiniappGroup) => {
-      group.miniapps.forEach((miniapp: Miniapp) => {
-        if (miniapp.name == param.key) {
-          target = miniapp;
-        }
-      })
-    })
+    var target: any = null;
+    for (var i = param.keyPath.length - 1; i >= 0; i--) {
+      if (target == null) {
+        target = this.props.miniapps;
+      } else {
+        target = (target as MiniappGroup).miniapps;
+      }
+
+      let key = param.keyPath[i];
+      target = target.find((element: any) => {
+        return element.name == key;
+      });
+    }
 
     if (target) {
       this.switchToMiniapp(target);

@@ -1,18 +1,8 @@
-
-export interface MiniappGroup {
-  id: string,
-  label: string,
-  name: string,
-  icon: string,
-  miniapps: Miniapp[]
-}
-
 export interface Miniapp {
-  id: string,
-  label: string,
   name: string,
-  // miniapp: string, //////////////////////////////////////////
-  url: string
+  label: string,
+  icon: string,
+  url: string,
   moduleClass: string
 }
 

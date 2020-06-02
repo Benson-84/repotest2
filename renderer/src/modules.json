@@ -1,17 +1,37 @@
 [
     {
-        "name": "Company List",
-        "url": "module:/miniapp-support",
-        "moduleClass": "miniapp"
+        "name": "Member Gallery",
+        "label": "#Member Gallery",
+        "icon": "memberGallery",
+        "type": "feature-group",
+        "features": [
+            {
+                "name": "Company List",
+                "label": "#Company List",
+                "icon": "",
+                "type": "feature",
+                "url": "module:/miniapp-support",
+                "moduleClass": "miniapp",
+                "privilegeId": "member.company_list"
+            }
+        ]
     },
     {
         "name": "Spacestation",
+        "label": "#Spacestation",
+        "icon": "spacestation",
+        "type": "feature",
         "url": "https://spacestation-staging.wework.cn/authority",
-        "moduleClass": "spacestation"
+        "moduleClass": "spacestation",
+        "privilegeId": "spacestation.global"
     },
     {
         "name": "SS China",
+        "label": "#SS China",
+        "icon": "spacestation",
+        "type": "feature",
         "url": "https://spacestation-staging.wework.cn/authority",
-        "moduleClass": "spacestation"
+        "moduleClass": "spacestation",
+        "privilegeId": "spacestation.china"
     }
 ]

@@ -11,7 +11,6 @@ import {
 
 import {
   NavigatorState,
-  MiniappGroup,
   Miniapp,
   Page
 } from "./store/store";
@@ -21,10 +20,11 @@ import MiniAppView from "./components/webview/miniappview";
 import { navigatorPush, navigatorPop, userLogin } from "./actions";
 import { MainMenu } from './components/navigator/main-menu';
 import NavigationBar from './components/navigationbar/navigation-bar';
-import DataProvider from './data-provider';
+import DataProvider from './model/data-provider';
+import MiniappGroup from './components/navigator/miniapp-group';
 import './style.css';
 
-const embeddedModules:Miniapp[] = require('./modules.json');
+const modulelist: any[] = require('./modules.json');
 
 interface Props {
   navigatorState: NavigatorState,
@@ -33,7 +33,7 @@ interface Props {
 }
 
 interface State {
-  miniappGroups: MiniappGroup[]
+  miniappGroups: (Miniapp | MiniappGroup)[],
   openedPages: Page[]
 }
 
@@ -60,27 +60,56 @@ class AppMain extends React.Component<Props, State> {
   componentDidMount() {
     this.props.onRef(this)
 
-    this.dataprovider.fetchFeatureList().then((response: MiniappGroup[]) => {
-      response.forEach(group => {
-        let mps = group.miniapps.filter((value: Miniapp) => {
-          return embeddedModules.find((choice: Miniapp) => {
-            if (value.name == choice.name) {
-              value.url = choice.url;
-              value.moduleClass = choice.moduleClass;
-              return true;
-            }
-            return false;
-          });
-        })
-        group.miniapps = mps;
-      });
+    this.dataprovider.fetchPrivilegeList().then((response: any[]) => {
+      let privilegeList: any[] = response;
+      let mpgroups: (Miniapp | MiniappGroup)[] = [];
+      modulelist.forEach((m) => {
+        if (m.type == 'feature') {
+          let mp: Miniapp = {
+            name: m.name,
+            label: m.label,
+            icon: m.icon,
+            url: m.url,
+            moduleClass: m.moduleClass
+          }
 
-      let mpgs = response.filter((value: MiniappGroup) => {
-        return value.miniapps && value.miniapps.length > 0;
-      });
+          if (privilegeList[m.privilegeId] == true) {
+            mpgroups.push(mp);
+          }
+        } else if (m.type == 'feature-group') {
+          if (m.features) {
+            let mps: Miniapp[] = (m.features as any[])
+              .filter((item: any) => {
+                return privilegeList[item.privilegeId] == true;
+              })
+              .map<Miniapp>((item: any) => {
+                return {
+                  name: item.name,
+                  label: item.label,
+                  icon: item.icon,
+                  url: item.url,
+                  moduleClass: item.moduleClass
+                }
+              })
+
+            if (mps && mps.length > 0) {
+              let mpg: MiniappGroup = {
+                name: m.name,
+                label: m.label,
+                icon: m.icon,
+                miniapps: mps
+              }
+
+              mpgroups.push(mpg)
+            }
+          }
+        } else {
+          console.log("Error: unknown module type in modules.json: " + JSON.stringify(m));
+        }
+      })
 
       this.setState({
-        miniappGroups: mpgs
+        miniappGroups: mpgroups
       })
     }, (error) => {
       this.setState({
@@ -127,7 +156,7 @@ class AppMain extends React.Component<Props, State> {
       let miniappclass = toppage.miniapp.moduleClass;
       if (miniappclass == 'miniapp') {
         url = '../miniapps/' + toppage.miniapp.url.replace('module:/', '') + '/index.html'
-      } else if (miniappclass == 'sschina') {
+      } else if (miniappclass == 'spacestation') {
         url = toppage.miniapp.url
       }
 
