@@ -44,7 +44,7 @@ export default class NavigationBar extends React.Component<Props, any>{
   renderActiveUserAvatar() {
     return (
       <div className='navigation-bar-avatar '>
-        <img src={Icons.trimLogo} style={{ backgroundColor: '#001a99' }} />
+        <img src={Icons.tarsLogo} style={{ backgroundColor: '#001a99' }} />
         <P2.Regular>Alex Edwards**</P2.Regular>
       </div>
     )

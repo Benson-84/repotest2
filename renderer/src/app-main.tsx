@@ -130,7 +130,7 @@ class AppMain extends React.Component<Props, State> {
         < div className='left-sidebar-container'>
           <div className='system-tool-region' />
           <div className='sidebar-logo-container'>
-            <img className='sidebar-logo' src={Icons.trimLogo} />
+            <img className='sidebar-logo' src={Icons.tarsLogo} />
           </div>
           <div className='sidebar-location-container' onClick={this.onLocationClicked.bind(this)}>
             <img src={Icons.location} />
