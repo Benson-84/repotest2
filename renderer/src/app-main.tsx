@@ -145,7 +145,6 @@ class AppMain extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-      // </div>
     )
   }
 

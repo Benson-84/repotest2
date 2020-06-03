@@ -4,7 +4,7 @@ import {P2} from '@weconnect/appkit';
 import {
   connect
 } from "react-redux";
-import '../../style.css';
+import './style.css';
 import { navigatorPop } from "../../actions";
 import Icons from '../icons/icons';
 import Icon from "@ant-design/icons";
@@ -26,17 +26,20 @@ export default class NavigationBar extends React.Component<Props, any>{
     var userinfobar = this.renderActiveUserAvatar()
 
     return (
-      <div className='navigation-bar '>
-        <div className='navigation-bar-left-part'>
-          {backButton}
+      <div className='navigation-title-bar'>
+        <div className='navigation-bar '>
+          <div className='navigation-bar-left-part'>
+            {backButton}
+          </div>
+          <div className='navigation-bar-right-part'>
+            {searchbar}
+            <div style={{ width: '28px' }} />
+            {notificationbar}
+            <div style={{ width: '28px' }} />
+            {userinfobar}
+          </div>
         </div>
-        <div className='navigation-bar-right-part'>
-          {searchbar}
-          <div style={{ width: '28px' }} />
-          {notificationbar}
-          <div style={{ width: '28px' }} />
-          {userinfobar}
-        </div>
+        <div className='title-bar'>#公司列表</div>
       </div>
     );
   }

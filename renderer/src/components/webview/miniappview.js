@@ -25,7 +25,7 @@ export default class MiniAppView extends React.Component {
         { this.renderDebug() }
         <webview  
             ref="webview"
-            style={{width: "100%", height: "100%"}}    
+            style={{width: "100%", height: "100%"}}
             src={this.state.url} 
             nodeintegration="true" 
             webpreferences="'web-security'=false"
