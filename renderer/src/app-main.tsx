@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as electron from "electron";
 import { Dispatch } from 'redux';
 import {
   connect
@@ -17,7 +16,6 @@ import {
 
 import Icons from './components/icons/icons';
 import MiniAppView from "./components/webview/miniappview";
-import { navigatorPush, navigatorPop, userLogin } from "./actions";
 import { MainMenu } from './components/navigator/main-menu';
 import NavigationBar from './components/navigationbar/navigation-bar';
 import DataProvider from './model/data-provider';
@@ -28,7 +26,6 @@ const modulelist: any[] = require('./modules.json');
 
 interface Props {
   navigatorState: NavigatorState,
-  onRef: any,
   dispatch: Dispatch
 }
 
@@ -58,8 +55,6 @@ class AppMain extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.onRef(this)
-
     this.dataprovider.fetchPrivilegeList().then((response: any[]) => {
       let privilegeList: any[] = response;
       let mpgroups: (Miniapp | MiniappGroup)[] = [];
@@ -170,33 +165,6 @@ class AppMain extends React.Component<Props, State> {
     }
 
     return url;
-  }
-
-  handleNavigation(args: any) {
-    const dispatch = this.props.dispatch;
-    let method = args.method;
-
-    // convert json to Map
-    let params = new Map<string, any>();
-    for (var item in args.arg.params) {
-      params.set(item, args.arg.params[item]);
-    }
-    if (args.arg.url == 'desktop-home') {
-      return
-    }
-
-    if (method == 'open') {
-      let page: Page = {
-        miniapp: args.arg,
-        params: params
-      }
-
-      dispatch(navigatorPush(page));
-    } else if (method == 'close') {
-      dispatch(navigatorPop());
-    } else {
-      console.log("Error: unknown navigator method=" + method)
-    }
   }
 
   onLocationClicked() {

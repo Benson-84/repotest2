@@ -1,4 +1,4 @@
-import { app, BrowserWindow,ipcMain, ipcRenderer } from "electron";
+import { app, BrowserWindow,ipcMain } from "electron";
 import { Channel } from './channels/channel'
 
 export var mainWindowId: number = 0

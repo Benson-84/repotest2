@@ -31,6 +31,18 @@ export interface NavigatorActionReset {
 
 export type NavigatorActions =  NavigatorActionPop | NavigatorActionPush | NavigatorActionPresent | NavigatorActionReset
 
+
+// navigation bar
+export const NAVIGATION_BAR_SET_TITLE = "navigationbar.settitle"
+
+export interface NavigationbarSetTitle {
+  type: typeof NAVIGATION_BAR_SET_TITLE,
+  title: string
+}
+
+export type NavigationbarActions = NavigationbarSetTitle
+
+
 /// User
 
 export const USER_LOGIN = "user.login"

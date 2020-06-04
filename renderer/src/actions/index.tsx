@@ -4,6 +4,8 @@ import {
   NAVIGATOR_POP,
   NAVIGATOR_RESET,
   NavigatorActions,
+  NAVIGATION_BAR_SET_TITLE,
+  NavigationbarActions,
 
   UserActions,
   USER_LOGOUT,
@@ -53,5 +55,12 @@ export function userLogin(user:string): UserActions {
   return {
     type:USER_LOGIN,
     user:user
+  }
+}
+
+export function setTitle(title: string): NavigationbarActions {
+  return {
+    type: NAVIGATION_BAR_SET_TITLE,
+    title: title
   }
 }
