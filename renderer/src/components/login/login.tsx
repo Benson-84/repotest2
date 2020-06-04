@@ -54,10 +54,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
   onLoginPressed = () => {
     fetch('userService/api/v2/login/tars?email=' + this.state.email, {}).then((response:any)=>{
       let url = response.data.data;
-      // window.location.href = url;
-      this.setState({
-        loginUrl: url
-      })
+      createLoginWindow(url)
     });
   }
 }
@@ -69,17 +66,19 @@ function createLoginWindow(url:string) {
     height: 800,
     width: 600,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
       allowRunningInsecureContent: true,
       webviewTag: true,
       defaultEncoding: "utf-8",
       devTools: true,
-      nodeIntegrationInSubFrames: true
+      nodeIntegrationInSubFrames: false
     },
     useragent: "Mozilla/5.0 (Desktop; )"
   });
-
-  win.loadURL(url);
+  win.loadURL(url)
+  win.webContents.on('will-redirect',  function(e:any,url:string) {
+    console.log(url);
+  });
 }
 
 

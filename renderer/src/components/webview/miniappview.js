@@ -17,8 +17,6 @@ export default class MiniAppView extends React.Component {
   }
   
   render() {
-    console.log("create a new webview with url=" + this.state.url)
-
     return (
       <div className="miniAppContainer" >
         { this.renderDebug() }
@@ -29,7 +27,7 @@ export default class MiniAppView extends React.Component {
             nodeintegration="true" 
             webpreferences="'web-security'=false"
             useragent="Mozilla/5.0 (Desktop; )"
-            preload="../../preload/preload.js"/> 
+            /> 
       </div>
     )
   }
