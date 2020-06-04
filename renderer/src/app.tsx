@@ -3,20 +3,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import MiniAppView from './components/webview/miniappview';
 import NavigationApp from "./components/navigation/navigation-app";
 
-import './style.css'
+import './style.css';
 import { UserState } from './store/store';
 
-import { ipcRenderer } from 'electron'
-import { userLogout, userLogin } from './actions/index'
+import { ipcRenderer } from 'electron';
+import { userLogout, userLogin } from './actions/index';
+import LoginPage from "./components/login/login";
 
 interface AppProps {
   user: UserState,
   dispatch: Dispatch
 }
-
 
 interface State {
   user: UserState
@@ -32,23 +31,20 @@ class App extends React.Component<AppProps, State> {
     this.state = {
       user: props.user
     }
+
     const dispatch = this.props.dispatch;
     ipcRenderer.on('tokenExprired', (event, arg) => {
       dispatch(userLogout())
     })
 
     ipcRenderer.on("navigator", (event, args) => {
-      console.log("NavigationApp received 'navigator' event:" + JSON.stringify(event));
-      console.log("args:" + JSON.stringify(args));
       this.handleIpcMainNavigator(args);
     })
-
   }
 
   handleIpcMainNavigator(args: any) {
     const dispatch = this.props.dispatch;
     if (args.arg.url == 'desktop-home') {
-      console.log('UserLogin')
       dispatch(userLogin('xxx'))
     } else {
       this.navigator.handleNavigation(args)
@@ -61,9 +57,7 @@ class App extends React.Component<AppProps, State> {
         <NavigationApp onRef={this.onRefNavigator} />
       );
     } else {
-      return (
-        <MiniAppView url='../miniapps/miniapp-login/index.html' />
-      );
+      return <LoginPage />
     }
   }
 

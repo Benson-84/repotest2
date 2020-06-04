@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as electron from "electron";
 
 import { Dispatch } from 'redux';
 import {
@@ -7,10 +6,6 @@ import {
 } from "react-redux";
 
 import SlideBar from '../sidebar/sidebar';
-
-import {
-  EmptyPage
-} from "@weconnect/appkit";
 
 import {
   NavigatorState,
@@ -44,7 +39,6 @@ class NavigationApp extends React.Component<Props, State> {
 
   render() {
     let url: string = this.getTopPageUrl();
-    console.log("Switching to: " + url);
 
     let miniappStarted = url && url.length > 0
     let page = miniappStarted ? <MiniAppView url={url} /> : <div />;
