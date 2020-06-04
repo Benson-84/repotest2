@@ -9,7 +9,7 @@ import './style.css';
 import { UserState } from './store/store';
 
 import { ipcRenderer } from 'electron';
-import { userLogout, userLogin } from './actions/index';
+import { userLogout, userLogin } from './actions/user';
 import LoginPage from "./components/login/login";
 
 interface AppProps {

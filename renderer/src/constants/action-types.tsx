@@ -38,7 +38,8 @@ export const USER_LOGOUT = "user.logout"
 
 export interface UserActionLogin {
   type: typeof USER_LOGIN
-  user: string
+  email: string
+  isRequesting: boolean
 }
 
 export interface UserActionLogout {

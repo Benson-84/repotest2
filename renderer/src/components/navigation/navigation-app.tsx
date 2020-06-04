@@ -14,7 +14,7 @@ import {
 
 import '../../style.css';
 import MiniAppView from "../webview/miniappview";
-import { navigatorPush, navigatorPop, userLogin } from "../../actions";
+import { navigatorPush, navigatorPop } from "../../actions";
 import NavigationBar from '../navigationbar/navigation-bar';
 
 interface Props {

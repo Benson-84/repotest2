@@ -16,7 +16,7 @@ export default function userReducer(state = initialState, action: UserActions): 
   switch(action.type) {
     case USER_LOGIN:
       return {
-        activeUser:action.user
+        activeUser:action.email
       }
     case USER_LOGOUT:
       return {
