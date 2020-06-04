@@ -1,0 +1,30 @@
+.miniapp-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 64px;
+    padding-left: 24px;
+    padding-right: 24px;
+    justify-content: space-between;
+    font: var(--font-h3-semibold);
+    border-bottom: 0.5px solid var(--color-gray-line, #e6e6e6);
+}
+
+.debug-button {
+    float: 'right';
+    clear: 'both';
+}
+
+/* todo: by Benson, this doesn't work with a webview */
+.miniapp-webview {
+    width: 100%;
+    height: 100;
+}

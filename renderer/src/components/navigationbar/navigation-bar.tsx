@@ -26,7 +26,6 @@ export default class NavigationBar extends React.Component<Props, any>{
     var userinfobar = this.renderActiveUserAvatar()
 
     return (
-      <div className='navigation-title-bar'>
         <div className='navigation-bar '>
           <div className='navigation-bar-left-part'>
             {backButton}
@@ -39,8 +38,6 @@ export default class NavigationBar extends React.Component<Props, any>{
             {userinfobar}
           </div>
         </div>
-        <div className='title-bar'>#公司列表</div>
-      </div>
     );
   }
 

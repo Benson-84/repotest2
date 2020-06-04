@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import '../../style.css';
+import './style.css';
 
 
 export default class MiniAppView extends React.Component {
@@ -9,35 +9,40 @@ export default class MiniAppView extends React.Component {
     url: PropTypes.string.isRequired
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
-      url: props.url
+      url: props.url,
+      title: "#公司列表"
     }
   }
-  
+
   render() {
-    console.log("create a new webview with url=" + this.state.url)
+    console.log("render miniapp with url=" + this.state.url)
 
     return (
-      <div style={{width: "100%", height: "100%"}} >
-        { this.renderDebug() }
-        <webview  
-            ref="webview"
-            style={{width: "100%", height: "100%"}}
-            src={this.state.url} 
-            nodeintegration="true" 
-            webpreferences="'web-security'=false"
-            useragent="Mozilla/5.0 (Desktop; )"
-            preload="../../preload/preload.js"/> 
+      <div className='miniapp-container' >
+        <div className='title-bar'>
+          {this.state.title}
+          {this.renderDebug()}
+        </div>
+
+        <webview
+          ref="webview"
+          style={{ width: '100%', height: '100%' }}
+          src={this.state.url}
+          nodeintegration="true"
+          webpreferences="'web-security'=false"
+          useragent="Mozilla/5.0 (Desktop; )"
+          preload="../../preload/preload.js" />
       </div>
     )
   }
 
   renderDebug = () => {
     return (
-      <button onClick={this.handleDebugClick} style={{float:'right', clear:'both',  marginRight: '16px', marginTop: '16px'}}>Debug</button>
+      <button onClick={this.handleDebugClick} className='debug-button'>Debug</button>
     )
   }
 
