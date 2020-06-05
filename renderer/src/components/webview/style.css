@@ -14,13 +14,13 @@
     padding-left: 24px;
     padding-right: 24px;
     justify-content: space-between;
-    font: var(--font-h3-semibold);
     border-bottom: 0.5px solid var(--color-gray-line, #e6e6e6);
 }
 
 .debug-button {
-    float: 'right';
-    clear: 'both';
+    padding: 0;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 /* todo: by Benson, this doesn't work with a webview */

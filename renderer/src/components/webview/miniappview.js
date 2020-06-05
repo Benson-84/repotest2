@@ -4,6 +4,7 @@ import {
   Page
 } from "../../store/store";
 import './style.css';
+import { H3 } from "@weconnect/appkit/dist/desktop";
 
 
 export default class MiniAppView extends React.Component {
@@ -22,12 +23,11 @@ export default class MiniAppView extends React.Component {
 
   render() {
     console.log("render miniapp with url=" + this.state.url)
-    let title = this.state.page.state?.title;
 
     return (
       <div className='miniapp-container' >
         <div className='title-bar'>
-          {title ? title : " "}
+          <H3.Semibold>{this.getTitle()}</H3.Semibold>
           {this.renderDebug()}
         </div>
 
@@ -84,6 +84,20 @@ export default class MiniAppView extends React.Component {
     }
 
     return url;
+  }
+
+  getTitle() {
+    let page = this.state.page;
+
+    var title = null;
+    if (page) {
+      title = page.state?.title;
+      if (!title) {
+        title = page.miniapp.label;
+      }
+    }
+
+    return title ? title : "";
   }
 
 }

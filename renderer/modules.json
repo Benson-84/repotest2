@@ -21,7 +21,7 @@
         "label": "#Spacestation",
         "icon": "spacestation",
         "type": "feature",
-        "url": "https://spacestation-staging.wework.cn/authority",
+        "url": "https://spacestation-staging.wework.com",
         "moduleClass": "spacestation",
         "privilegeId": "spacestation.global"
     },
@@ -30,7 +30,7 @@
         "label": "#SS China",
         "icon": "spacestation",
         "type": "feature",
-        "url": "https://spacestation-staging.wework.cn/authority",
+        "url": "https://spacestation-staging.wework.cn",
         "moduleClass": "spacestation",
         "privilegeId": "spacestation.china"
     }

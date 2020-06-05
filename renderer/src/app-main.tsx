@@ -22,7 +22,7 @@ import DataProvider from './model/data-provider';
 import MiniappGroup from './components/navigator/miniapp-group';
 import './style.css';
 
-const modulelist: any[] = require('./modules.json');
+const modulelist: any[] = require('../modules.json');
 
 interface Props {
   navigatorState: NavigatorState
