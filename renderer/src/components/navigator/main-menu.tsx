@@ -70,14 +70,14 @@ export class MainMenu extends React.Component<Props, State> {
     group.miniapps.forEach((miniapp: Miniapp) => {
       let selected = this.state.menuSelected == miniapp.label;
       mitems.push(
-        this.renderMiniappItem(miniapp)
+        this.renderMiniappItem(miniapp, true)
       )
     })
 
 
     return (
       <Menu.SubMenu key={group.name}
-        style={{ width: '100%', background: '#001a99', color: 'white', font: 'var(--font-p2-semibold)' }}
+        style={{ width: '100%', background: '#001a99', color: 'white', paddingRight:'5px', font: 'var(--font-p2-semibold)' }}
         title={
           <span>
             {group.icon && group.icon.length > 0 ?
@@ -94,12 +94,19 @@ export class MainMenu extends React.Component<Props, State> {
     );
   }
 
-  renderMiniappItem(mp: Miniapp) {
+  renderMiniappItem(mp: Miniapp, expanded: boolean = false) {
     let selected = this.state.menuSelected == mp.name;
+    var bgcolor = '#001a99';
+    if (selected) {
+      bgcolor = '#2d44b7';
+    } else if (expanded) {
+      bgcolor = '#001166';
+    }
+
     return (
       <Menu.Item style={{
         width: '100%',
-        background: selected ? '#2b44b7' : '#001a99',
+        background: bgcolor,
         color: 'white',
         marginBottom: 0,
         marginTop: 0

@@ -91,17 +91,17 @@ html, body {
 }
 
 .sidebar-location-container {
-  width: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 14px;
-  padding-bottom: 14px;
-  background-color: #001166;
+  margin-left: 24px;
+  margin-right: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 6px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   font: var(--font-p2-semibold);
   color: var(--color-white, white);
+  border-bottom: 1px solid var(--color-white, #ffffff);
 }
 
 .sidebar-location-container img {

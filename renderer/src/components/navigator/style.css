@@ -21,7 +21,7 @@
 
 .menu-item.selected {
     width: '100%';
-    background: #2b44b7;
+    background: #2d44b7;
     font: var(--font-p2-semibold);
     color: var(--color-white);
     margin-top: 0;
