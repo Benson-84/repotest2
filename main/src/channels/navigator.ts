@@ -14,6 +14,8 @@ export default class NavigatorChannel implements MethodChannel {
             if (mainWindowId > 0) {
                 BrowserWindow.fromId(mainWindowId).webContents.send('navigator', { method: 'open', arg: params });
             }
+
+            resolve({})
         })
     }
 

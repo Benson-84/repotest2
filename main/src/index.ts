@@ -31,9 +31,9 @@ function createWindow () {
     }
     channel.invoke(args)
     .then(res=> {
-      console.log(res);
+      console.log("on internalMiniAppJsBridge, res = " + JSON.stringify(res));
       
-      event.reply('internalMiniAppJsBridgeCallback',res)
+      event.reply('internalMiniAppJsBridgeCallback', res)
     }).catch(err => {
       if(err == 'tokenExprired') {
         BrowserWindow.fromId(mainWindowId).webContents.send('tokenExprired', null);

@@ -14,6 +14,8 @@ export default class NavigationChannel implements MethodChannel {
             if (mainWindowId > 0) {
                 BrowserWindow.fromId(mainWindowId).webContents.send('navigation-bar', { method: method, arg: params });
             }
+
+            resolve({})
         })
     }
    

@@ -10,7 +10,7 @@ import { H3 } from "@weconnect/appkit/dist/desktop";
 export default class MiniAppView extends React.Component {
 
   static propTypes = {
-    page: Page
+    page: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -22,7 +22,8 @@ export default class MiniAppView extends React.Component {
   }
 
   render() {
-    console.log("render miniapp with url=" + this.state.url)
+    let url = this.getUrl();
+    console.log("render miniapp with url = " + url)
 
     return (
       <div className='miniapp-container' >
