@@ -8,6 +8,7 @@ export const NAVIGATOR_PUSH = "navigator.push"
 export const NAVIGATOR_POP = "navigator.pop"
 export const NAVIGATOR_RESET = "navigator.reset"
 export const NAVIGATOR_PRESENT = "navigator.present"
+export const NAVIGATOR_SET_PAGE_TITLE = "navigator.setPageTitle"
 
 
 export interface NavigatorActionPush {
@@ -29,19 +30,16 @@ export interface NavigatorActionReset {
   page: Page
 }
 
-export type NavigatorActions =  NavigatorActionPop | NavigatorActionPush | NavigatorActionPresent | NavigatorActionReset
-
-
-// navigation bar
-export const NAVIGATION_BAR_SET_TITLE = "navigationbar.settitle"
-
-export interface NavigationbarSetTitle {
-  type: typeof NAVIGATION_BAR_SET_TITLE,
+export interface NavigatorActionSetPageTitle {
+  type: typeof NAVIGATOR_SET_PAGE_TITLE
   title: string
 }
 
-export type NavigationbarActions = NavigationbarSetTitle
-
+export type NavigatorActions = NavigatorActionPop
+  | NavigatorActionPush
+  | NavigatorActionPresent
+  | NavigatorActionReset
+  | NavigatorActionSetPageTitle
 
 /// User
 

@@ -3,10 +3,8 @@ import {
   NAVIGATOR_PRESENT,
   NAVIGATOR_POP,
   NAVIGATOR_RESET,
+  NAVIGATOR_SET_PAGE_TITLE,
   NavigatorActions,
-  NAVIGATION_BAR_SET_TITLE,
-  NavigationbarActions,
-
   UserActions,
   USER_LOGOUT,
   USER_LOGIN
@@ -25,7 +23,7 @@ export function navigatorPush(page: Page): NavigatorActions {
   }
 }
 
-export function navigatorPop() : NavigatorActions {
+export function navigatorPop(): NavigatorActions {
   return {
     type: NAVIGATOR_POP
   }
@@ -45,22 +43,21 @@ export function navigatorPresent(page: Page): NavigatorActions {
   }
 }
 
+export function setCurrentPageTitle(title: string): NavigatorActions {
+  return {
+    type: NAVIGATOR_SET_PAGE_TITLE,
+    title: title
+  }
+}
 
 export function userLogout(): UserActions {
   return {
     type: USER_LOGOUT
   }
 }
-export function userLogin(user:string): UserActions {
+export function userLogin(user: string): UserActions {
   return {
-    type:USER_LOGIN,
-    user:user
-  }
-}
-
-export function setTitle(title: string): NavigationbarActions {
-  return {
-    type: NAVIGATION_BAR_SET_TITLE,
-    title: title
+    type: USER_LOGIN,
+    user: user
   }
 }

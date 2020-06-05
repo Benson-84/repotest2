@@ -8,5 +8,6 @@ export default class MiniAppView extends Component<any, any> {
     render(): JSX.Element;
 }
 
-import { Component } from "react";import { Page } from "../../store/store";
+import { Component } from "react";
+import { Page } from "../../store/store";
 

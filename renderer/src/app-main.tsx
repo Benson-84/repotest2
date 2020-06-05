@@ -25,13 +25,13 @@ import './style.css';
 const modulelist: any[] = require('./modules.json');
 
 interface Props {
-  navigatorState: NavigatorState,
+  navigatorState: NavigatorState
   dispatch: Dispatch
 }
 
 interface State {
   miniappGroups: (Miniapp | MiniappGroup)[],
-  openedPages: Page[]
+  openedPages: Page[],
 }
 
 class AppMain extends React.Component<Props, State> {
@@ -42,7 +42,7 @@ class AppMain extends React.Component<Props, State> {
 
     this.state = {
       miniappGroups: null,
-      openedPages: props.navigatorState.pages
+      openedPages: props.navigatorState.pages,
     }
 
     this.dataprovider = new DataProvider();
@@ -50,7 +50,7 @@ class AppMain extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     this.setState({
-      openedPages: nextProps.navigatorState.pages
+      openedPages: nextProps.navigatorState.pages,
     })
   }
 
@@ -114,11 +114,9 @@ class AppMain extends React.Component<Props, State> {
   }
 
   render() {
-    let url: string = this.getTopPageUrl();
-    console.log("Switching to: " + url);
-
-    let miniappStarted = url && url.length > 0
-    let page = miniappStarted ? <MiniAppView url={url} /> : <div />;
+    let toppage = this.getTopPage();
+    let miniappStarted = toppage != null
+    let page = miniappStarted ? <MiniAppView page={toppage} /> : <div />;
 
     return (
       <div className="main-container">
@@ -143,28 +141,12 @@ class AppMain extends React.Component<Props, State> {
     )
   }
 
-  getTopPageUrl(): string {
-    var url: string = null;
+  getTopPage(): Page {
     if (this.state.openedPages && this.state.openedPages.length > 0) {
-      let toppage = this.state.openedPages[this.state.openedPages.length - 1];
-      let miniappclass = toppage.miniapp.moduleClass;
-      if (miniappclass == 'miniapp') {
-        url = '../miniapps/' + toppage.miniapp.url.replace('module:/', '') + '/index.html'
-      } else if (miniappclass == 'spacestation') {
-        url = toppage.miniapp.url
-      }
-
-      url = url + "?";
-      if (toppage.params) {
-        toppage.params.forEach((value, key, ) => {
-          url = url + key + '=' + value + '&';
-        })
-      }
-
-      url = url.substring(0, url.length - 1);
+      return this.state.openedPages[this.state.openedPages.length - 1];
     }
 
-    return url;
+    return null;
   }
 
   onLocationClicked() {

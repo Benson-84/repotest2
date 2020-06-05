@@ -9,16 +9,24 @@ import {
 
 export default class NavigatorChannel extends IpcEventHandler {
 
-    handleIpcRenderer(dsp: Dispatch, event: IpcRendererEvent, args: any[]) {
+    handleIpcRenderer(dispatch: Dispatch, event: IpcRendererEvent, args: any[]) {
+        if (!args || !args[0]) {
+            console.log("Error: invalid arguments when handling navigation bar event");
+            return;
+        }
+
         if (args[0].arg.url == 'desktop-home') {
-            console.log('UserLogin')
-            dsp(userLogin('xxx'))
+            this.handleLogin(dispatch)
         } else {
-            this.handleNavigation(dsp, args[0])
+            this.handleNavigation(dispatch, args[0])
         }
     }
 
-    handleNavigation(dsp: Dispatch, args: any) {
+    handleLogin(dispatch: Dispatch) {
+        dispatch(userLogin('xxx'))
+    }
+
+    handleNavigation(dispatch: Dispatch, args: any) {
         let method = args.method;
 
         // convert json to Map
@@ -27,15 +35,29 @@ export default class NavigatorChannel extends IpcEventHandler {
             params.set(item, args.arg.params[item]);
         }
 
+        let mp = args.arg;
+        if (!mp.name) {
+            mp.name = mp.url;
+        }
+
+        if (!mp.moduleClass) {
+            let url: string = mp.url
+            if (url.startsWith("miniapp")) {
+                mp.moduleClass = 'miniapp';
+            } else {
+                console.log("Error: unknown miniapp type with url: " + url);
+            }
+        }
+
         if (method == 'open') {
             let page: Page = {
-                miniapp: args.arg,
+                miniapp: mp,
                 params: params
             }
 
-            dsp(navigatorPush(page));
+            dispatch(navigatorPush(page));
         } else if (method == 'close') {
-            dsp(navigatorPop());
+            dispatch(navigatorPop());
         } else {
             console.log("Error: unknown navigator method=" + method)
         }

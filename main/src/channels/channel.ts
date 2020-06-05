@@ -1,4 +1,4 @@
-import NavigationChannel from './navigationchannel'
+import NavigationChannel from './navigationbar'
 import NetworkChannel from './network'
 import NavigatorChannel from './navigator'
 

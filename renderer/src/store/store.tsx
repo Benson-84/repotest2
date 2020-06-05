@@ -3,12 +3,18 @@ export interface Miniapp {
   label: string,
   icon: string,
   url: string,
-  moduleClass: string
+  moduleClass: string,
+  mode?: string
+}
+
+export interface PageState {
+  title: string
 }
 
 export interface Page {
   miniapp: Miniapp,
-  params: Map<string, any>
+  params?: Map<string, any>,
+  state?: PageState
 }
 
 export interface NavigatorState {
