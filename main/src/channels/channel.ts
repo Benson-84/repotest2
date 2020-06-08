@@ -1,6 +1,6 @@
 import NavigationChannel from './navigationchannel'
-import NetworkChannel from './network'
 import NavigatorChannel from './navigator'
+import NetworkManager from "./network/NetworkManager";
 
 class Channel {
     invoke(args:ObjAnyType) {
@@ -8,10 +8,11 @@ class Channel {
         let methodChannel:MethodChannel
         if (call.name === "NavigationChannel") {
             methodChannel = new NavigationChannel(call.id)
-        }else if (call.name == "NavigatorChannel") {
+        } else if (call.name == "NavigatorChannel") {
             methodChannel = new NavigatorChannel(call.id)
-        }else if (call.name == "FetchChannel") {
-            methodChannel = new NetworkChannel(call.id)
+        } else if (call.name == "FetchChannel") {
+            // For the network request , we will let NetworkManager to manage all incomning network requests.
+            return NetworkManager.request(call);
         } else {
             console.log("no channel");
             return;
@@ -52,14 +53,12 @@ interface ObjStringType {
     [key: string]: string
 }
 
-// {"method":"setTitle","params":{"title":"Support"},"name":"NavigationChannel","id":"377adba6-a082-4fef-999e-7d3a8eb2c46b","channelType":"jsCallNative"}
-
-
 interface MethodChannel {
     id:string
     call(method:string,params:ObjAnyType):Promise<ObjAnyType>
 }
 export {
+    ChannelCall,
     MethodChannel,
     ObjAnyType,
     ObjStringType,
