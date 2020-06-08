@@ -6,8 +6,8 @@ export var mainWindowId: number = 0
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
-    width: 1980,
-    height: 1020,
+    width: 1240,
+    height: 800,
     titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: true,
