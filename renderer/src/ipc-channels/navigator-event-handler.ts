@@ -2,7 +2,7 @@ import { IpcRendererEvent } from 'electron'
 import { Dispatch } from 'redux';
 import IpcEventHandler from './ipc-event-handler';
 
-import { navigatorPush, navigatorPop, userLogin } from '../actions/index';
+import { navigatorPush, navigatorPop } from '../actions/index';
 import {
     Page
 } from "../store/store";
@@ -14,16 +14,7 @@ export default class NavigatorChannel extends IpcEventHandler {
             console.log("Error: invalid arguments when handling navigation bar event");
             return;
         }
-
-        if (args[0].arg.url == 'desktop-home') {
-            this.handleLogin(dispatch)
-        } else {
-            this.handleNavigation(dispatch, args[0])
-        }
-    }
-
-    handleLogin(dispatch: Dispatch) {
-        dispatch(userLogin('xxx'))
+        this.handleNavigation(dispatch, args[0])
     }
 
     handleNavigation(dispatch: Dispatch, args: any) {

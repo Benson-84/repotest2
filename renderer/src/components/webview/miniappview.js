@@ -23,7 +23,6 @@ export default class MiniAppView extends React.Component {
 
   render() {
     let url = this.getUrl();
-    console.log("render miniapp with url = " + url)
 
     return (
       <div className='miniapp-container' >

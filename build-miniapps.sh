@@ -14,6 +14,12 @@ echo -e "//npm.pkg.github.com/:_authToken=c362864c2539a07463a8e1067bfc1d817162c2
 echo "Copying MiniApps into WeWork China App..."
 cp -rf ./output/*.zip ../dist/miniapps/
 
+
+pushd ./WeWork-China-MiniApps/framework/appkit/library
+npm install
+npm run build
+popd
+
 pushd ../dist/miniapps/
 
 for d in `find . -name "miniapp-*.zip" -maxdepth 1` ; do

@@ -19,10 +19,24 @@ module.exports = {
   ],
   resolve: {
     extensions: [ '.desktop.tsx', '.desktop.ts', '.desktop.js', '.desktop.jsx' , '.tsx', '.ts', '.js', 'jsx' ],
-    
+    symlinks: true,
+    alias: {
+      "@weconnect/tars-widgets": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/dist/desktop'),
+      "react": path.resolve(__dirname, '../node_modules/react'),
+      "react-dom": path.resolve(__dirname, '../node_modules/react-dom')
+    }
   },
   module: {
     rules: [
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader'
+        ],
+        exclude: /node_modules/
+      },
       {
         test: /\.tsx?$/,
         include: [
@@ -69,6 +83,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(png|jpe?g|svg)$/,
+        loader: 'file-loader',
       }
     ]
   }

@@ -1,8 +1,7 @@
 import * as React from "react";
-import classNames from 'classnames';
 
 import { Menu } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+
 import "antd/dist/antd.css";
 
 import { Dispatch } from 'redux';

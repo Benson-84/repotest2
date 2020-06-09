@@ -6,8 +6,12 @@ import { Dispatch } from 'redux';
 import AppMain from "./app-main";
 import IpcEventrListener from './ipc-channels/ipc-event-listener';
 
-import './style.css'
+import './style.css';
 import { UserState } from './store/store';
+
+import { ipcRenderer } from 'electron';
+import { userLogout, userLogin } from './actions/user';
+import LoginPage from "./components/login/login";
 
 interface AppProps {
   user: UserState,
@@ -39,19 +43,32 @@ class App extends React.Component<AppProps, State> {
 
   componentWillUnmount() {
     this.ipcEventListener.detach();
+
+    const dispatch = this.props.dispatch;
+    ipcRenderer.on('tokenExprired', (event, arg) => {
+      dispatch(userLogout())
+    })
+
+    ipcRenderer.on("navigator", (event, args) => {
+      this.handleIpcMainNavigator(args);
+    })
+  }
+
+  handleIpcMainNavigator(args: any) {
+    this.navigator.handleNavigation(args)
   }
 
   render() {
-    // if (this.state.user && this.state.user.activeUser) {
-    return (
-      <AppMain />
-    );
-    // } else {
-    //   return (
-    //     <MiniAppView url='../miniapps/miniapp-login/index.html' />
-    //   );
-    // }
+    if (this.state.user && this.state.user.activeUser) {
+      return (
+        <AppMain />
+      );
+    } else {
+      return <LoginPage />
+    }
+
   }
+
 
   componentWillReceiveProps(nextProps: AppProps) {
     this.setState({
