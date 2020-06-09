@@ -114,9 +114,13 @@ class AppMain extends React.Component<Props, State> {
   }
 
   render() {
-    let toppage = this.getTopPage();
-    let miniappStarted = toppage != null
-    let page = miniappStarted ? <MiniAppView page={toppage} /> : <div />;
+    let mppages: any[] = [];
+    if (this.state.openedPages) {
+      for (var i = 0; i < this.state.openedPages.length; i++) {
+        let p = this.state.openedPages[i];
+        mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+      }
+    }
 
     return (
       <div className="main-container">
@@ -129,24 +133,16 @@ class AppMain extends React.Component<Props, State> {
             <img src={Icons.location} />
             <div className='sidebar-location-text'>{"China Overseas International Center"}</div>
           </div>
-          <MainMenu miniapps={this.state.miniappGroups} miniappStarted={miniappStarted} dispatch={this.props.dispatch} />
+          <MainMenu miniapps={this.state.miniappGroups} miniappStarted={mppages.length > 0} dispatch={this.props.dispatch} />
         </div>
         <div className='right-miniapp-container'>
           <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.openedPages.length} />
           <div className='content-container' id='content-container'>
-            {page}
+            {mppages}
           </div>
         </div>
       </div>
     )
-  }
-
-  getTopPage(): Page {
-    if (this.state.openedPages && this.state.openedPages.length > 0) {
-      return this.state.openedPages[this.state.openedPages.length - 1];
-    }
-
-    return null;
   }
 
   onLocationClicked() {

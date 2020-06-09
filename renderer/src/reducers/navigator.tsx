@@ -13,8 +13,7 @@ import {
 } from "../store/store";
 
 const initialState: NavigatorState = {
-  pages: [],
-  presentedPages: []
+  pages: []
 }
 
 export default function navigatorReducer(state = initialState, action: NavigatorActions): NavigatorState {
@@ -42,7 +41,7 @@ export default function navigatorReducer(state = initialState, action: Navigator
     case NAVIGATOR_PRESENT: 
       return {
           ...state,
-          presentedPages: [...state.presentedPages, action.page]
+          pages: [...state.pages, action.page]
       }
     case NAVIGATOR_SET_PAGE_TITLE:
       if (state.pages && state.pages.length > 0) {

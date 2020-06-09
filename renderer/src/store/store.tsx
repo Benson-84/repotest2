@@ -19,7 +19,6 @@ export interface Page {
 
 export interface NavigatorState {
   pages: Page[]
-  presentedPages: Page[]
 }
 
 export interface UserState {
