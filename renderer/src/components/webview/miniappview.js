@@ -37,7 +37,7 @@ export default class MiniAppView extends React.Component {
           src={this.getUrl()}
           nodeintegration="true"
           webpreferences="'web-security'=false"
-          useragent="Mozilla/5.0 (Desktop; )"
+          useragent="Mozilla/5.0 (Desktop; Chrome; WeWork;)"
           preload="../../preload/preload.js" />
       </div>
     )

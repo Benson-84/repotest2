@@ -121,7 +121,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
         devTools: true,
         nodeIntegrationInSubFrames: false
       },
-      useragent: "Mozilla/5.0 (Desktop; )"
+      useragent: "Mozilla/5.0 (Desktop; Chrome; WeWork;)"
     });
     win.loadURL(url)
     win.webContents.on('will-redirect',  function(e:any,redirectUrl:string) {
