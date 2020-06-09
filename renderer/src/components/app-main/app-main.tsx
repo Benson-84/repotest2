@@ -12,17 +12,17 @@ import {
   NavigatorState,
   Miniapp,
   Page
-} from "./store/store";
+} from "../../store/store";
 
-import Icons from './components/icons/icons';
-import MiniAppView from "./components/webview/miniappview";
-import { MainMenu } from './components/navigator/main-menu';
-import NavigationBar from './components/navigationbar/navigation-bar';
-import DataProvider from './model/data-provider';
-import MiniappGroup from './components/navigator/miniapp-group';
+import Icons from '../icons/icons';
+import MiniAppView from "../webview/miniappview";
+import { MainMenu } from '../navigator/main-menu';
+import NavigationBar from '../navigationbar/navigation-bar';
+import DataProvider from '../../model/data-provider';
+import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';
 
-const modulelist: any[] = require('../modules.json');
+const modulelist: any[] = require('../../../modules.json');
 
 interface Props {
   navigatorState: NavigatorState

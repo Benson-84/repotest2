@@ -23,7 +23,8 @@ module.exports = {
     alias: {
       "@weconnect/tars-widgets": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/dist/desktop'),
       "react": path.resolve(__dirname, '../node_modules/react'),
-      "react-dom": path.resolve(__dirname, '../node_modules/react-dom')
+      "react-dom": path.resolve(__dirname, '../node_modules/react-dom'),
+      "antd": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/node_modules/antd'),
     }
   },
   module: {
@@ -83,10 +84,6 @@ module.exports = {
             },
           },
         ],
-      },
-      {
-        test: /\.(png|jpe?g|svg)$/,
-        loader: 'file-loader',
       }
     ]
   }

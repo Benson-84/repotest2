@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import AppMain from "./app-main";
+import AppMain from "./components/app-main/app-main";
 import IpcEventrListener from './ipc-channels/ipc-event-listener';
 
 import './style.css';
