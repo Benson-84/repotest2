@@ -43,12 +43,7 @@ class App extends React.Component<AppProps, State> {
   }
 
   handleIpcMainNavigator(args: any) {
-    const dispatch = this.props.dispatch;
-    if (args.arg.url == 'desktop-home') {
-      dispatch(userLogin('xxx'))
-    } else {
-      this.navigator.handleNavigation(args)
-    }
+    this.navigator.handleNavigation(args)
   }
 
   render() {

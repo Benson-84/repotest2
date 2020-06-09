@@ -1,12 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { PrimaryButton, MailInput, Icons, Typography } from "@weconnect/tars-widgets" ;
-import "./login.less";
+const remote = require('electron').remote;
 
 import { userLogin } from "../../actions/user";
 import { fetch } from "@weconnect/appkit";
 
 import ErrorSvg from "./error";
+import "./login.less";
 
 
 type LoginPageState = {
@@ -21,8 +22,8 @@ class LoginPage extends React.Component< any, LoginPageState> {
     
     this.state = {
       email: "",
-      displayErrorForEmailAddress: true,
-      displayLoginError: true
+      displayErrorForEmailAddress: false,
+      displayLoginError: false
     }
   }
 
@@ -92,7 +93,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
 
     fetch('userService/api/v2/login/tars?email=' + this.state.email, {}).then((response:any)=>{
       let url = response.data.data;
-      createLoginWindow(url)
+      this.createLoginWindow(url)
     });
 
   }
@@ -101,29 +102,41 @@ class LoginPage extends React.Component< any, LoginPageState> {
     var regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     return regexp.test(search);
   }
-}
 
+  createLoginWindow = (url:string) => {
+    const dispatch = this.props.dispatch;
 
-function createLoginWindow(url:string) {
-  const remote = require('electron').remote;
-  const BrowserWindow = remote.BrowserWindow;
-  const win = new BrowserWindow({
-    height: 800,
-    width: 600,
-    webPreferences: {
-      nodeIntegration: false,
-      allowRunningInsecureContent: true,
-      webviewTag: true,
-      defaultEncoding: "utf-8",
-      devTools: true,
-      nodeIntegrationInSubFrames: false
-    },
-    useragent: "Mozilla/5.0 (Desktop; )"
-  });
-  win.loadURL(url)
-  win.webContents.on('will-redirect',  function(e:any,url:string) {
-    console.log(url);
-  });
+    
+    const BrowserWindow = remote.BrowserWindow;
+    const email = this.state.email;
+
+    const win = new BrowserWindow({
+      height: 800,
+      width: 600,
+      webPreferences: {
+        nodeIntegration: false,
+        allowRunningInsecureContent: true,
+        webviewTag: true,
+        defaultEncoding: "utf-8",
+        devTools: true,
+        nodeIntegrationInSubFrames: false
+      },
+      useragent: "Mozilla/5.0 (Desktop; )"
+    });
+    win.loadURL(url)
+    win.webContents.on('will-redirect',  function(e:any,redirectUrl:string) {
+      
+      if(redirectUrl.indexOf("https://wework.localhost/login-success") != -1) {
+        let url = new URL(redirectUrl);
+        let params = new URLSearchParams(url.search);
+        let accessToken = params.get("accessToken");
+        let refreshToken = params.get("refreshToken");
+        
+        win.close();
+        dispatch(userLogin(email, accessToken, refreshToken));
+      }
+    });
+  }
 }
 
 function mapStateToProps(state: any) {

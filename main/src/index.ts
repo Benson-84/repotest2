@@ -41,6 +41,10 @@ function createWindow () {
     })
   })
 
+  ipcMain.on('user-session-login', (event:Electron.IpcMainEvent, argument:any) => {
+    console.log(argument)
+  });
+
   win.loadFile('../renderer/index.html');
   mainWindowId = win.id;
 }

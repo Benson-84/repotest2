@@ -4,7 +4,6 @@ import {
   USER_LOGOUT,
   USER_LOGIN
 } from "../constants/action-types";
-import { ThunkAction } from "redux-thunk";
 
 export function userLogout(): UserActions {
   return {
@@ -12,11 +11,11 @@ export function userLogout(): UserActions {
   }
 }
 
-export function userLogin(email:string): UserActions {
+export function userLogin(email:string, accessToken: string, refreshToken: string): UserActions {
   return {
     type:USER_LOGIN,
     email:email,
-    isRequesting: true
+    accessToken: accessToken,
+    refreshToken: refreshToken
   }
-
 }

@@ -116,7 +116,6 @@ class ChannelRequest implements netRequest {
         if (accessToken != undefined) {
             this.header = {Authorization:`X-CAT ${accessToken}`}
         }
-        console.log(accessToken);
         for (var key in params.header){
             this.header[key] = params.header[key]
         }
