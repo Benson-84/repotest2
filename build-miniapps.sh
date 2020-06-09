@@ -7,20 +7,6 @@ mkdir -p ./dist/miniapps/
 
 pushd WeWork-China-MiniApps
 
-# sync appkit library
-pushd ./framework/appkit/library
-npm install
-npm run build
-popd
-
-# build tars-widget library
-pushd ./framework/tars-widgets/library
-npm install
-npm run build
-popd
-
-echo -e "//npm.pkg.github.com/:_authToken=c362864c2539a07463a8e1067bfc1d817162c202 \nregistry=https://npm.pkg.github.com/WeConnect" > ./.npmrc
-
 # build tars library
 ./build.sh build-tars
 
