@@ -7,8 +7,7 @@ mkdir -p ./dist/miniapps/
 
 pushd WeWork-China-MiniApps
 
-echo -e "//npm.pkg.github.com/:_authToken=c362864c2539a07463a8e1067bfc1d817162c202 \nregistry=https://npm.pkg.github.com/WeConnect" > ./.npmrc
-
+# build tars library
 ./build.sh build-tars
 
 echo "Copying MiniApps into WeWork China App..."
