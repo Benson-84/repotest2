@@ -1,16 +1,51 @@
 {
-  "name": "wework-china-trim",
+  "name": "wework-china-tars",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/app.bundle.js",
+  "productName": "WeWork TARS",
+  "description": "WeWork TARS",
+  "main": "dist/main/app.bundle.js",
   "scripts": {
+    "package": "electron-builder build",
     "build-main": "webpack --config ./main/webpack.config.js",
     "build-renderer": "webpack --config ./renderer/webpack.config.js",
     "desktop": "electron ./dist/main/app.bundle.js",
-    "start": "npm run build-main && npm run build-renderer && npm run desktop"
+    "start": "export ENV=development && npm run build-main && npm run build-renderer && npm run desktop"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "WeWork",
+  "license": "WeWork",
+  "build": {
+    "productName": "WeWork TARS",
+    "appId": "com.wework.tars",
+    "copyright": "WeWork LLC",
+    "directories": {
+      "output": "builds"
+    },
+    "asar": "true",
+    "files": [
+      "./dist/**/*",
+      "!node_modules/**/*",
+      "!**/*.d.ts"
+    ],
+    "icon": "resources/Tars.icns"
+  },
+  "pkg": {
+    "installLocation": "/Applications"
+  },
+  "dmg": {
+    "contents": [
+      {
+        "x": 410,
+        "y": 150,
+        "type": "link",
+        "path": "/Applications"
+      },
+      {
+        "x": 130,
+        "y": 150,
+        "type": "file"
+      }
+    ]
+  },
   "dependencies": {
     "@weconnect/appkit": "^0.2.0",
     "@weconnect/tars-widgets": "./WeWork-China-MiniApps/framework/tars-widgets/library",
@@ -34,7 +69,8 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
-    "electron": "^8.2.1",
+    "electron": "8.3.0",
+    "electron-builder": "^22.6.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "less-loader": "^6.1.0",

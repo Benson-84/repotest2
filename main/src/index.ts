@@ -1,6 +1,6 @@
 import { app, BrowserWindow,ipcMain } from "electron";
 import { Channel } from './channels/channel'
-
+const path = require('path');
 export var mainWindowId: number = 0
 
 function createWindow () {
@@ -46,6 +46,11 @@ function createWindow () {
   });
 
   win.loadFile('../renderer/index.html');
+  if(process.env.ENV && process.env.ENV == "development") {
+    win.loadFile('../renderer/index.html');
+  } else {
+    win.loadFile('./dist/renderer/index.html');
+  }
   mainWindowId = win.id;
 }
  
