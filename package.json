@@ -47,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "@weconnect/appkit": "^0.2.0",
+    "@weconnect/appkit": "./WeWork-China-MiniApps/framework/appkit/library",
     "@weconnect/tars-widgets": "./WeWork-China-MiniApps/framework/tars-widgets/library",
     "@weconnect/tars-foundation": "./WeWork-China-MiniApps/framework/foundation/library",
     "electron-store": "^5.1.1",
@@ -82,7 +82,6 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.10.3",
-    "zip-webpack-plugin": "^3.0.0",
-    "antd": "4.1.3"
+    "zip-webpack-plugin": "^3.0.0"
   }
 }

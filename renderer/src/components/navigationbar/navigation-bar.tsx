@@ -7,7 +7,6 @@ import {
 import './style.css';
 import { navigatorPop } from "../../actions";
 import Icons from '../icons/icons';
-import Icon from "@ant-design/icons";
 
 interface Props {
   pageCount: number,
