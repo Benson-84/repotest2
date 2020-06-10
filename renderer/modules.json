@@ -10,7 +10,7 @@
                 "label": "#Company List",
                 "icon": "",
                 "type": "feature",
-                "url": "module:/miniapp-support",
+                "url": "module:/miniapp-companylist",
                 "moduleClass": "miniapp",
                 "privilegeId": "member.company_list"
             }
