@@ -23,8 +23,7 @@ module.exports = {
     alias: {
       "@weconnect/tars-widgets": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/dist/desktop'),
       "react": path.resolve(__dirname, '../node_modules/react'),
-      "react-dom": path.resolve(__dirname, '../node_modules/react-dom'),
-      "antd": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/node_modules/antd'),
+      "react-dom": path.resolve(__dirname, '../node_modules/react-dom')
     }
   },
   module: {

@@ -1,17 +1,10 @@
 import * as React from "react";
-
-import { Menu } from 'antd';
-
-import "antd/dist/antd.css";
-
+import { Menu } from '@weconnect/tars-widgets';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Miniapp, Page } from "../../store/store";
 import MiniappGroup from './miniapp-group';
 import { navigatorReset } from "../../actions";
-
-import { P2 } from '@weconnect/appkit';
-
 import Icons from '../icons/icons';
 
 // style.css does work here with antd menu, the file style.css can also be deleted
