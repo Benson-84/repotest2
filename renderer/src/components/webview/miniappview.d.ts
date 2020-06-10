@@ -1,5 +1,5 @@
 
-export default class MiniAppView extends Component<any, any> {
+export default class MiniAppView extends React.Component<any, any> {
     static propTypes: {
         page: Page
     };
@@ -8,6 +8,6 @@ export default class MiniAppView extends Component<any, any> {
     render(): JSX.Element;
 }
 
-import { Component } from "react";
+import * as React from "react";
 import { Page } from "../../store/store";
 

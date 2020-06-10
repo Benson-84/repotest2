@@ -2,7 +2,8 @@
 import {
   UserActions,
   USER_LOGOUT,
-  USER_LOGIN
+  USER_LOGIN,
+  USER_PRIVILEGE_LIST
 } from "../constants/action-types";
 
 export function userLogout(): UserActions {
@@ -17,5 +18,12 @@ export function userLogin(email:string, accessToken: string, refreshToken: strin
     email:email,
     accessToken: accessToken,
     refreshToken: refreshToken
+  }
+}
+
+export function updatePrivilegeList(privilegeList: any): UserActions {
+  return {
+    type: USER_PRIVILEGE_LIST,
+    privilegeList: privilegeList
   }
 }

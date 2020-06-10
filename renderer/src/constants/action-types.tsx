@@ -45,6 +45,7 @@ export type NavigatorActions = NavigatorActionPop
 
 export const USER_LOGIN = "user.login"
 export const USER_LOGOUT = "user.logout"
+export const USER_PRIVILEGE_LIST = "user.privilege_list"
 
 export interface UserActionLogin {
   type: typeof USER_LOGIN
@@ -57,4 +58,9 @@ export interface UserActionLogout {
   type: typeof USER_LOGOUT
 }
 
-export type UserActions = UserActionLogin | UserActionLogout
+export interface UserActionPrivilegeList {
+  type: typeof USER_PRIVILEGE_LIST,
+  privilegeList: any,
+}
+
+export type UserActions = UserActionLogin | UserActionLogout | UserActionPrivilegeList

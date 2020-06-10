@@ -5,20 +5,17 @@ import {
 } from "react-redux";
 
 import {
-  EmptyPage
-} from "@weconnect/appkit";
-
-import {
   NavigatorState,
   Miniapp,
   Page
 } from "../../store/store";
 
+import { updatePrivilegeList } from '../../actions/user';
+
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
 import { MainMenu } from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
-import DataProvider from '../../model/data-provider';
 import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';
 
@@ -35,8 +32,6 @@ interface State {
 }
 
 class AppMain extends React.Component<Props, State> {
-  dataprovider: DataProvider;
-
   constructor(props: Props) {
     super(props)
 
@@ -44,8 +39,6 @@ class AppMain extends React.Component<Props, State> {
       miniappGroups: null,
       openedPages: props.navigatorState.pages,
     }
-
-    this.dataprovider = new DataProvider();
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -55,7 +48,7 @@ class AppMain extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.dataprovider.fetchPrivilegeList().then((response: any[]) => {
+    this.fetchPrivilegeList().then((response: any[]) => {
       let privilegeList: any[] = response;
       let mpgroups: (Miniapp | MiniappGroup)[] = [];
       modulelist.forEach((m) => {
@@ -147,6 +140,29 @@ class AppMain extends React.Component<Props, State> {
 
   onLocationClicked() {
     console.log("location clicked")
+  }
+
+  fetchPrivilegeList() {
+    return new Promise(async (resolve, reject) => {
+      await new Promise(r => setTimeout(r, 2000));
+      var pl = {
+        "member.company_list": true,
+        "spacestation.global": true,
+        "spacestation.china": true
+      }
+
+      updatePrivilegeList(pl);
+      resolve(pl)
+    });
+
+    // var myHeaders = new Headers();
+    // myHeaders.append('Content-Type', 'application/json');
+
+    // var myInit = { method: 'GET', headers: myHeaders };
+    // let request = new Request('userService/api/v1/users/me/privileges', myInit)
+    // return fetch(request).then((response) => {
+    //     return response.data.data;
+    // });
   }
 }
 

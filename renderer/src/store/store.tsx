@@ -23,4 +23,5 @@ export interface NavigatorState {
 
 export interface UserState {
   activeUser: string
+  privilegeList: any
 }
