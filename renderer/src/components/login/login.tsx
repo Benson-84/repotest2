@@ -106,7 +106,6 @@ class LoginPage extends React.Component< any, LoginPageState> {
   createLoginWindow = (url:string) => {
     const dispatch = this.props.dispatch;
 
-    
     const BrowserWindow = remote.BrowserWindow;
     const email = this.state.email;
 

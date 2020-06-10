@@ -40,8 +40,8 @@ export type NavigatorActions = NavigatorActionPop
   | NavigatorActionPresent
   | NavigatorActionReset
   | NavigatorActionSetPageTitle
-
-/// User
+ 
+/// User action types
 
 export const USER_LOGIN = "user.login"
 export const USER_LOGOUT = "user.logout"

@@ -42,7 +42,8 @@ module.exports = {
         include: [
           /renderer\/src/,
         ],
-        loader: 'ts-loader'
+        loader: 'ts-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -62,6 +63,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
            presets: [
             "@babel/preset-env",
