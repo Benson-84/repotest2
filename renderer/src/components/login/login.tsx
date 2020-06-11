@@ -8,6 +8,7 @@ import { fetch } from "@weconnect/appkit";
 
 import ErrorSvg from "./error";
 import "./login.less";
+import background_image from './login-background.png';
 
 
 type LoginPageState = {
@@ -35,7 +36,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
 
     const errorEmailMessage = this.state.displayErrorForEmailAddress ? (<Typography.Text type="danger">*请输入正确的公司邮箱地址</Typography.Text>):  (<div />);
     return (
-      <div className="login-page">
+      <div className="login-page" style={{backgroundImage: `url(${background_image})`}}>
         <div className="login-form">
           <div className="login-form-logo">
             {Icons.TARS()}
