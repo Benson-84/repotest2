@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import AppMain from "./components/app-main/app-main";
-import IpcEventrListener from './ipc-channels/ipc-event-listener';
+import IpcEventrListener from './channels/ipc-event-listener';
 
 import './style.css';
 import { UserState } from './store/store';

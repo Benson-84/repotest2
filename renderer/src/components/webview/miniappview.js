@@ -23,13 +23,18 @@ export default class MiniAppView extends React.Component {
 
   render() {
     let url = this.getUrl();
+    var navigationbar = this.state.page.miniapp.moduleClass == "spacestation" ?
+      <div></div>
+      :
+      <div className='title-bar'>
+        <H3.Semibold>{this.getTitle()}</H3.Semibold>
+      </div>
 
     return (
       <div className='miniapp-container' >
-        <div className='title-bar'>
-          <H3.Semibold>{this.getTitle()}</H3.Semibold>
-          {this.renderDebug()}
-        </div>
+        {navigationbar}
+
+        {this.renderDebug()}
 
         <webview
           ref="webview"
@@ -39,13 +44,14 @@ export default class MiniAppView extends React.Component {
           webpreferences="'web-security'=false"
           useragent="Mozilla/5.0 (Desktop; Chrome; WeWork;)"
           preload="../../preload/preload.js" />
+
       </div>
     )
   }
 
   renderDebug = () => {
     return (
-      <button onClick={this.handleDebugClick} className='debug-button'>Debug</button>
+      <button onClick={this.handleDebugClick} style={{ float: 'right', clear: 'both', position: 'absolute', top: '16px', right: '16px', padding: '4px' }}>Debug</button>
     )
   }
 

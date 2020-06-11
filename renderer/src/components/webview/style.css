@@ -19,12 +19,6 @@
     border-bottom: 0.5px solid var(--color-gray-line, #e6e6e6);
 }
 
-.debug-button {
-    padding: 0;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-
 /* todo: by Benson, this doesn't work with a webview */
 .miniapp-webview {
     width: 100%;
