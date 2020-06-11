@@ -6,10 +6,9 @@ const remote = require('electron').remote;
 import { userLogin } from "../../actions/user";
 import { fetch } from "@weconnect/appkit";
 
-import ErrorSvg from "./error";
 import "./login.less";
 import background_image from './login-background.png';
-
+import UnknownErrorPng from "./error-unknown.png";
 
 type LoginPageState = {
   email: string
@@ -24,7 +23,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
     this.state = {
       email: "",
       displayErrorForEmailAddress: false,
-      displayLoginError: false
+      displayLoginError: true
     }
   }
 
@@ -62,7 +61,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
   loginErrorView() {
     return (
       <div className="login-form-error">
-        <Icons.Icon component= {ErrorSvg} />
+        <img src={UnknownErrorPng} />
         <div className="login-form-error-text-area">
           <Typography.Title level={4} type="secondary" >很抱歉，不知道哪里出错了</Typography.Title>
           <div className="login-form-error-refresh" onClick={this.onRefresh}>
