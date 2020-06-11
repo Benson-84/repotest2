@@ -40,6 +40,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
         <div className="login-form">
           <div className="login-form-logo">
             {Icons.TARS()}
+            <Typography.Text type="secondary">All Your Work in One Place</Typography.Text>
           </div>
           <div  className="login-form-email-input">
             <MailInput placeholder={"请输入公司邮箱"} onChange={this.onChange} />
@@ -49,6 +50,9 @@ class LoginPage extends React.Component< any, LoginPageState> {
           </div>
           <div className="login-form-ok" onClick={this.onLoginPressed}>
             <PrimaryButton title={"OK"} />
+          </div>
+          <div className="login-form-powered-by">
+            <Typography.Text type="secondary">Powered by WeWork China Tech</Typography.Text>
           </div>
         </div>
       </div>
