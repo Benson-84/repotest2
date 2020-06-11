@@ -3,16 +3,14 @@ import { Dispatch } from 'redux';
 import {
   connect
 } from "react-redux";
-
+import { Typography } from "@weconnect/tars-widgets";
 import {
   NavigatorState,
   Miniapp,
   Page,
   PageLoadingStatus,
 } from "../../store/store";
-
 import { updatePrivilegeList } from '../../actions/user';
-
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
 import { MainMenu } from '../navigator/main-menu';
@@ -130,7 +128,7 @@ class AppMain extends React.Component<Props, State> {
           </div>
           <div className='sidebar-location-container' onClick={this.onLocationClicked.bind(this)}>
             <img src={Icons.location} />
-            <div className='sidebar-location-text'>{"China Overseas International Center"}</div>
+            <Typography.Text strong={true} type='secondary'><div className='sidebar-location-text'>{"#China Overseas International Center"}</div></Typography.Text>
           </div>
           <MainMenu miniapps={this.state.miniappGroups} miniappStarted={mppages.length > 0} dispatch={this.props.dispatch} />
         </div>

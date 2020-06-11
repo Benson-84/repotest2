@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Menu } from '@weconnect/tars-widgets';
+import { Menu, Typography } from '@weconnect/tars-widgets';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Miniapp, Page } from "../../store/store";
@@ -69,7 +69,7 @@ export class MainMenu extends React.Component<Props, State> {
 
     return (
       <Menu.SubMenu key={group.name}
-        style={{ width: '100%', background: '#001a99', color: 'white', paddingRight:'5px', font: 'var(--font-p2-semibold)' }}
+        style={{ width: '100%', background: '#001a99', color: 'white', paddingRight: '5px' }}
         title={
           <span>
             {group.icon && group.icon.length > 0 ?
@@ -77,7 +77,7 @@ export class MainMenu extends React.Component<Props, State> {
               :
               <div></div>
             }
-            <span>{group.label}</span>
+            <span><Typography.Text strong={true} style={{ color: 'white' }}>{group.label}</Typography.Text></span>
           </span>
         }
       >
@@ -110,7 +110,7 @@ export class MainMenu extends React.Component<Props, State> {
             :
             <div></div>
           }
-          <span style={{ font: 'var(--font-p2-semibold)' }}>{mp.label}</span>
+          <span ><Typography.Text strong={true} style={{ color: 'white' }}>{mp.label}</Typography.Text></span>
         </span>
       </Menu.Item>
     );

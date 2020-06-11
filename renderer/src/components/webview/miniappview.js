@@ -1,10 +1,7 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import {
-  Page
-} from "../../store/store";
+import { Typography } from '@weconnect/tars-widgets';
 import './style.css';
-import { H3 } from "@weconnect/appkit/dist/desktop";
 
 
 export default class MiniAppView extends React.Component {
@@ -27,7 +24,7 @@ export default class MiniAppView extends React.Component {
       <div></div>
       :
       <div className='title-bar'>
-        <H3.Semibold>{this.getTitle()}</H3.Semibold>
+        <Typography.Text strong={true}>{this.getTitle()}</Typography.Text>
       </div>
 
     return (

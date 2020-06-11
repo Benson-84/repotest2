@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Dispatch } from 'redux';
-import { P2 } from '@weconnect/appkit';
 import './style.css';
 import { navigatorPop } from "../../actions";
 import { userLogout } from "../../actions/user";
@@ -120,7 +119,7 @@ export default class NavigationBar extends React.Component<Props, State>{
       <Dropdown overlay={this.popupMenu()} placement="bottomRight">
       <div className='navigation-bar-avatar '>
         <img src={NavIcons.tarsLogo} style={{ backgroundColor: '#001a99' }} />
-        <P2.Regular>Alex Edwards**</P2.Regular>
+        <Typography.Text>Alex Edwards**</Typography.Text>
       </div>
       </Dropdown>
     )
