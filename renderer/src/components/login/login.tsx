@@ -23,7 +23,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
     this.state = {
       email: "",
       displayErrorForEmailAddress: false,
-      displayLoginError: true
+      displayLoginError: false
     }
   }
 
