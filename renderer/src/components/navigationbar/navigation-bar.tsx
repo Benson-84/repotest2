@@ -1,33 +1,72 @@
 import * as React from "react";
 import { Dispatch } from 'redux';
-import {P2} from '@weconnect/appkit';
-import {
-  connect
-} from "react-redux";
+import { P2 } from '@weconnect/appkit';
 import './style.css';
 import { navigatorPop } from "../../actions";
 import { userLogout } from "../../actions/user";
-
 import NavIcons from '../icons/icons';
 import { Menu, Dropdown, Typography, Modal, Icons } from "@weconnect/tars-widgets";
+import { PageLoadingStatus } from "../../store/store";
 
 interface Props {
   pageCount: number,
+  loadingStatus: PageLoadingStatus,
   dispatch: Dispatch
 }
 
 interface State {
+  loadingAnimWidth: number,
+  loadingAnimTickCount: number,
   displayLogoutModal: boolean
 }
 
 export default class NavigationBar extends React.Component<Props, State>{
+  loadingAnimTimer: number = 0;
 
   constructor(props: Props) {
     super(props)
-
     this.state = {
+      loadingAnimWidth: 0,
+      loadingAnimTickCount: 0,
       displayLogoutModal: false
     }
+
+    if (props.loadingStatus == PageLoadingStatus.started) {
+      this.startLoadingAnim()
+    }
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.loadingStatus == PageLoadingStatus.started) {
+      this.startLoadingAnim()
+    } else if (nextProps.loadingStatus == PageLoadingStatus.idle || PageLoadingStatus.stopped) {
+      this.stopLoadingAnim()
+    }
+  }
+
+  startLoadingAnim = () => {
+    if (this.loadingAnimTimer == 0) {
+      this.loadingAnimTimer = window.setInterval(() => {
+        let w = 100 * this.state.loadingAnimTickCount / (this.state.loadingAnimTickCount + 99)
+        //console.log("animation width: " +w)
+        this.setState({
+          loadingAnimWidth: w,
+          loadingAnimTickCount: this.state.loadingAnimTickCount + 1
+        });
+      }, 10);
+    }
+  }
+
+  stopLoadingAnim = () => {
+    if (this.loadingAnimTimer) {
+      window.clearInterval(this.loadingAnimTimer)
+    }
+    this.loadingAnimTimer = 0;
+
+    this.setState({
+      loadingAnimWidth: 0,
+      loadingAnimTickCount: 0
+    });
   }
 
   render() {
@@ -40,7 +79,10 @@ export default class NavigationBar extends React.Component<Props, State>{
     var notificationbar = <img src={NavIcons.notification} />;
     var userinfobar = this.renderActiveUserAvatar()
 
+    var loadinganim = <div className='navigation-bar-loading' style={{ width: this.state.loadingAnimWidth + '%' }} />
+
     return (
+      <div>
         <div className='navigation-bar '>
           <div className='navigation-bar-left-part'>
             {backButton}
@@ -51,9 +93,12 @@ export default class NavigationBar extends React.Component<Props, State>{
             {notificationbar}
             <div style={{ width: '28px' }} />
             {userinfobar}
+
           </div>
           {this.renderLogoutConfirmDialog()}
         </div>
+        {loadinganim}
+      </div>
     );
   }
 

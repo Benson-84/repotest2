@@ -2,7 +2,7 @@ import { IpcRendererEvent } from 'electron'
 import { Dispatch } from 'redux';
 import IpcEventHandler from './ipc-event-handler';
 
-import { setCurrentPageTitle } from '../actions/index';
+import { setCurrentPageTitle, startLoadingAnim, stopLoadingAnim } from '../actions/index';
 
 export default class NavigationBarEventHandler extends IpcEventHandler {
 
@@ -17,12 +17,28 @@ export default class NavigationBarEventHandler extends IpcEventHandler {
                 this.setTitle(dispatch, args[0].arg.title)
                 break;
             }
+            case 'startLoadingAnimation': {
+                this.startLoadingAnim(dispatch);
+                break;
+            }
+            case 'stopLoadingAnimation': {
+                this.stopLoadingAnim(dispatch);
+                break;
+            }
             default:
                 console.log("handling navigation bar event, unknown method: " + args[0].method)
         }
     }
 
-    setTitle(dispatch: Dispatch, title: string) {
+    private setTitle(dispatch: Dispatch, title: string) {
         dispatch(setCurrentPageTitle(title));
+    }
+
+    private startLoadingAnim(dispatch: Dispatch) {
+        dispatch(startLoadingAnim());
+    }
+
+    private stopLoadingAnim(dispatch: Dispatch) {
+        dispatch(stopLoadingAnim());
     }
 }

@@ -43,3 +43,11 @@
     margin-right: 8px;
     object-fit: contain;
 }
+
+.navigation-bar-loading {
+    display: flex;
+    flex-direction: row;
+    height: 4px;
+    width: 0%;
+    background-image: linear-gradient(to right, #00ff7f, #b366ff, #0080ff, #00ffff);
+}

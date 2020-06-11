@@ -4,6 +4,8 @@ import {
   NAVIGATOR_POP,
   NAVIGATOR_RESET,
   NAVIGATOR_SET_PAGE_TITLE,
+  NAVIGATOR_LOADING_ANIMATION_START,
+  NAVIGATOR_LOADING_ANIMATION_STOP,
   NavigatorActions,
 } from "../constants/action-types";
 
@@ -43,5 +45,17 @@ export function setCurrentPageTitle(title: string): NavigatorActions {
   return {
     type: NAVIGATOR_SET_PAGE_TITLE,
     title: title
+  }
+}
+
+export function startLoadingAnim(): NavigatorActions {
+  return {
+    type: NAVIGATOR_LOADING_ANIMATION_START
+  }
+}
+
+export function stopLoadingAnim(): NavigatorActions {
+  return {
+    type: NAVIGATOR_LOADING_ANIMATION_STOP
   }
 }

@@ -7,8 +7,15 @@ export interface Miniapp {
   mode?: string
 }
 
+export enum PageLoadingStatus {
+  idle,
+  started,
+  stopped
+}
+
 export interface PageState {
-  title: string
+  title: string,
+  pageLoadingStatus: PageLoadingStatus,
 }
 
 export interface Page {

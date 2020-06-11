@@ -7,7 +7,8 @@ import {
 import {
   NavigatorState,
   Miniapp,
-  Page
+  Page,
+  PageLoadingStatus,
 } from "../../store/store";
 
 import { updatePrivilegeList } from '../../actions/user';
@@ -108,10 +109,15 @@ class AppMain extends React.Component<Props, State> {
 
   render() {
     let mppages: any[] = [];
+    var pageLoadingStatus = PageLoadingStatus.idle;
     if (this.state.openedPages) {
       for (var i = 0; i < this.state.openedPages.length; i++) {
         let p = this.state.openedPages[i];
         mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+
+        if (i == this.state.openedPages.length-1 && p.state) {
+          pageLoadingStatus = p.state.pageLoadingStatus;
+        }
       }
     }
 
@@ -129,7 +135,9 @@ class AppMain extends React.Component<Props, State> {
           <MainMenu miniapps={this.state.miniappGroups} miniappStarted={mppages.length > 0} dispatch={this.props.dispatch} />
         </div>
         <div className='right-miniapp-container'>
-          <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.openedPages.length} />
+          <div className='navigation-bar-container'>
+            <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.openedPages.length} loadingStatus={pageLoadingStatus} />
+          </div>
           <div className='content-container' id='content-container'>
             {mppages}
           </div>

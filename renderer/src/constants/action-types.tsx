@@ -9,6 +9,8 @@ export const NAVIGATOR_POP = "navigator.pop"
 export const NAVIGATOR_RESET = "navigator.reset"
 export const NAVIGATOR_PRESENT = "navigator.present"
 export const NAVIGATOR_SET_PAGE_TITLE = "navigator.setPageTitle"
+export const NAVIGATOR_LOADING_ANIMATION_START = "navigator.startLoadingAnimation"
+export const NAVIGATOR_LOADING_ANIMATION_STOP = "navigator.stopLoadingAnimation"
 
 
 export interface NavigatorActionPush {
@@ -35,14 +37,23 @@ export interface NavigatorActionSetPageTitle {
   title: string
 }
 
+export interface NavigatorActionStartLoadingAnim {
+  type: typeof NAVIGATOR_LOADING_ANIMATION_START
+}
+export interface NavigatorActionStopLoadingAnim {
+  type: typeof NAVIGATOR_LOADING_ANIMATION_STOP
+}
+
 export type NavigatorActions = NavigatorActionPop
   | NavigatorActionPush
   | NavigatorActionPresent
   | NavigatorActionReset
   | NavigatorActionSetPageTitle
- 
-/// User action types
+  | NavigatorActionStartLoadingAnim
+  | NavigatorActionStopLoadingAnim
 
+
+/// User action types
 export const USER_LOGIN = "user.login"
 export const USER_LOGOUT = "user.logout"
 export const USER_PRIVILEGE_LIST = "user.privilege_list"

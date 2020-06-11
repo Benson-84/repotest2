@@ -4,12 +4,15 @@ import {
   NAVIGATOR_PUSH,
   NAVIGATOR_RESET,
   NAVIGATOR_SET_PAGE_TITLE,
+  NAVIGATOR_LOADING_ANIMATION_START,
+  NAVIGATOR_LOADING_ANIMATION_STOP,
   NavigatorActions
 
 } from "../constants/action-types";
 
 import {
-  NavigatorState
+  NavigatorState,
+  PageLoadingStatus
 } from "../store/store";
 
 const initialState: NavigatorState = {
@@ -52,6 +55,27 @@ export default function navigatorReducer(state = initialState, action: Navigator
       }
 
       return { ...state }
+
+  case NAVIGATOR_LOADING_ANIMATION_START:
+    if (state.pages && state.pages.length > 0) {
+      state.pages[state.pages.length - 1].state = {
+        ...state.pages[state.pages.length - 1].state,
+        pageLoadingStatus: PageLoadingStatus.started
+      };
+    }
+
+    return { ...state }
+
+  case NAVIGATOR_LOADING_ANIMATION_STOP:
+    if (state.pages && state.pages.length > 0) {
+      state.pages[state.pages.length - 1].state = {
+        ...state.pages[state.pages.length - 1].state,
+        pageLoadingStatus: PageLoadingStatus.stopped
+      };
+    }
+
+    return { ...state }
+
     default:
       return state
   }
