@@ -33,5 +33,14 @@
         "url": "https://spacestation-staging.wework.cn",
         "moduleClass": "spacestation",
         "privilegeId": "spacestation.china"
+    },
+    {
+        "name": "权限管理",
+        "label": "#权限管理",
+        "icon": "",
+        "type": "feature",
+        "url": "module:/miniapp-accesscontrol",
+        "moduleClass": "miniapp",
+        "privilegeId": "spacestation.china"
     }
 ]
