@@ -77,7 +77,7 @@ export class MainMenu extends React.Component<Props, State> {
               :
               <div></div>
             }
-            <span><Typography.Text strong={true} style={{ color: 'white' }}>{group.label}</Typography.Text></span>
+            <span><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{group.label}</Typography.Text></span>
           </span>
         }
       >
@@ -110,7 +110,7 @@ export class MainMenu extends React.Component<Props, State> {
             :
             <div></div>
           }
-          <span ><Typography.Text strong={true} style={{ color: 'white' }}>{mp.label}</Typography.Text></span>
+          <span ><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{mp.label}</Typography.Text></span>
         </span>
       </Menu.Item>
     );

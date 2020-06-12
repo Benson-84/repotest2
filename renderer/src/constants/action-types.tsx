@@ -1,5 +1,6 @@
 import {
-  Page
+  Page,
+  ManagingLocation
 } from "../store/store";
 
 
@@ -56,7 +57,9 @@ export type NavigatorActions = NavigatorActionPop
 /// User action types
 export const USER_LOGIN = "user.login"
 export const USER_LOGOUT = "user.logout"
-export const USER_PRIVILEGE_LIST = "user.privilege_list"
+export const USER_UPDATE_PRIVILEGE_LIST = "user.update_privilege_list"
+export const USER_UPDATE_MANAGING_LOCATIONS = "user.update_managing_locations"
+export const USER_UPDATE_DEFAULT_MANAGING_LOCATION = "user.update_default_managing_location"
 
 export interface UserActionLogin {
   type: typeof USER_LOGIN
@@ -69,9 +72,19 @@ export interface UserActionLogout {
   type: typeof USER_LOGOUT
 }
 
-export interface UserActionPrivilegeList {
-  type: typeof USER_PRIVILEGE_LIST,
+export interface UserActionUpdatePrivilegeList {
+  type: typeof USER_UPDATE_PRIVILEGE_LIST,
   privilegeList: any,
 }
 
-export type UserActions = UserActionLogin | UserActionLogout | UserActionPrivilegeList
+export interface UserActionUpdateManagingLocations {
+  type: typeof USER_UPDATE_MANAGING_LOCATIONS,
+  managingLocations: ManagingLocation[],
+}
+
+export interface UserActionUpdateDefaultManagingLocation {
+  type: typeof USER_UPDATE_DEFAULT_MANAGING_LOCATION,
+  defaultLocation: ManagingLocation,
+}
+
+export type UserActions = UserActionLogin | UserActionLogout | UserActionUpdatePrivilegeList | UserActionUpdateManagingLocations | UserActionUpdateDefaultManagingLocation

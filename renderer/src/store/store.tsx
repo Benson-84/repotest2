@@ -28,7 +28,15 @@ export interface NavigatorState {
   pages: Page[]
 }
 
+export interface ManagingLocation {
+  id: string,
+  name: string,
+  address: string,
+}
+
 export interface UserState {
   activeUser: string
   privilegeList: any
+  managingLocations: ManagingLocation[],
+  defaultManagingLocation: ManagingLocation,
 }
