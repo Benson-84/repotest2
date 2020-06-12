@@ -12,7 +12,7 @@ import Icons from '../icons/icons';
 
 interface Props {
   dispatch: Dispatch,
-  miniappStarted: boolean
+  currentMiniappName: string
   miniapps: (Miniapp | MiniappGroup)[],
 }
 
@@ -24,7 +24,13 @@ export class MainMenu extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
-      menuSelected: null
+      menuSelected: this.props.currentMiniappName
+    }
+  }
+
+  componentWillReceiveProps(nextProps:Props) {
+    if (this.state.menuSelected != nextProps.currentMiniappName) {
+      this.setState({ menuSelected: nextProps.currentMiniappName });
     }
   }
 
@@ -60,7 +66,7 @@ export class MainMenu extends React.Component<Props, State> {
       return <div></div>;
     }
     group.miniapps.forEach((miniapp: Miniapp) => {
-      let selected = this.state.menuSelected == miniapp.label;
+      let selected = this.state.menuSelected == miniapp.name;
       mitems.push(
         this.renderMiniappItem(miniapp, true)
       )

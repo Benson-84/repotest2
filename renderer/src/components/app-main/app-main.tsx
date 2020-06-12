@@ -129,6 +129,7 @@ class AppMain extends React.Component<Props, State> {
 
   render() {
     let mppages: any[] = [];
+    var currentMiniappName = null;
     var pageLoadingStatus = PageLoadingStatus.idle;
     if (this.state.openedPages && this.state.openedPages.length > 0) {
       for (var i = 0; i < this.state.openedPages.length; i++) {
@@ -137,6 +138,10 @@ class AppMain extends React.Component<Props, State> {
 
         if (i == this.state.openedPages.length - 1 && p.state) {
           pageLoadingStatus = p.state.pageLoadingStatus;
+        }
+
+        if (i ==0) {
+          currentMiniappName = p.miniapp.name;
         }
       }
     } else {
@@ -158,7 +163,7 @@ class AppMain extends React.Component<Props, State> {
               </Typography.Text>
             </div>
           </div>
-          <MainMenu miniapps={this.state.miniappGroups} miniappStarted={mppages.length > 0} dispatch={this.props.dispatch} />
+          <MainMenu miniapps={this.state.miniappGroups} currentMiniappName={currentMiniappName} dispatch={this.props.dispatch} />
         </div>
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
