@@ -12,13 +12,13 @@ import {
   ManagingLocation
 } from "../../store/store";
 import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLocation } from '../../actions/user';
+import { navigatorReset } from '../../actions/index';
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
 import { MainMenu } from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';
-import { stat } from "fs";
 
 const modulelist: any[] = require('../../../modules.json');
 
@@ -36,7 +36,7 @@ interface State {
 }
 
 class AppMain extends React.Component<Props, State> {
-  selectedLocationName:string;
+  selectedLocationName: string;
 
   constructor(props: Props) {
     super(props)
@@ -130,7 +130,7 @@ class AppMain extends React.Component<Props, State> {
   render() {
     let mppages: any[] = [];
     var pageLoadingStatus = PageLoadingStatus.idle;
-    if (this.state.openedPages) {
+    if (this.state.openedPages && this.state.openedPages.length > 0) {
       for (var i = 0; i < this.state.openedPages.length; i++) {
         let p = this.state.openedPages[i];
         mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
@@ -139,6 +139,8 @@ class AppMain extends React.Component<Props, State> {
           pageLoadingStatus = p.state.pageLoadingStatus;
         }
       }
+    } else {
+      this.resetTarsHomepage()
     }
 
     return (
@@ -203,13 +205,36 @@ class AppMain extends React.Component<Props, State> {
 
   onLocationSelectDialogConfirmClicked() {
     this.setState({ showLocationSelectDialog: false });
-    this.props.dispatch(updateDefaultManagingLocation(this.props.managingLocations.find((item: ManagingLocation) => {
-      return item.name == this.selectedLocationName;
-    })));
+    if (this.selectedLocationName != this.props.defaultManagingLocation.name) {
+      this.props.dispatch(updateDefaultManagingLocation(this.props.managingLocations.find((item: ManagingLocation) => {
+        return item.name == this.selectedLocationName;
+      })));
+
+      this.resetTarsHomepage();
+    }
   }
 
   onLocationSelectDialogCancelClicked() {
     this.setState({ showLocationSelectDialog: false });
+  }
+
+  resetTarsHomepage() {
+    var miniapp = null;
+    if (this.state.miniappGroups) {
+      let group = this.state.miniappGroups.find((g: any) => {
+        return g.name == "Member Gallery";
+      })
+
+      if (group && (group as MiniappGroup).miniapps) {
+        miniapp = (group as MiniappGroup).miniapps.find((p: Miniapp) => {
+          return p.name == "Company List";
+        })
+      }
+    }
+
+    if (miniapp) {
+      this.props.dispatch(navigatorReset({ miniapp: miniapp }));
+    }
   }
 
   fetchPrivilegeList() {
