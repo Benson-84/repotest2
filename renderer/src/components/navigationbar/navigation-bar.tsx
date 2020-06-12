@@ -46,13 +46,13 @@ export default class NavigationBar extends React.Component<Props, State>{
   startLoadingAnim = () => {
     if (this.loadingAnimTimer == 0) {
       this.loadingAnimTimer = window.setInterval(() => {
-        let w = 100 * this.state.loadingAnimTickCount / (this.state.loadingAnimTickCount + 99)
+        let w = 100 * this.state.loadingAnimTickCount / (this.state.loadingAnimTickCount + 49)
         //console.log("animation width: " +w)
         this.setState({
           loadingAnimWidth: w,
           loadingAnimTickCount: this.state.loadingAnimTickCount + 1
         });
-      }, 10);
+      }, 17);
     }
   }
 
