@@ -183,7 +183,7 @@ class AppMain extends React.Component<Props, State> {
           <div className='navigation-bar-container'>
             <NavigationBar dispatch={this.props.dispatch} pageCount={pageCnt} loadingStatus={pageLoadingStatus} onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
           </div>
-          <div className='content-container' id='content-container'>
+          <div className='content-container'>
             {mppages}
           </div>
         </div>
