@@ -1,0 +1,17 @@
+<svg width="7px" height="12px" viewBox="0 0 7 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>展开</title>
+    <desc>Created with Sketch.</desc>
+    <g id="公司列表" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="公司列表-/-切换社区-/-管理员" transform="translate(-231.000000, -196.000000)">
+            <g id="Navigation" transform="translate(0.000000, 22.000000)">
+                <g id="Location" transform="translate(0.000000, 152.000000)">
+                    <g id="展开" transform="translate(234.000000, 28.000000) rotate(-270.000000) translate(-234.000000, -28.000000) translate(228.000000, 22.000000)">
+                        <rect id="Area" transform="translate(6.000000, 6.000000) scale(-1, -1) rotate(90.000000) translate(-6.000000, -6.000000) " x="0" y="0" width="12" height="12"></rect>
+                        <polyline id="路径" stroke="#FFFFFF" stroke-width="1.5" points="1 8.5 6 3.5 11 8.5"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

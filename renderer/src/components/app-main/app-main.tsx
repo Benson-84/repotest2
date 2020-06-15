@@ -156,12 +156,13 @@ class AppMain extends React.Component<Props, State> {
             <img className='sidebar-logo' src={Icons.tarsLogo} />
           </div>
           <div className='sidebar-location-container' onClick={this.onLocationClicked.bind(this)}>
-            <img src={Icons.location} />
-            <div className='sidebar-location-text'>
-              <Typography.Text strong={true} type='secondary' style={{ color: "var(--color-white, white')" }}>
-                {this.props.defaultManagingLocation ? this.props.defaultManagingLocation.name : ""}
+            <span style={{  overflow: 'hidden', display: 'flex', flexDirection: 'row', marginRight: '8px' }}>
+              <img src={Icons.location} />
+              <Typography.Text strong={true} type='secondary' style={{ color: "var(--color-white, white')", marginLeft: '8px' }}>
+                {this.props.defaultManagingLocation ? this.props.defaultManagingLocation.name : "#Location"}
               </Typography.Text>
-            </div>
+            </span>
+            <img src={Icons.arrowRight} />
           </div>
           <MainMenu miniapps={this.state.miniappGroups} currentMiniappName={currentMiniappName} dispatch={this.props.dispatch} />
         </div>
