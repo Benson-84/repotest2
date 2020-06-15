@@ -24,6 +24,6 @@ export default class SpacestationView extends MiniAppView {
   }
 
   handleNavigatorBackward() {
-    // todo 
+    this.getWebView().goBack();
   }
 }
