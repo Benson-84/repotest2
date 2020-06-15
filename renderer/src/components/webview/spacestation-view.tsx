@@ -4,7 +4,11 @@ import MiniAppView from "./miniappview";
 
 export default class SpacestationView extends MiniAppView {
 
-  renderNavigationBar() {
+  constructor(props:any) {
+    super(props);
+  }
+
+  renderNavigationTitleBar() {
     return (
       <div></div>
     )

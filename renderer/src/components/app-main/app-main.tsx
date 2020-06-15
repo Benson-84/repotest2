@@ -15,7 +15,7 @@ import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLoca
 import { navigatorReset } from '../../actions/index';
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
-import SpacestationView from "../webview/SpacestationView";
+import SpacestationView from "../webview/spacestation-view";
 import { MainMenu } from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
