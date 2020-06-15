@@ -146,13 +146,10 @@ class AppMain extends React.Component<Props, State> {
         for (var i = 0; i < this.state.openedPages.length; i++) {
           let p = this.state.openedPages[i];
           mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
-
-          if (i == 0) {
-            currentMiniappName = p.miniapp.name;
-          }
         }
       }
-
+      
+      currentMiniappName = this.state.openedPages[0].miniapp.name;
       let pstate = this.state.openedPages[this.state.openedPages.length - 1].state;
       if (pstate) {
         pageLoadingStatus = pstate.pageLoadingStatus;
