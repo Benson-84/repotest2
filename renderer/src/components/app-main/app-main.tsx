@@ -12,7 +12,7 @@ import {
   ManagingLocation
 } from "../../store/store";
 import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLocation } from '../../actions/user';
-import { navigatorReset } from '../../actions/index';
+import { navigatorReset, navigatorPop } from '../../actions/index';
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
 import SpacestationView from "../webview/spacestation-view";
@@ -38,6 +38,7 @@ interface State {
 
 class AppMain extends React.Component<Props, State> {
   selectedLocationName: string;
+  isSpaceStation: boolean = false;
 
   constructor(props: Props) {
     super(props)
@@ -132,19 +133,29 @@ class AppMain extends React.Component<Props, State> {
     let mppages: any[] = [];
     var currentMiniappName = null;
     var pageLoadingStatus = PageLoadingStatus.idle;
+    var pageCnt = this.state.openedPages ? this.state.openedPages.length : 0;
     if (this.state.openedPages && this.state.openedPages.length > 0) {
-      for (var i = 0; i < this.state.openedPages.length; i++) {
-        let p = this.state.openedPages[i];
-        let ViewTag = p.miniapp.moduleClass == "spacestation" ? SpacestationView: MiniAppView;
-        mppages.push(<ViewTag page={p} key={p.miniapp.name + i} zIndex={i} />)
+      if (this.state.openedPages.length == 1 && this.state.openedPages[0].miniapp.moduleClass == "spacestation") {
+        this.isSpaceStation = true;
+        pageCnt = 2;
 
-        if (i == this.state.openedPages.length - 1 && p.state) {
-          pageLoadingStatus = p.state.pageLoadingStatus;
-        }
+        let p = this.state.openedPages[0];
+        mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} ref="ssview" />)
+      } else {
+        this.isSpaceStation = false;
+        for (var i = 0; i < this.state.openedPages.length; i++) {
+          let p = this.state.openedPages[i];
+          mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
 
-        if (i ==0) {
-          currentMiniappName = p.miniapp.name;
+          if (i == 0) {
+            currentMiniappName = p.miniapp.name;
+          }
         }
+      }
+
+      let pstate = this.state.openedPages[this.state.openedPages.length - 1].state;
+      if (pstate) {
+        pageLoadingStatus = pstate.pageLoadingStatus;
       }
     } else {
       this.resetTarsHomepage()
@@ -158,7 +169,7 @@ class AppMain extends React.Component<Props, State> {
             <img className='sidebar-logo' src={Icons.tarsLogo} />
           </div>
           <div className='sidebar-location-container' onClick={this.onLocationClicked.bind(this)}>
-            <span style={{  overflow: 'hidden', display: 'flex', flexDirection: 'row', marginRight: '8px' }}>
+            <span style={{ overflow: 'hidden', display: 'flex', flexDirection: 'row', marginRight: '8px' }}>
               <img src={Icons.location} />
               <Typography.Text strong={true} type='secondary' style={{ color: "var(--color-white, white')", marginLeft: '8px' }}>
                 {this.props.defaultManagingLocation ? this.props.defaultManagingLocation.name : "#Location"}
@@ -170,7 +181,7 @@ class AppMain extends React.Component<Props, State> {
         </div>
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
-            <NavigationBar dispatch={this.props.dispatch} pageCount={this.state.openedPages.length} loadingStatus={pageLoadingStatus} />
+            <NavigationBar dispatch={this.props.dispatch} pageCount={pageCnt} loadingStatus={pageLoadingStatus} onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
           </div>
           <div className='content-container' id='content-container'>
             {mppages}
@@ -224,6 +235,15 @@ class AppMain extends React.Component<Props, State> {
 
   onLocationSelectDialogCancelClicked() {
     this.setState({ showLocationSelectDialog: false });
+  }
+
+  handleBackButtonClicked() {
+    if (this.isSpaceStation) {
+      (this.refs.ssview as SpacestationView).handleNavigatorBackward();
+    } else {
+      const dispatch = this.props.dispatch;
+      dispatch(navigatorPop());
+    }
   }
 
   resetTarsHomepage() {

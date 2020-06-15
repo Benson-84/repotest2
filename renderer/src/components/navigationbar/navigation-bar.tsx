@@ -10,6 +10,7 @@ import { PageLoadingStatus } from "../../store/store";
 interface Props {
   pageCount: number,
   loadingStatus: PageLoadingStatus,
+  onBackButtonClicked: () => void,
   dispatch: Dispatch
 }
 
@@ -70,7 +71,7 @@ export default class NavigationBar extends React.Component<Props, State>{
 
   render() {
     var backButton = this.props.pageCount > 1 ?
-      <img src={NavIcons.navigationBack} onClick={this.onBackButtonClicked.bind(this)} />
+      <img src={NavIcons.navigationBack} onClick={this.props.onBackButtonClicked} />
       :
       <div></div>;
 
@@ -145,11 +146,6 @@ export default class NavigationBar extends React.Component<Props, State>{
       onOk: this.onHandleConfirmLogout,
       onCancel: this.onHandleCancelLogout
     });
-  }
-
-  onBackButtonClicked() {
-    const dispatch = this.props.dispatch;
-    dispatch(navigatorPop());
   }
 
   onHandleConfirmLogout = () => {
