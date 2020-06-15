@@ -1,6 +1,9 @@
 import React from "react"
 import PropTypes from 'prop-types';
 import { Typography } from '@weconnect/tars-widgets';
+import {
+  intl,
+} from "@weconnect/appkit";
 import './style.css';
 
 
@@ -100,7 +103,7 @@ export default class MiniAppView extends React.Component {
     if (page) {
       title = page.state?.title;
       if (!title) {
-        title = page.miniapp.label;
+        title = intl.get(page.miniapp.label);
       }
     }
 

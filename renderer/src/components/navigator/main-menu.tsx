@@ -57,6 +57,7 @@ export class MainMenu extends React.Component<Props, State> {
         theme='dark'
         onClick={this.onMenuItemClicked.bind(this)}
         mode="inline"
+        defaultOpenKeys={['Member Gallery']}
       >
         {submenus}
       </Menu>
@@ -69,7 +70,6 @@ export class MainMenu extends React.Component<Props, State> {
       return <div></div>;
     }
     group.miniapps.forEach((miniapp: Miniapp) => {
-      let selected = this.state.menuSelected == miniapp.name;
       mitems.push(
         this.renderMiniappItem(miniapp, true)
       )

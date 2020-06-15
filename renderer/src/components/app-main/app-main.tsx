@@ -172,7 +172,7 @@ class AppMain extends React.Component<Props, State> {
             <span style={{ overflow: 'hidden', display: 'flex', flexDirection: 'row', marginRight: '8px' }}>
               <img src={Icons.location} />
               <Typography.Text strong={true} type='secondary' style={{ color: "var(--color-white, white')", marginLeft: '8px' }}>
-                {this.props.defaultManagingLocation ? this.props.defaultManagingLocation.name : "#Location"}
+                {this.props.defaultManagingLocation ? this.props.defaultManagingLocation.name : ""}
               </Typography.Text>
             </span>
             <img src={Icons.arrowRight} />
