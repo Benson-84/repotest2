@@ -11,9 +11,12 @@ import {
   PageLoadingStatus,
   ManagingLocation
 } from "../../store/store";
+import {
+  intl,
+} from "@weconnect/appkit";
 import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLocation } from '../../actions/user';
 import { navigatorReset, navigatorPop } from '../../actions/index';
-import Icons from '../icons/icons';
+import Icons from '../../../res/icons/icons';
 import MiniAppView from "../webview/miniappview";
 import SpacestationView from "../webview/spacestation-view";
 import { MainMenu } from '../navigator/main-menu';
@@ -210,11 +213,11 @@ class AppMain extends React.Component<Props, State> {
 
     return (
       <Modal
-        title="#切换社区"
+        title={intl.get('tars_desktop_switch_building')}
         visible={this.state.showLocationSelectDialog}
         onOk={this.onLocationSelectDialogConfirmClicked.bind(this)}
         onCancel={this.onLocationSelectDialogCancelClicked.bind(this)}>
-        <WeSelect title='#社区：' options={options} default={defl} onChange={(selected: number) => { this.selectedLocationName = options[selected] }} ></WeSelect>
+        <WeSelect title={intl.get('tars_desktop_building')} options={options} default={defl} onChange={(selected: number) => { this.selectedLocationName = options[selected] }} ></WeSelect>
       </Modal>
     );
   }
@@ -268,7 +271,8 @@ class AppMain extends React.Component<Props, State> {
       var pl = {
         "member.company_list": true,
         "spacestation.global": true,
-        "spacestation.china": true
+        "spacestation.china": true,
+        "management.access_control":true,
       }
 
       this.props.dispatch(updatePrivilegeList(pl));

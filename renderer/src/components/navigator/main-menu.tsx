@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { Miniapp, Page } from "../../store/store";
 import MiniappGroup from './miniapp-group';
 import { navigatorReset } from "../../actions";
-import Icons from '../icons/icons';
+import Icons from '../../../res/icons/icons';
+import {
+  intl,
+} from "@weconnect/appkit";
 
 // style.css does work here with antd menu, the file style.css can also be deleted
 // import './style.css';
@@ -28,7 +31,7 @@ export class MainMenu extends React.Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(nextProps:Props) {
+  componentWillReceiveProps(nextProps: Props) {
     if (this.state.menuSelected != nextProps.currentMiniappName) {
       this.setState({ menuSelected: nextProps.currentMiniappName });
     }
@@ -83,7 +86,7 @@ export class MainMenu extends React.Component<Props, State> {
               :
               <div></div>
             }
-            <span><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{group.label}</Typography.Text></span>
+            <span><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{intl.get(group.label)}</Typography.Text></span>
           </span>
         }
       >
@@ -116,7 +119,7 @@ export class MainMenu extends React.Component<Props, State> {
             :
             <div></div>
           }
-          <span ><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{mp.label}</Typography.Text></span>
+          <span ><Typography.Text strong={true} style={{ color: "var(--color-white, white')" }}>{intl.get(mp.label)}</Typography.Text></span>
         </span>
       </Menu.Item>
     );

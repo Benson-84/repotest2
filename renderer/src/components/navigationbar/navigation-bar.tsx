@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import './style.css';
 import { navigatorPop } from "../../actions";
 import { userLogout } from "../../actions/user";
-import NavIcons from '../icons/icons';
+import NavIcons from '../../../res/icons/icons';
 import { Menu, Dropdown, Typography, Modal, Icons } from "@weconnect/tars-widgets";
 import { PageLoadingStatus } from "../../store/store";
 
@@ -75,8 +75,9 @@ export default class NavigationBar extends React.Component<Props, State>{
       :
       <div></div>;
 
-    var searchbar = <div><img src={NavIcons.search} /></div>;
-    var notificationbar = <img src={NavIcons.notification} />;
+    // todo, global search and notificaiton button
+    var searchbar = <div></div> //<div><img src={NavIcons.search} /></div>;
+    var notificationbar = <div></div> //<img src={NavIcons.notification} />;
     var userinfobar = this.renderActiveUserAvatar()
 
     var loadinganim = <div className='navigation-bar-loading' style={{ width: this.state.loadingAnimWidth + '%' }} />

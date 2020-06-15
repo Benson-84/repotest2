@@ -1,13 +1,13 @@
 [
     {
         "name": "Member Gallery",
-        "label": "#Member Gallery",
+        "label": "tars_desktop_app_group_member_gellery",
         "icon": "memberGallery",
         "type": "feature-group",
         "features": [
             {
                 "name": "Company List",
-                "label": "#Company List",
+                "label": "tars_desktop_app_company_list",
                 "icon": "",
                 "type": "feature",
                 "url": "module:/miniapp-companylist",
@@ -18,7 +18,7 @@
     },
     {
         "name": "Spacestation",
-        "label": "#Spacestation",
+        "label": "tars_desktop_app_spacestation",
         "icon": "spacestation",
         "type": "feature",
         "url": "https://spacestation-staging.wework.com",
@@ -27,7 +27,7 @@
     },
     {
         "name": "SS China",
-        "label": "#SS China",
+        "label": "tars_desktop_app_ss_china",
         "icon": "spacestation",
         "type": "feature",
         "url": "https://spacestation-staging.wework.cn",
@@ -36,11 +36,11 @@
     },
     {
         "name": "权限管理",
-        "label": "#权限管理",
+        "label": "tars_desktop_app_access_control",
         "icon": "",
         "type": "feature",
         "url": "module:/miniapp-accesscontrol",
         "moduleClass": "miniapp",
-        "privilegeId": "spacestation.china"
+        "privilegeId": "management.access_control"
     }
 ]
