@@ -217,7 +217,10 @@ class AppMain extends React.Component<Props, State> {
         visible={this.state.showLocationSelectDialog}
         onOk={this.onLocationSelectDialogConfirmClicked.bind(this)}
         onCancel={this.onLocationSelectDialogCancelClicked.bind(this)}>
-        <WeSelect title={intl.get('tars_desktop_building')} options={options} default={defl} onChange={(selected: number) => { this.selectedLocationName = options[selected] }} ></WeSelect>
+        <WeSelect title={intl.get('tars_desktop_building')}
+          size="large" 
+          options={options} default={defl}
+          onChange={(selected: number) => { this.selectedLocationName = options[selected] }} />
       </Modal>
     );
   }
