@@ -15,6 +15,7 @@ import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLoca
 import { navigatorReset } from '../../actions/index';
 import Icons from '../icons/icons';
 import MiniAppView from "../webview/miniappview";
+import SpacestationView from "../webview/SpacestationView";
 import { MainMenu } from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
@@ -134,7 +135,8 @@ class AppMain extends React.Component<Props, State> {
     if (this.state.openedPages && this.state.openedPages.length > 0) {
       for (var i = 0; i < this.state.openedPages.length; i++) {
         let p = this.state.openedPages[i];
-        mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+        let ViewTag = p.miniapp.moduleClass == "spacestation" ? SpacestationView: MiniAppView;
+        mppages.push(<ViewTag page={p} key={p.miniapp.name + i} zIndex={i} />)
 
         if (i == this.state.openedPages.length - 1 && p.state) {
           pageLoadingStatus = p.state.pageLoadingStatus;

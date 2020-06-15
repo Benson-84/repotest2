@@ -19,18 +19,10 @@ export default class MiniAppView extends React.Component {
   }
 
   render() {
-    let url = this.getUrl();
-    var navigationbar = this.state.page.miniapp.moduleClass == "spacestation" ?
-      <div></div>
-      :
-      <div className='title-bar'>
-        <Typography.Text strong={true}>{this.getTitle()}</Typography.Text>
-      </div>
-
+    
     return (
       <div className='miniapp-container' >
-        {navigationbar}
-
+        {this.renderNavigationTitleBar()}
         {this.renderDebug()}
 
         <webview
@@ -44,6 +36,14 @@ export default class MiniAppView extends React.Component {
 
       </div>
     )
+  }
+
+  renderNavigationTitleBar() {
+    return (
+      <div className='title-bar'>
+        <Typography.Text strong={true}>{this.getTitle()}</Typography.Text>
+      </div>
+    );
   }
 
   renderDebug = () => {
