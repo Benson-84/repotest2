@@ -38,6 +38,10 @@ export default class MiniAppView extends React.Component {
     )
   }
 
+  getWebView() {
+    return this.refs.webview;
+  }
+
   renderNavigationTitleBar() {
     return (
       <div className='title-bar'>
