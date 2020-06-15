@@ -1,7 +1,15 @@
-import { app, BrowserWindow,ipcMain } from "electron";
+import { app, BrowserWindow,ipcMain, Menu } from "electron";
 import { Channel } from './channels/channel'
 const path = require('path');
 export var mainWindowId: number = 0
+import { createMacMenu } from "./menu-macos";
+
+function createMenu(window: Electron.BrowserWindow) {
+  const template = createMacMenu(window)
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+}
+
 
 function createWindow () {
   // Create the browser window.
@@ -52,8 +60,11 @@ function createWindow () {
     win.loadFile('./dist/renderer/index.html');
   }
   mainWindowId = win.id;
+
+  createMenu(win);
 }
- 
+
+
 app.on('ready', createWindow);
 
 

@@ -3,6 +3,19 @@ import { net, session } from 'electron'
 const Store = require('electron-store');
 
 const store = new Store();
+
+var hostname = "api-staging.wework.cn";
+let stagingHostname = "api-staging.wework.cn";
+let productionHostname = "api.wework.cn";
+
+export function setWeWorkServer(envName:string) {
+    if(envName == "staging") {
+        hostname = stagingHostname
+    } else if(envName == "production") {
+        hostname = productionHostname;
+    }
+}
+
 export default class NetWorkChannel implements MethodChannel {
     id: string
     constructor(id:string) {
@@ -104,12 +117,13 @@ class ChannelRequest implements netRequest {
     constructor(params:ObjAnyType) {
         this.method = params.method
         let url = params.url
-        if (url.indexOf('api-staging.wework.cn/chinaos') != -1) {
-            this.host = 'api-staging.wework.cn/chinaos'
+        let apiUrlPrefix =  hostname + '/chinaos'
+        if (url.indexOf(apiUrlPrefix) != -1) {
+            this.host = apiUrlPrefix
             this.path = url
         } else {
-            this.host = 'api-staging.wework.cn/chinaos'
-            this.path = url.split('api-staging.wework.cn/chinaos').pop()
+            this.host = apiUrlPrefix
+            this.path = url.split(apiUrlPrefix).pop()
         }
         this.header = {}
         var accessToken = store.get('accessToken')
