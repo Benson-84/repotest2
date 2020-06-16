@@ -12,7 +12,8 @@ import {
 
 import {
   NavigatorState,
-  PageLoadingStatus
+  PageLoadingStatus,
+  Page,
 } from "../store/store";
 
 const initialState: NavigatorState = {
@@ -20,7 +21,7 @@ const initialState: NavigatorState = {
 }
 
 export default function navigatorReducer(state = initialState, action: NavigatorActions): NavigatorState {
-  switch(action.type) {
+  switch (action.type) {
     case NAVIGATOR_POP:
 
       var pages = state.pages
@@ -36,15 +37,15 @@ export default function navigatorReducer(state = initialState, action: Navigator
         ...state,
         pages: [...state.pages, action.page]
       }
-    case  NAVIGATOR_RESET:
+    case NAVIGATOR_RESET:
       return {
         ...state,
         pages: [action.page]
       }
-    case NAVIGATOR_PRESENT: 
+    case NAVIGATOR_PRESENT:
       return {
-          ...state,
-          pages: [...state.pages, action.page]
+        ...state,
+        pages: [...state.pages, action.page]
       }
     case NAVIGATOR_SET_PAGE_TITLE:
       if (state.pages && state.pages.length > 0) {
@@ -55,27 +56,30 @@ export default function navigatorReducer(state = initialState, action: Navigator
       }
 
       return { ...state }
+    case NAVIGATOR_LOADING_ANIMATION_START:
+      if (state.pages && state.pages.length > 0) {
+        state.pages = state.pages.map<Page>((value: Page, index: number) => {
+          value.state = {
+            ...value.state,
+            pageLoadingStatus: index == state.pages.length - 1 ? PageLoadingStatus.started : PageLoadingStatus.idle
+          };
+          return value;
+        })
+      }
 
-  case NAVIGATOR_LOADING_ANIMATION_START:
-    if (state.pages && state.pages.length > 0) {
-      state.pages[state.pages.length - 1].state = {
-        ...state.pages[state.pages.length - 1].state,
-        pageLoadingStatus: PageLoadingStatus.started
-      };
-    }
+      return { ...state }
+    case NAVIGATOR_LOADING_ANIMATION_STOP:
+      if (state.pages && state.pages.length > 0) {
+        state.pages = state.pages.map<Page>((value: Page, index: number) => {
+          value.state = {
+            ...value.state,
+            pageLoadingStatus: index == state.pages.length - 1 ? PageLoadingStatus.stopped : PageLoadingStatus.idle
+          };
+          return value;
+        })
+      }
 
-    return { ...state }
-
-  case NAVIGATOR_LOADING_ANIMATION_STOP:
-    if (state.pages && state.pages.length > 0) {
-      state.pages[state.pages.length - 1].state = {
-        ...state.pages[state.pages.length - 1].state,
-        pageLoadingStatus: PageLoadingStatus.stopped
-      };
-    }
-
-    return { ...state }
-
+      return { ...state }
     default:
       return state
   }
