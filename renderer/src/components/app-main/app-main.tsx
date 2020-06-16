@@ -230,8 +230,8 @@ class AppMain extends React.Component<Props, State> {
 
   renderSubmittingAnimation(isSubmitting: boolean) {
     return (
-      <div className='loading-spin-mask' hidden={!isSubmitting}>
-        <Spin size="large" className='loading-spin' />
+      <div className='submitting-spin-container' hidden={!isSubmitting}>
+        <Spin size="large" className='submitting-spin' />
       </div>
     )
   }
