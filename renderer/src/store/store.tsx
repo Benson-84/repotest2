@@ -16,6 +16,7 @@ export enum PageLoadingStatus {
 export interface PageState {
   title: string,
   pageLoadingStatus: PageLoadingStatus,
+  submitting: boolean,
 }
 
 export interface Page {

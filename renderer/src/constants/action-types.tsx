@@ -12,6 +12,8 @@ export const NAVIGATOR_PRESENT = "navigator.present"
 export const NAVIGATOR_SET_PAGE_TITLE = "navigator.setPageTitle"
 export const NAVIGATOR_LOADING_ANIMATION_START = "navigator.startLoadingAnimation"
 export const NAVIGATOR_LOADING_ANIMATION_STOP = "navigator.stopLoadingAnimation"
+export const NAVIGATOR_SUBMITTIN_ANIMATION_START = "navigator.startSubmittingAnimation"
+export const NAVIGATOR_SUBMITTIN_ANIMATION_STOP = "navigator.stopSubmittingAnimation"
 
 
 export interface NavigatorActionPush {
@@ -45,6 +47,13 @@ export interface NavigatorActionStopLoadingAnim {
   type: typeof NAVIGATOR_LOADING_ANIMATION_STOP
 }
 
+export interface NavigatorActionStartSubmittingAnim {
+  type: typeof NAVIGATOR_SUBMITTIN_ANIMATION_START
+}
+export interface NavigatorActionStopSubmittingAnim {
+  type: typeof NAVIGATOR_SUBMITTIN_ANIMATION_STOP
+}
+
 export type NavigatorActions = NavigatorActionPop
   | NavigatorActionPush
   | NavigatorActionPresent
@@ -52,6 +61,8 @@ export type NavigatorActions = NavigatorActionPop
   | NavigatorActionSetPageTitle
   | NavigatorActionStartLoadingAnim
   | NavigatorActionStopLoadingAnim
+  | NavigatorActionStartSubmittingAnim
+  | NavigatorActionStopSubmittingAnim
 
 
 /// User action types

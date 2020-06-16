@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import {
   connect
 } from "react-redux";
-import { Typography, Modal, WeSelect } from "@weconnect/tars-widgets";
+import { Typography, Modal, WeSelect, Spin } from "@weconnect/tars-widgets";
 import {
   NavigatorState,
   Miniapp,
@@ -137,6 +137,7 @@ class AppMain extends React.Component<Props, State> {
     var currentMiniappName = null;
     var pageLoadingStatus = PageLoadingStatus.idle;
     var pageCnt = this.state.openedPages ? this.state.openedPages.length : 0;
+    var isSbmitting = false;
     if (this.state.openedPages && this.state.openedPages.length > 0) {
       if (this.state.openedPages.length == 1 && this.state.openedPages[0].miniapp.moduleClass == "spacestation") {
         this.isSpaceStation = true;
@@ -151,11 +152,12 @@ class AppMain extends React.Component<Props, State> {
           mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
         }
       }
-      
+
       currentMiniappName = this.state.openedPages[0].miniapp.name;
       let pstate = this.state.openedPages[this.state.openedPages.length - 1].state;
       if (pstate) {
         pageLoadingStatus = pstate.pageLoadingStatus;
+        isSbmitting = pstate.submitting;
       }
     } else {
       this.resetTarsHomepage()
@@ -189,6 +191,7 @@ class AppMain extends React.Component<Props, State> {
         </div>
 
         {this.renderLocationSelectDialog()}
+        {this.renderSubmittingAnimation(isSbmitting)}
       </div>
     )
   }
@@ -218,11 +221,19 @@ class AppMain extends React.Component<Props, State> {
         onOk={this.onLocationSelectDialogConfirmClicked.bind(this)}
         onCancel={this.onLocationSelectDialogCancelClicked.bind(this)}>
         <WeSelect title={intl.get('tars_desktop_building')}
-          size="large" 
+          size="large"
           options={options} default={defl}
           onChange={(selected: number) => { this.selectedLocationName = options[selected] }} />
       </Modal>
     );
+  }
+
+  renderSubmittingAnimation(isSubmitting: boolean) {
+    return (
+      <div className='loading-spin-mask' hidden={!isSubmitting}>
+        <Spin size="large" className='loading-spin' />
+      </div>
+    )
   }
 
   onLocationSelectDialogConfirmClicked() {
@@ -275,7 +286,7 @@ class AppMain extends React.Component<Props, State> {
         "member.company_list": true,
         "spacestation.global": true,
         "spacestation.china": true,
-        "management.access_control":true,
+        "management.access_control": true,
       }
 
       this.props.dispatch(updatePrivilegeList(pl));

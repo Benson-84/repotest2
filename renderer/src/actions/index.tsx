@@ -6,6 +6,8 @@ import {
   NAVIGATOR_SET_PAGE_TITLE,
   NAVIGATOR_LOADING_ANIMATION_START,
   NAVIGATOR_LOADING_ANIMATION_STOP,
+  NAVIGATOR_SUBMITTIN_ANIMATION_START,
+  NAVIGATOR_SUBMITTIN_ANIMATION_STOP,
   NavigatorActions,
 } from "../constants/action-types";
 
@@ -57,5 +59,17 @@ export function startLoadingAnim(): NavigatorActions {
 export function stopLoadingAnim(): NavigatorActions {
   return {
     type: NAVIGATOR_LOADING_ANIMATION_STOP
+  }
+}
+
+export function startSubmittingAnim(): NavigatorActions {
+  return {
+    type: NAVIGATOR_SUBMITTIN_ANIMATION_START
+  }
+}
+
+export function stopSubmittingAnim(): NavigatorActions {
+  return {
+    type: NAVIGATOR_SUBMITTIN_ANIMATION_STOP,
   }
 }

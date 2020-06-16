@@ -6,6 +6,8 @@ import {
   NAVIGATOR_SET_PAGE_TITLE,
   NAVIGATOR_LOADING_ANIMATION_START,
   NAVIGATOR_LOADING_ANIMATION_STOP,
+  NAVIGATOR_SUBMITTIN_ANIMATION_START,
+  NAVIGATOR_SUBMITTIN_ANIMATION_STOP,
   NavigatorActions
 
 } from "../constants/action-types";
@@ -74,6 +76,30 @@ export default function navigatorReducer(state = initialState, action: Navigator
           value.state = {
             ...value.state,
             pageLoadingStatus: index == state.pages.length - 1 ? PageLoadingStatus.stopped : PageLoadingStatus.idle
+          };
+          return value;
+        })
+      }
+
+      return { ...state }
+    case NAVIGATOR_SUBMITTIN_ANIMATION_START:
+      if (state.pages && state.pages.length > 0) {
+        state.pages = state.pages.map<Page>((value: Page, index: number) => {
+          value.state = {
+            ...value.state,
+            submitting: index == state.pages.length - 1 ? true : false
+          };
+          return value;
+        })
+      }
+
+      return { ...state }
+    case NAVIGATOR_SUBMITTIN_ANIMATION_STOP:
+      if (state.pages && state.pages.length > 0) {
+        state.pages = state.pages.map<Page>((value: Page, index: number) => {
+          value.state = {
+            ...value.state,
+            submitting: false
           };
           return value;
         })
