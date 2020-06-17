@@ -1,7 +1,7 @@
 
 ## Tips
 
-Try `npm i` to start the project.
+Try `npm i` to install the packages
 
 When you see this error
 
