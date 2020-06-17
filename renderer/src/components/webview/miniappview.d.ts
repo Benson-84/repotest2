@@ -1,7 +1,8 @@
 
 export default class MiniAppView extends React.Component<any, any> {
     static propTypes: {
-        page: Page
+        page: Page,
+        dispatch?: Dispatch
     };
     constructor(props: Readonly<any>);
     constructor(props: any, context?: any);
@@ -12,4 +13,5 @@ export default class MiniAppView extends React.Component<any, any> {
 import { WebviewTag } from 'electron';
 import * as React from "react";
 import { Page } from "../../store/store";
+import { Dispatch } from 'redux';
 

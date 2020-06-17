@@ -4,7 +4,7 @@ import IpcEventHandler from './ipc-event-handler';
 
 import { navigatorPush, navigatorPop } from '../actions/index';
 import {
-    Page
+    Page, Miniapp
 } from "../store/store";
 
 export default class NavigatorChannel extends IpcEventHandler {
@@ -26,18 +26,29 @@ export default class NavigatorChannel extends IpcEventHandler {
             params.set(item, args.arg.params[item]);
         }
 
-        let mp = args.arg;
+        let mp: Miniapp = {
+            name: params.get('name'),
+            label: params.get('label'),
+            icon: params.get('icon'),
+            url: args.arg.url,
+            moduleClass: params.get('moduleClass'),
+            mode: args.arg.mode
+        };
+
         if (!mp.name) {
             mp.name = mp.url;
         }
 
         if (!mp.moduleClass) {
-            let url: string = mp.url
-            if (url.startsWith("miniapp")) {
+            if (mp.url.startsWith("miniapp")) {
                 mp.moduleClass = 'miniapp';
             } else {
-                console.log("Error: unknown miniapp type with url: " + url);
+                console.log("Error: unknown miniapp type with url: " + mp.url);
             }
+        }
+
+        if (!mp.mode) {
+            mp.mode = "push";
         }
 
         if (method == 'open') {

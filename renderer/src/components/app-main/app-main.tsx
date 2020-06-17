@@ -41,7 +41,6 @@ interface State {
 
 class AppMain extends React.Component<Props, State> {
   selectedLocationName: string;
-  isSpaceStation: boolean = false;
 
   constructor(props: Props) {
     super(props)
@@ -133,31 +132,35 @@ class AppMain extends React.Component<Props, State> {
   }
 
   render() {
+    let pageStackDepth = this.state.openedPages ? this.state.openedPages.length : 0;
     let mppages: any[] = [];
     var currentMiniappName = null;
     var pageLoadingStatus = PageLoadingStatus.idle;
-    var pageCnt = this.state.openedPages ? this.state.openedPages.length : 0;
+    var enableFakePageStadk = false;
     var isSbmitting = false;
-    if (this.state.openedPages && this.state.openedPages.length > 0) {
-      if (this.state.openedPages.length == 1 && this.state.openedPages[0].miniapp.moduleClass == "spacestation") {
-        this.isSpaceStation = true;
-        pageCnt = 2;
 
-        let p = this.state.openedPages[0];
-        mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} ref="ssview" />)
-      } else {
-        this.isSpaceStation = false;
-        for (var i = 0; i < this.state.openedPages.length; i++) {
-          let p = this.state.openedPages[i];
+    if (pageStackDepth > 0) {
+      for (var i = 0; i < pageStackDepth; i++) {
+        let p = this.state.openedPages[i];
+        if (p.miniapp.moduleClass == "spacestation") {
+          if (i == pageStackDepth - 1) {
+            mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} dispatch={this.props.dispatch} ref="ssview" />)
+          } else {
+            mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} />)
+          }
+        } else {
           mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
         }
       }
 
       currentMiniappName = this.state.openedPages[0].miniapp.name;
-      let pstate = this.state.openedPages[this.state.openedPages.length - 1].state;
-      if (pstate) {
-        pageLoadingStatus = pstate.pageLoadingStatus;
-        isSbmitting = pstate.submitting;
+      let topPage = this.state.openedPages[pageStackDepth - 1];
+      if (topPage.miniapp.moduleClass == "spacestation") {
+        enableFakePageStadk = pageStackDepth > 1 ? false : true;
+      }
+      if (topPage.state) {
+        pageLoadingStatus = topPage.state.pageLoadingStatus;
+        isSbmitting = topPage.state.submitting;
       }
     } else {
       this.resetTarsHomepage()
@@ -183,7 +186,10 @@ class AppMain extends React.Component<Props, State> {
         </div>
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
-            <NavigationBar dispatch={this.props.dispatch} pageCount={pageCnt} loadingStatus={pageLoadingStatus} onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
+            <NavigationBar dispatch={this.props.dispatch}
+              pageCount={enableFakePageStadk ? 2 : pageStackDepth}
+              loadingStatus={pageLoadingStatus}
+              onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
           </div>
           <div className='content-container'>
             {mppages}
@@ -252,7 +258,7 @@ class AppMain extends React.Component<Props, State> {
   }
 
   handleBackButtonClicked() {
-    if (this.isSpaceStation) {
+    if (this.refs.ssview) {
       (this.refs.ssview as SpacestationView).handleNavigatorBackward();
     } else {
       const dispatch = this.props.dispatch;
@@ -377,6 +383,7 @@ function mapStateToProps(state: any) {
     navigatorState: state.navigatorReducer,
     managingLocations: state.userReducer.managingLocations,
     defaultManagingLocation: state.userReducer.defaultManagingLocation,
+    dispatch: state.dispatch
   }
 }
 

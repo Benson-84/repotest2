@@ -27,7 +27,7 @@ export default function navigatorReducer(state = initialState, action: Navigator
     case NAVIGATOR_POP:
 
       var pages = state.pages
-      if (pages.length > 0) {
+      if (pages.length > 1) {
         pages.pop()
       }
       return {

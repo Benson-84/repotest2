@@ -1,16 +1,20 @@
 import * as React from "react"
+import { Dispatch } from 'redux';
+import {
+  connect
+} from "react-redux";
+import { navigatorPop } from '../../actions/index';
 import MiniAppView from "./miniappview";
-import {Navigation} from '@weconnect/appkit';
-
+import { Navigation } from '@weconnect/appkit';
 
 export default class SpacestationView extends MiniAppView {
   loadingAnimationTimer: number = 0;
 
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     Navigation.startLoadingAnimation();
     this.loadingAnimationTimer = window.setTimeout(() => {
       this.loadingAnimationTimer = 0;
@@ -33,6 +37,12 @@ export default class SpacestationView extends MiniAppView {
   }
 
   handleNavigatorBackward() {
-    this.getWebView().goBack();
+    if (this.getWebView().canGoBack()) {
+      this.getWebView().goBack();
+    } else {
+      if (this.props.dispatch) {
+        this.props.dispatch(navigatorPop());
+      }
+    }
   }
 }
