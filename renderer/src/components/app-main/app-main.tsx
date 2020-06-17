@@ -19,7 +19,7 @@ import { navigatorReset, navigatorPop } from '../../actions/index';
 import Icons from '../../../res/icons/icons';
 import MiniAppView from "../webview/miniappview";
 import SpacestationView from "../webview/spacestation-view";
-import { MainMenu } from '../navigator/main-menu';
+import MainMenu from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';

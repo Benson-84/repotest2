@@ -23,7 +23,7 @@ interface State {
   menuSelected: string
 }
 
-export class MainMenu extends React.Component<Props, State> {
+export default class MainMenu extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -157,10 +157,3 @@ export class MainMenu extends React.Component<Props, State> {
     dispatch(navigatorReset(page))
   }
 }
-
-function mapStateToProps(state: any) {
-  return {
-  }
-}
-
-export default connect(mapStateToProps)(MainMenu);
