@@ -3,6 +3,9 @@ import { Channel } from './channels/channel'
 const path = require('path');
 export var mainWindowId: number = 0
 import { createMacMenu } from "./menu-macos";
+const Store = require('electron-store');
+const store = new Store();
+
 
 function createMenu(window: Electron.BrowserWindow) {
   const template = createMacMenu(window)
@@ -50,7 +53,10 @@ function createWindow () {
   })
 
   ipcMain.on('user-session-login', (event:Electron.IpcMainEvent, argument:any) => {
+    console.log("=[user-session-login][token]==================================================================");
     console.log(argument)
+    store.set('accessToken', argument.accessToken);
+    store.set('refreshToken', argument.refreshToken);
   });
 
   win.loadFile('../renderer/index.html');
