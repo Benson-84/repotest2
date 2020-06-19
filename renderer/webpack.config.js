@@ -22,6 +22,7 @@ module.exports = {
     symlinks: true,
     alias: {
       "@weconnect/tars-widgets": path.resolve(__dirname, '../node_modules/@weconnect/tars-widgets/dist/desktop'),
+      "@weconnect/tars-foundation": path.resolve(__dirname, '../node_modules/@weconnect/tars-foundation'),
       "react": path.resolve(__dirname, '../node_modules/react'),
       "react-dom": path.resolve(__dirname, '../node_modules/react-dom')
     }
@@ -38,12 +39,8 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.tsx?$/,
-        include: [
-          /renderer\/src/,
-        ],
-        loader: 'ts-loader',
-        exclude: /node_modules/
+        test: /\.ts|\.tsx$/,
+        loader: 'ts-loader'
       },
       {
         test: /\.css$/,
