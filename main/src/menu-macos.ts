@@ -28,6 +28,8 @@ export function createMacMenu(
       {type: "separator" },
       {label: 'staging', type: 'radio', click: handleSelectStagingServer, checked: true},
       {label: 'production', type: 'radio', click: handleSelectProductionServer},
+      {type: "separator" },
+      {label: 'Dev Tools', accelerator: 'Command+Option+I', role: 'toggleDevTools'},
     ]
   }
 
