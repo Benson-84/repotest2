@@ -13,7 +13,8 @@ import UnknownErrorPng from "./error-unknown.png";
 type LoginPageState = {
   email: string
   displayErrorForEmailAddress: boolean,
-  displayLoginError: boolean
+  displayLoginError: boolean,
+  displayLoginErrorMessage: string
 }
 
 class LoginPage extends React.Component< any, LoginPageState> {
@@ -23,7 +24,8 @@ class LoginPage extends React.Component< any, LoginPageState> {
     this.state = {
       email: "",
       displayErrorForEmailAddress: false,
-      displayLoginError: false
+      displayLoginError: false,
+      displayLoginErrorMessage: ""
     }
   }
 
@@ -63,7 +65,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
       <div className="login-form-error">
         <img src={UnknownErrorPng} />
         <div className="login-form-error-text-area">
-          <Typography.Title level={4} type="secondary" >很抱歉，不知道哪里出错了</Typography.Title>
+          <Typography.Title level={4} type="secondary" >{this.state.displayLoginErrorMessage}</Typography.Title>
           <div className="login-form-error-refresh" onClick={this.onRefresh}>
             <PrimaryButton title={"刷新重试"} />
           </div>
@@ -112,6 +114,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
 
     const BrowserWindow = remote.BrowserWindow;
     const email = this.state.email;
+    const displayLoginErrorMessage = this.displayLoginErrorMessage;
 
     const win = new BrowserWindow({
       height: 800,
@@ -138,7 +141,22 @@ class LoginPage extends React.Component< any, LoginPageState> {
         
         win.close();
         dispatch(userLogin(email, accessToken, refreshToken));
+      } else if(redirectUrl.indexOf("https://wework.localhost/login-error") != -1) {
+        let url = new URL(redirectUrl);
+        let params = new URLSearchParams(url.search);
+        let message = params.get("msg");
+        
+        win.close();
+
+        displayLoginErrorMessage(message);
       }
+    });
+  }
+
+  displayLoginErrorMessage = (message: string) => {
+    this.setState({
+      displayLoginError: true,
+      displayLoginErrorMessage: message
     });
   }
 }
