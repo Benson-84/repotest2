@@ -3,6 +3,9 @@ import {
   ManagingLocation
 } from "../store/store";
 
+import {
+  User
+} from "@weconnect/tars-foundation";
 
 /// Navigator
 export const NAVIGATOR_PUSH = "navigator.push"
@@ -74,9 +77,7 @@ export const USER_UPDATE_DEFAULT_MANAGING_LOCATION = "user.update_default_managi
 
 export interface UserActionLogin {
   type: typeof USER_LOGIN
-  email: string
-  accessToken: string
-  refreshToken: string
+  user: User
 }
 
 export interface UserActionLogout {

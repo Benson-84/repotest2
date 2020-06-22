@@ -9,6 +9,7 @@ import {
 } from "../constants/action-types";
 
 import { ManagingLocation } from '../store/store';
+import { User } from "@weconnect/tars-foundation";
 
 export function userLogout(): UserActions {
   return {
@@ -16,12 +17,10 @@ export function userLogout(): UserActions {
   }
 }
 
-export function userLogin(email:string, accessToken: string, refreshToken: string): UserActions {
+export function userLogin(user: User): UserActions {
   return {
     type:USER_LOGIN,
-    email:email,
-    accessToken: accessToken,
-    refreshToken: refreshToken
+    user: user
   }
 }
 

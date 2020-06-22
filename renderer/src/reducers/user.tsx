@@ -5,7 +5,6 @@ import {
 import {
   UserActions, USER_LOGIN, USER_LOGOUT, USER_UPDATE_PRIVILEGE_LIST, USER_UPDATE_MANAGING_LOCATIONS, USER_UPDATE_DEFAULT_MANAGING_LOCATION
 } from "../constants/action-types";
-const ipc = require('electron').ipcRenderer;
 
 const initialState: UserState = {
   activeUser: null,
@@ -18,10 +17,9 @@ export default function userReducer(state = initialState, action: UserActions): 
 
   switch (action.type) {
     case USER_LOGIN:
-      ipc.send("user-session-login", { "accessToken": action.accessToken, "refreshToken": action.refreshToken });
       return {
         ...state,
-        activeUser: action.email,
+        activeUser: action.user,
         privilegeList: null
       }
     case USER_LOGOUT:

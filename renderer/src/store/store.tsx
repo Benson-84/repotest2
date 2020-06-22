@@ -1,3 +1,5 @@
+import { User } from "@weconnect/tars-foundation";
+
 export interface Miniapp {
   name: string,
   label: string,
@@ -36,7 +38,7 @@ export interface ManagingLocation {
 }
 
 export interface UserState {
-  activeUser: string
+  activeUser: User
   privilegeList: any
   managingLocations: ManagingLocation[],
   defaultManagingLocation: ManagingLocation,

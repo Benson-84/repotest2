@@ -2,13 +2,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { PrimaryButton, MailInput, Icons, Typography } from "@weconnect/tars-widgets" ;
 const remote = require('electron').remote;
+const ipc = require('electron').ipcRenderer;
 
 import { userLogin } from "../../actions/user";
 import { fetch } from "@weconnect/appkit";
+import { API } from "@weconnect/tars-foundation";
 
 import "./login.less";
 import background_image from './login-background.png';
 import UnknownErrorPng from "./error-unknown.png";
+
 
 type LoginPageState = {
   email: string
@@ -131,20 +134,28 @@ class LoginPage extends React.Component< any, LoginPageState> {
       useragent: "Mozilla/5.0 (Desktop; Chrome; WeWork;)"
     });
     win.loadURL(url)
-    win.webContents.on('will-redirect',  function(e:any,redirectUrl:string) {
+    win.webContents.on('will-redirect',  async function(e:any,redirectUrl:string) {
       
       if(redirectUrl.indexOf("https://wework.localhost/login-success") != -1) {
         let url = new URL(redirectUrl);
         let params = new URLSearchParams(url.search);
         let accessToken = params.get("accessToken");
         let refreshToken = params.get("refreshToken");
-        
+        ipc.send("user-session-login", { "accessToken": accessToken, "refreshToken": refreshToken });
         win.close();
-        dispatch(userLogin(email, accessToken, refreshToken));
+        
+        try {
+          let user = await API.Users.getMyProfile();
+          dispatch(userLogin(user));
+        } catch (e) {
+          displayLoginErrorMessage(JSON.stringify(e));
+        }
+        
+        
       } else if(redirectUrl.indexOf("https://wework.localhost/login-error") != -1) {
         let url = new URL(redirectUrl);
         let params = new URLSearchParams(url.search);
-        let message = params.get("msg");
+        let message = params.get("message");
         
         win.close();
 
