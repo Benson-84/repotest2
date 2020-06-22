@@ -102,7 +102,7 @@ export default class MiniAppView extends React.Component {
     var title = null;
     if (page) {
       title = page.state?.title;
-      if (!title) {
+      if (!title && page.miniapp.label) {
         title = intl.get(page.miniapp.label);
       }
     }
