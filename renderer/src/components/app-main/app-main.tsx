@@ -289,16 +289,21 @@ class AppMain extends React.Component<Props, State> {
 
   resetTarsHomepage() {
     var miniapp = null;
-    if (this.state.miniappGroups) {
-      let group = this.state.miniappGroups.find((g: any) => {
-        return g.name == "Member Gallery";
-      })
+    // if (this.state.miniappGroups) {
+    //   let group = this.state.miniappGroups.find((g: any) => {
+    //     return g.name == "Member Gallery";
+    //   })
 
-      if (group && (group as MiniappGroup).miniapps) {
-        miniapp = (group as MiniappGroup).miniapps.find((p: Miniapp) => {
-          return p.name == "Company List";
-        })
-      }
+    //   if (group && (group as MiniappGroup).miniapps) {
+    //     miniapp = (group as MiniappGroup).miniapps.find((p: Miniapp) => {
+    //       return p.name == "Company List";
+    //     })
+    //   }
+    // }
+    if (this.state.miniappGroups) {
+      miniapp = this.state.miniappGroups.find((g: any) => {
+        return g.name == "Spacestation";
+      })
     }
 
     if (miniapp) {
