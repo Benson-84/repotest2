@@ -1,4 +1,5 @@
 import { User } from "@weconnect/tars-foundation";
+import { Location } from '@weconnect/tars-foundation';
 
 export interface Miniapp {
   name: string,
@@ -31,15 +32,9 @@ export interface NavigatorState {
   pages: Page[]
 }
 
-export interface ManagingLocation {
-  id: string,
-  name: string,
-  address: string,
-}
-
 export interface UserState {
   activeUser: User
   privilegeList: any
-  managingLocations: ManagingLocation[],
-  defaultManagingLocation: ManagingLocation,
+  managingLocations: Location[],
+  defaultManagingLocation: Location,
 }

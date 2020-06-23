@@ -8,7 +8,7 @@ import {
   USER_UPDATE_DEFAULT_MANAGING_LOCATION
 } from "../constants/action-types";
 
-import { ManagingLocation } from '../store/store';
+import { Location } from '@weconnect/tars-foundation';
 import { User } from "@weconnect/tars-foundation";
 
 export function userLogout(): UserActions {
@@ -31,14 +31,14 @@ export function updatePrivilegeList(privilegeList: any): UserActions {
   }
 }
 
-export function updateManagingLocations(locations: ManagingLocation[]): UserActions {
+export function updateManagingLocations(locations: Location[]): UserActions {
   return {
     type: USER_UPDATE_MANAGING_LOCATIONS,
     managingLocations: locations,
   }
 }
 
-export function updateDefaultManagingLocation(location: ManagingLocation): UserActions {
+export function updateDefaultManagingLocation(location: Location): UserActions {
   return {
     type: USER_UPDATE_DEFAULT_MANAGING_LOCATION,
     defaultLocation: location,

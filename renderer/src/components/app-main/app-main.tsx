@@ -9,11 +9,16 @@ import {
   Miniapp,
   Page,
   PageLoadingStatus,
-  ManagingLocation
 } from "../../store/store";
 import {
   intl,
+  fetch,
+  Navigation,
 } from "@weconnect/appkit";
+import {
+  Location,
+  API,
+} from '@weconnect/tars-foundation'
 import { updatePrivilegeList, updateManagingLocations, updateDefaultManagingLocation } from '../../actions/user';
 import { navigatorReset, navigatorPop } from '../../actions/index';
 import Icons from '../../../res/icons/icons';
@@ -28,8 +33,8 @@ const modulelist: any[] = require('../../../modules.json');
 
 interface Props {
   navigatorState: NavigatorState,
-  managingLocations: ManagingLocation[],
-  defaultManagingLocation: ManagingLocation,
+  managingLocations: Location[],
+  defaultManagingLocation: Location,
   dispatch: Dispatch
 }
 
@@ -110,24 +115,24 @@ class AppMain extends React.Component<Props, State> {
       this.setState({
         miniappGroups: mpgroups
       })
-    }, (error) => {
+    }, (error: any) => {
       this.setState({
         miniappGroups: null
       })
     });
 
-    this.fetchManagingLocationList()
+    API.Locations.getMyLocations()
       .then((rsp: any[]) => {
-
-      }, (error) => {
-
+        this.props.dispatch(updateManagingLocations(rsp));
+      }, (error: any) => {
+        console.log("error when fetching location list: " + JSON.stringify(error));
       });
 
-    this.fetchDefaultManagingLocation()
-      .then((rsp: any[]) => {
-
-      }, (error) => {
-
+    API.Locations.getMyDefaultLocation()
+      .then((rsp: any) => {
+        this.props.dispatch(updateDefaultManagingLocation(rsp));
+      }, (error: any) => {
+        console.log("error when fetching default location: " + JSON.stringify(error));
       });
   }
 
@@ -243,13 +248,29 @@ class AppMain extends React.Component<Props, State> {
   }
 
   onLocationSelectDialogConfirmClicked() {
-    this.setState({ showLocationSelectDialog: false });
-    if (this.selectedLocationName != this.props.defaultManagingLocation.name) {
-      this.props.dispatch(updateDefaultManagingLocation(this.props.managingLocations.find((item: ManagingLocation) => {
-        return item.name == this.selectedLocationName;
-      })));
+    let location = this.props.managingLocations.find((item) => {
+      return item.name == this.selectedLocationName;
+    })
 
-      this.resetTarsHomepage();
+    if (location && location.name != this.props.defaultManagingLocation.name) {
+      Navigation.startSubmittingAnimation();
+      API.Locations.updateMyDefaultLocation(location.id)
+        .then((rsp: any) => {
+          this.props.dispatch(updateDefaultManagingLocation(this.props.managingLocations.find((item: Location) => {
+            return item.name == this.selectedLocationName;
+          })));
+
+          this.resetTarsHomepage();
+          this.setState({ showLocationSelectDialog: false });
+
+          Navigation.stopSubmittingAnimation();
+        }, (error: any) => {
+          console.log("error when saving default location: " + JSON.stringify(error));
+
+          Navigation.stopSubmittingAnimation();
+        });
+    } else {
+      this.setState({ showLocationSelectDialog: false });
     }
   }
 
@@ -297,74 +318,6 @@ class AppMain extends React.Component<Props, State> {
 
       this.props.dispatch(updatePrivilegeList(pl));
       resolve(pl)
-    });
-
-    // var myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-
-    // var myInit = { method: 'GET', headers: myHeaders };
-    // let request = new Request('userService/api/v1/users/me/privileges', myInit)
-    // return fetch(request).then((response) => {
-    //     return response.data.data;
-    // });
-  }
-
-  fetchManagingLocationList() {
-    return new Promise(async (resolve, reject) => {
-      await new Promise(r => setTimeout(r, 2000));
-      var locations = [
-        {
-          "id": "1",
-          "name": "中海国际",
-          "address": "黄皮南路1号",
-        },
-        {
-          "id": "2",
-          "name": "南海国际",
-          "address": "绿皮南路1号",
-        },
-        {
-          "id": "3",
-          "name": "北海国际aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          "address": "白皮南路1号",
-        },
-        {
-          "id": "4",
-          "name": "东海国际",
-          "address": "黑皮南路1号",
-        },
-        {
-          "id": "5",
-          "name": "西海国际",
-          "address": "红皮南路1号",
-        },
-      ]
-
-      this.props.dispatch(updateManagingLocations(locations));
-      resolve(locations)
-    });
-
-    // var myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-
-    // var myInit = { method: 'GET', headers: myHeaders };
-    // let request = new Request('userService/api/v1/users/me/privileges', myInit)
-    // return fetch(request).then((response) => {
-    //     return response.data.data;
-    // });
-  }
-
-  fetchDefaultManagingLocation() {
-    return new Promise(async (resolve, reject) => {
-      await new Promise(r => setTimeout(r, 2000));
-      var deflocation = {
-        "id": "1",
-        "name": "中海国际",
-        "address": "黄皮南路1号",
-      }
-
-      this.props.dispatch(updateDefaultManagingLocation(deflocation));
-      resolve(deflocation)
     });
 
     // var myHeaders = new Headers();

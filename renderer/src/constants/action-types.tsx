@@ -1,8 +1,9 @@
 import {
   Page,
-  ManagingLocation
 } from "../store/store";
-
+import {
+  Location
+} from '@weconnect/tars-foundation';
 import {
   User
 } from "@weconnect/tars-foundation";
@@ -91,12 +92,12 @@ export interface UserActionUpdatePrivilegeList {
 
 export interface UserActionUpdateManagingLocations {
   type: typeof USER_UPDATE_MANAGING_LOCATIONS,
-  managingLocations: ManagingLocation[],
+  managingLocations: Location[],
 }
 
 export interface UserActionUpdateDefaultManagingLocation {
   type: typeof USER_UPDATE_DEFAULT_MANAGING_LOCATION,
-  defaultLocation: ManagingLocation,
+  defaultLocation: Location,
 }
 
 export type UserActions = UserActionLogin | UserActionLogout | UserActionUpdatePrivilegeList | UserActionUpdateManagingLocations | UserActionUpdateDefaultManagingLocation
