@@ -28,6 +28,7 @@ import MainMenu from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';
+import UnderConstruction from "../under-construction";
 
 const modulelist: any[] = require('../../../main-menu.json');
 
@@ -154,7 +155,7 @@ class AppMain extends React.Component<Props, State> {
             mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} />)
           }
         } else {
-          mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+          mppages.push(<UnderConstruction  key={p.miniapp.name + i} />)
         }
       }
 
