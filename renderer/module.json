@@ -1,0 +1,19 @@
+[
+  {
+    "url": "module:/miniapp-companylist",
+    "moduleClass": "miniapp"
+  },
+  {
+      "url": "module:/miniapp-spacestation",
+      "moduleClass": "spacestation"
+  },
+  {
+      "url": "module:/miniapp-spacestation-china",
+      "moduleClass": "spacestation.china"
+  },
+  {
+      "url": "module:/miniapp-accesscontrol",
+      "moduleClass": "miniapp"
+  }
+
+]
