@@ -6,12 +6,15 @@ import { userLogout } from "../../actions/user";
 import NavIcons from '../../../res/icons/icons';
 import { Menu, Dropdown, Typography, Modal, Icons } from "@weconnect/tars-widgets";
 import { PageLoadingStatus } from "../../store/store";
+import { connect } from "react-redux";
+import { User } from "@weconnect/tars-foundation";
 
 interface Props {
   pageCount: number,
   loadingStatus: PageLoadingStatus,
   onBackButtonClicked: () => void,
-  dispatch: Dispatch
+  dispatch: Dispatch,
+  user: User,
 }
 
 interface State {
@@ -20,7 +23,7 @@ interface State {
   displayLogoutModal: boolean
 }
 
-export default class NavigationBar extends React.Component<Props, State>{
+class NavigationBar extends React.Component<Props, State>{
   loadingAnimTimer: number = 0;
 
   constructor(props: Props) {
@@ -117,11 +120,14 @@ export default class NavigationBar extends React.Component<Props, State>{
   }
 
   renderActiveUserAvatar() {
+    const { user } = this.props;
+    const avatar = user.avatar ?  user.avatar: NavIcons.tarsLogo ;
+    
     return (
       <Dropdown overlay={this.popupMenu()} placement="bottomRight">
       <div className='navigation-bar-avatar '>
-        <img src={NavIcons.tarsLogo} style={{ backgroundColor: '#001a99' }} />
-        <Typography.Text>Alex Edwards**</Typography.Text>
+        <img src={avatar} style={{ backgroundColor: '#001a99' }} />
+        <Typography.Text>{user.name}</Typography.Text>
       </div>
       </Dropdown>
     )
@@ -158,3 +164,11 @@ export default class NavigationBar extends React.Component<Props, State>{
   }
   
 }
+
+function mapStateToProps(state: any) {
+  return {
+    user: state.userReducer.activeUser
+  }
+}
+
+export default connect(mapStateToProps)(NavigationBar);

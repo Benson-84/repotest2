@@ -120,8 +120,8 @@ class LoginPage extends React.Component< any, LoginPageState> {
     const displayLoginErrorMessage = this.displayLoginErrorMessage;
 
     const win = new BrowserWindow({
-      height: 800,
-      width: 600,
+      height: 600,
+      width: 500,
       title: "The We Company - Google/OKTA",
       webPreferences: {
         nodeIntegration: false,

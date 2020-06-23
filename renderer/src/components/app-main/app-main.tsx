@@ -186,7 +186,7 @@ class AppMain extends React.Component<Props, State> {
         </div>
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
-            <NavigationBar dispatch={this.props.dispatch}
+            <NavigationBar
               pageCount={enableFakePageStadk ? 2 : pageStackDepth}
               loadingStatus={pageLoadingStatus}
               onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
