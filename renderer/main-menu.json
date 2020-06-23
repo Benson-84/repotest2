@@ -1,37 +1,31 @@
 [
     {
-        "name": "Member Gallery",
+        "name": "MemberGallery",
         "label": "tars_desktop_app_group_member_gellery",
         "icon": "memberGallery",
-        "type": "feature-group",
-        "features": [
+        "type": "menu-group",
+        "items": [
             {
-                "name": "Company List",
+                "name": "miniapp-companylist",
                 "label": "tars_desktop_app_company_list",
                 "icon": "",
-                "type": "feature",
-                "url": "module:/miniapp-companylist",
-                "moduleClass": "under.construction",
+                "type": "menu-item",
                 "privilegeId": "member.company_list"
             }
         ]
     },
     {
-        "name": "Spacestation",
+        "name": "miniapp-spacestation",
         "label": "tars_desktop_app_spacestation",
         "icon": "spacestation",
-        "type": "feature",
-        "url": "https://spacestation-staging.wework.com",
-        "moduleClass": "spacestation",
+        "type": "menu-item",
         "privilegeId": "spacestation.global"
     },
     {
-        "name": "Spacestation China",
+        "name": "miniapp-spacestation-china",
         "label": "tars_desktop_app_ss_china",
         "icon": "spacestation",
-        "type": "feature",
-        "url": "https://spacestation-staging.wework.cn",
-        "moduleClass": "under.construction",
+        "type": "menu-item",
         "privilegeId": "spacestation.china"
     }
 ]

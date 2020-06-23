@@ -78,7 +78,11 @@ export default class MiniAppView extends React.Component {
       if (miniappclass == 'miniapp') {
         url = '../miniapps/' + page.miniapp.url.replace('module:/', '') + '/index.html';
       } else if (miniappclass == 'spacestation') {
-        url = page.miniapp.url;
+        if (page.miniapp.url == "module:/miniapp-spacestation") {
+          url = "https://spacestation-staging.wework.com";
+        } else if (page.miniapp.url == "module:/miniapp-spacestation-china") {
+          url = "https://spacestation-staging.wework.cn";
+        }
       } else {
         console.log("Error: unknown miniapp: " + JSON.stringify(page.miniapp));
       }

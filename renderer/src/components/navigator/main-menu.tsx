@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Menu, Typography } from '@weconnect/tars-widgets';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 import { Miniapp, Page } from "../../store/store";
-import MiniappGroup from './miniapp-group';
+import { MiniappMenuGroup, MiniappMenuItem } from './menu-model';
 import { navigatorReset } from "../../actions";
 import Icons from '../../../res/icons/icons';
 import {
@@ -16,7 +15,7 @@ import {
 interface Props {
   dispatch: Dispatch,
   currentMiniappName: string
-  miniapps: (Miniapp | MiniappGroup)[],
+  miniappMenuList: (MiniappMenuItem | MiniappMenuGroup)[],
 }
 
 interface State {
@@ -40,10 +39,9 @@ export default class MainMenu extends React.Component<Props, State> {
   render() {
     var submenus: any[] = [];
 
-    if (this.props.miniapps) {
-      // Miniapp | MiniappGroup
-      this.props.miniapps.forEach((element: any) => {
-        if (element.miniapps) {
+    if (this.props.miniappMenuList) {
+      this.props.miniappMenuList.forEach((element: any) => {
+        if (element.menuitems) {
           submenus.push(this.renderMiniappGroup(element))
         } else {
           submenus.push(this.renderMiniappItem(element))
@@ -57,19 +55,19 @@ export default class MainMenu extends React.Component<Props, State> {
         theme='dark'
         onClick={this.onMenuItemClicked.bind(this)}
         mode="inline"
-        defaultOpenKeys={['Member Gallery']}
+        defaultOpenKeys={['MemberGallery']}
       >
         {submenus}
       </Menu>
     );
   }
 
-  renderMiniappGroup(group: MiniappGroup) {
+  renderMiniappGroup(group: MiniappMenuGroup) {
     let mitems: any[] = [];
-    if (!group.miniapps || group.miniapps.length < 1) {
+    if (!group.menuitems || group.menuitems.length < 1) {
       return <div></div>;
     }
-    group.miniapps.forEach((miniapp: Miniapp) => {
+    group.menuitems.forEach((miniapp: MiniappMenuItem) => {
       mitems.push(
         this.renderMiniappItem(miniapp, true)
       )
@@ -95,7 +93,7 @@ export default class MainMenu extends React.Component<Props, State> {
     );
   }
 
-  renderMiniappItem(mp: Miniapp, expanded: boolean = false) {
+  renderMiniappItem(mp: MiniappMenuItem, expanded: boolean = false) {
     let selected = this.state.menuSelected == mp.name;
     var bgcolor = '#001a99';
     if (selected) {
@@ -131,9 +129,9 @@ export default class MainMenu extends React.Component<Props, State> {
     var target: any = null;
     for (var i = param.keyPath.length - 1; i >= 0; i--) {
       if (target == null) {
-        target = this.props.miniapps;
+        target = this.props.miniappMenuList;
       } else {
-        target = (target as MiniappGroup).miniapps;
+        target = (target as MiniappMenuGroup).menuitems;
       }
 
       let key = param.keyPath[i];
@@ -143,7 +141,7 @@ export default class MainMenu extends React.Component<Props, State> {
     }
 
     if (target) {
-      this.switchToMiniapp(target);
+      this.switchToMiniapp(target.miniapp);
     }
   }
 

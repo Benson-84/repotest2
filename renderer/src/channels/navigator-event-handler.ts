@@ -27,17 +27,10 @@ export default class NavigatorChannel extends IpcEventHandler {
         }
 
         let mp: Miniapp = {
-            name: params.get('name'),
-            label: params.get('label'),
-            icon: params.get('icon'),
             url: args.arg.url,
             moduleClass: params.get('moduleClass'),
             mode: args.arg.mode
         };
-
-        if (!mp.name) {
-            mp.name = mp.url;
-        }
 
         if (!mp.moduleClass) {
             if (mp.url.startsWith("miniapp")) {

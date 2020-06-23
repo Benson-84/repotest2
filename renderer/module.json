@@ -4,16 +4,15 @@
     "moduleClass": "under.construction"
   },
   {
-      "url": "module:/miniapp-spacestation",
-      "moduleClass": "under.construction"
+    "url": "module:/miniapp-spacestation",
+    "moduleClass": "spacestation"
   },
   {
-      "url": "module:/miniapp-spacestation-china",
-      "moduleClass": "spacestation.china"
+    "url": "module:/miniapp-spacestation-china",
+    "moduleClass": "under.construction"
   },
   {
-      "url": "module:/miniapp-accesscontrol",
-      "moduleClass": "under.construction"
+    "url": "module:/miniapp-accesscontrol",
+    "moduleClass": "under.construction"
   }
-
 ]

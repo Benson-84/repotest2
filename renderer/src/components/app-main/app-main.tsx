@@ -26,11 +26,11 @@ import MiniAppView from "../webview/miniappview";
 import SpacestationView from "../webview/spacestation-view";
 import MainMenu from '../navigator/main-menu';
 import NavigationBar from '../navigationbar/navigation-bar';
-import MiniappGroup from '../navigator/miniapp-group';
+import { MiniappMenuGroup, MiniappMenuItem} from '../navigator/menu-model';
 import './style.css';
 import UnderConstruction from "../under-construction";
 
-const modulelist: any[] = require('../../../main-menu.json');
+const installedMiniApps:Miniapp[] = require('../../../module.json')
 
 interface Props {
   navigatorState: NavigatorState,
@@ -40,7 +40,7 @@ interface Props {
 }
 
 interface State {
-  miniappGroups: (Miniapp | MiniappGroup)[],
+  miniappMenuList: (MiniappMenuItem | MiniappMenuGroup)[],
   openedPages: Page[],
   showLocationSelectDialog: boolean,
 }
@@ -52,7 +52,7 @@ class AppMain extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      miniappGroups: null,
+      miniappMenuList: null,
       openedPages: props.navigatorState.pages,
       showLocationSelectDialog: false
     }
@@ -67,46 +67,51 @@ class AppMain extends React.Component<Props, State> {
   componentDidMount() {
     this.fetchPrivilegeList().then((response: any[]) => {
       let privilegeList: any[] = response;
-      let mpgroups: (Miniapp | MiniappGroup)[] = [];
-      modulelist.forEach((m) => {
-        if (m.type == 'feature') {
-          let mp: Miniapp = {
-            name: m.name,
-            label: m.label,
-            icon: m.icon,
-            url: m.url,
-            moduleClass: m.moduleClass
-          }
+      let mpgroups: (MiniappMenuItem | MiniappMenuGroup)[] = [];
+      const mplist: any[] = require('../../../main-menu.json');
+      mplist.forEach((m) => {
+        if (m.type == 'menu-item') {
+          let mp = installedMiniApps.find((item: Miniapp) => {
+            return item.url.replace('module:/', '') == m.name;
+          })
 
-          if (privilegeList[m.privilegeId] == true) {
-            mpgroups.push(mp);
-          }
-        } else if (m.type == 'feature-group') {
-          if (m.features) {
-            let mps: Miniapp[] = (m.features as any[])
-              .filter((item: any) => {
-                return privilegeList[item.privilegeId] == true;
-              })
-              .map<Miniapp>((item: any) => {
-                return {
-                  name: item.name,
-                  label: item.label,
-                  icon: item.icon,
-                  url: item.url,
-                  moduleClass: item.moduleClass
-                }
-              })
-
-            if (mps && mps.length > 0) {
-              let mpg: MiniappGroup = {
-                name: m.name,
-                label: m.label,
-                icon: m.icon,
-                miniapps: mps
-              }
-
-              mpgroups.push(mpg)
+          if (mp && privilegeList[m.privilegeId] == true) {
+            let mpitem: MiniappMenuItem = {
+              name: m.name,
+              label: m.label,
+              icon: m.icon,
+              miniapp: mp
             }
+
+            mpgroups.push(mpitem);
+          }
+        } else if (m.type == 'menu-group' && m.items) {
+          let mps: MiniappMenuItem[] = (m.items as any[])
+            .filter((item: any) => {
+              return privilegeList[item.privilegeId] == true;
+            })
+            .map<MiniappMenuItem>((item: any) => {
+              let mp = installedMiniApps.find((mp: Miniapp) => {
+                return mp.url.replace('module:/', '') == item.name;
+              })
+
+              return {
+                name: item.name,
+                label: item.label,
+                icon: item.icon,
+                miniapp: mp
+              }
+            })
+
+          if (mps && mps.length > 0) {
+            let mpg: MiniappMenuGroup = {
+              name: m.name,
+              label: m.label,
+              icon: m.icon,
+              menuitems: mps
+            }
+
+            mpgroups.push(mpg)
           }
         } else {
           console.log("Error: unknown module type in modules.json: " + JSON.stringify(m));
@@ -114,11 +119,11 @@ class AppMain extends React.Component<Props, State> {
       })
 
       this.setState({
-        miniappGroups: mpgroups
+        miniappMenuList: mpgroups
       })
     }, (error: any) => {
       this.setState({
-        miniappGroups: null
+        miniappMenuList: null
       })
     });
 
@@ -150,18 +155,30 @@ class AppMain extends React.Component<Props, State> {
         let p = this.state.openedPages[i];
         if (p.miniapp.moduleClass == "spacestation") {
           if (i == pageStackDepth - 1) {
-            mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} dispatch={this.props.dispatch} ref="ssview" />)
+            mppages.push(<SpacestationView page={p} key={p.miniapp.url + "-" + i} zIndex={i} dispatch={this.props.dispatch} ref="ssview" />)
           } else {
-            mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} />)
+            mppages.push(<SpacestationView page={p} key={p.miniapp.url + "-" + i} zIndex={i} />)
           }
-        } else if(p.miniapp.moduleClass == "under.construction") {
-          mppages.push(<UnderConstruction  key={p.miniapp.name + i} />)
+        } else if (p.miniapp.moduleClass == "under.construction") {
+          mppages.push(<UnderConstruction key={p.miniapp.url + "-" + i} />)
         } else {
-          mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+          mppages.push(<MiniAppView page={p} key={p.miniapp.url + "-" + i} zIndex={i} />)
         } 
       }
 
-      currentMiniappName = this.state.openedPages[0].miniapp.name;
+      let cururl = this.state.openedPages[0].miniapp.url;
+      this.state.miniappMenuList?.forEach((group: any) => {
+        if (group.menuitems) {
+          group.menuitems.forEach((item: MiniappMenuItem) => {
+            if (item.miniapp.url == cururl) {
+              currentMiniappName = item.name;
+            }
+          })
+        } else if (group.miniapp && group.miniapp.url == cururl) {
+          currentMiniappName = group.name;
+        }
+      })
+
       let topPage = this.state.openedPages[pageStackDepth - 1];
       if (topPage.miniapp.moduleClass == "spacestation") {
         enableFakePageStadk = pageStackDepth > 1 ? false : true;
@@ -190,7 +207,7 @@ class AppMain extends React.Component<Props, State> {
             </span>
             <img src={Icons.arrowRight} />
           </div>
-          <MainMenu miniapps={this.state.miniappGroups} currentMiniappName={currentMiniappName} dispatch={this.props.dispatch} />
+          <MainMenu currentMiniappName={currentMiniappName} miniappMenuList={this.state.miniappMenuList} dispatch={this.props.dispatch} ref='mainmenu' />
         </div>
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
@@ -291,26 +308,12 @@ class AppMain extends React.Component<Props, State> {
   }
 
   resetTarsHomepage() {
-    var miniapp = null;
-    // if (this.state.miniappGroups) {
-    //   let group = this.state.miniappGroups.find((g: any) => {
-    //     return g.name == "Member Gallery";
-    //   })
-
-    //   if (group && (group as MiniappGroup).miniapps) {
-    //     miniapp = (group as MiniappGroup).miniapps.find((p: Miniapp) => {
-    //       return p.name == "Company List";
-    //     })
-    //   }
-    // }
-    if (this.state.miniappGroups) {
-      miniapp = this.state.miniappGroups.find((g: any) => {
-        return g.name == "Spacestation";
-      })
-    }
+    let miniapp = installedMiniApps.find((mp) => {
+      return mp.url == "module:/miniapp-spacestation"
+    })
 
     if (miniapp) {
-      this.props.dispatch(navigatorReset({ miniapp: miniapp as Miniapp }));
+      this.props.dispatch(navigatorReset({ miniapp: miniapp }));
     }
   }
 
