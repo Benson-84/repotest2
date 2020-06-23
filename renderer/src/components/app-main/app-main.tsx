@@ -29,8 +29,9 @@ import NavigationBar from '../navigationbar/navigation-bar';
 import { MiniappMenuGroup, MiniappMenuItem} from '../navigator/menu-model';
 import './style.css';
 import UnderConstruction from "../under-construction";
+import { getMainMenuItemList, findInstalledMiniappByUrl } from './miniapp-manager';
 
-const installedMiniApps:Miniapp[] = require('../../../module.json')
+
 
 interface Props {
   navigatorState: NavigatorState,
@@ -66,65 +67,12 @@ class AppMain extends React.Component<Props, State> {
 
   componentDidMount() {
     this.fetchPrivilegeList().then((response: any[]) => {
-      let privilegeList: any[] = response;
-      let mpgroups: (MiniappMenuItem | MiniappMenuGroup)[] = [];
-      const mplist: any[] = require('../../../main-menu.json');
-      mplist.forEach((m) => {
-        if (m.type == 'menu-item') {
-          let mp = installedMiniApps.find((item: Miniapp) => {
-            return item.url.replace('module:/', '') == m.name;
-          })
-
-          if (mp && privilegeList[m.privilegeId] == true) {
-            let mpitem: MiniappMenuItem = {
-              name: m.name,
-              label: m.label,
-              icon: m.icon,
-              miniapp: mp
-            }
-
-            mpgroups.push(mpitem);
-          }
-        } else if (m.type == 'menu-group' && m.items) {
-          let mps: MiniappMenuItem[] = (m.items as any[])
-            .filter((item: any) => {
-              return privilegeList[item.privilegeId] == true;
-            })
-            .map<MiniappMenuItem>((item: any) => {
-              let mp = installedMiniApps.find((mp: Miniapp) => {
-                return mp.url.replace('module:/', '') == item.name;
-              })
-
-              return {
-                name: item.name,
-                label: item.label,
-                icon: item.icon,
-                miniapp: mp
-              }
-            })
-
-          if (mps && mps.length > 0) {
-            let mpg: MiniappMenuGroup = {
-              name: m.name,
-              label: m.label,
-              icon: m.icon,
-              menuitems: mps
-            }
-
-            mpgroups.push(mpg)
-          }
-        } else {
-          console.log("Error: unknown module type in modules.json: " + JSON.stringify(m));
-        }
-      })
-
+      let mpmenulist = getMainMenuItemList(response)
       this.setState({
-        miniappMenuList: mpgroups
+        miniappMenuList: mpmenulist
       })
     }, (error: any) => {
-      this.setState({
-        miniappMenuList: null
-      })
+        console.log("Error when fetching privilege list: " + JSON.stringify(error));
     });
 
     API.Locations.getMyLocations()
@@ -147,7 +95,7 @@ class AppMain extends React.Component<Props, State> {
     let mppages: any[] = [];
     var currentMiniappName = null;
     var pageLoadingStatus = PageLoadingStatus.idle;
-    var enableFakePageStadk = false;
+    var enableFakePageStack = false;
     var isSbmitting = false;
 
     if (pageStackDepth > 0) {
@@ -181,7 +129,7 @@ class AppMain extends React.Component<Props, State> {
 
       let topPage = this.state.openedPages[pageStackDepth - 1];
       if (topPage.miniapp.moduleClass == "spacestation") {
-        enableFakePageStadk = pageStackDepth > 1 ? false : true;
+        enableFakePageStack = pageStackDepth > 1 ? false : true;
       }
       if (topPage.state) {
         pageLoadingStatus = topPage.state.pageLoadingStatus;
@@ -212,7 +160,7 @@ class AppMain extends React.Component<Props, State> {
         <div className='right-miniapp-container'>
           <div className='navigation-bar-container'>
             <NavigationBar
-              pageCount={enableFakePageStadk ? 2 : pageStackDepth}
+              pageCount={enableFakePageStack ? 2 : pageStackDepth}
               loadingStatus={pageLoadingStatus}
               onBackButtonClicked={this.handleBackButtonClicked.bind(this)} />
           </div>
@@ -308,10 +256,8 @@ class AppMain extends React.Component<Props, State> {
   }
 
   resetTarsHomepage() {
-    let miniapp = installedMiniApps.find((mp) => {
-      return mp.url == "module:/miniapp-spacestation"
-    })
-
+    let miniapp = findInstalledMiniappByUrl("module:/miniapp-spacestation");
+    
     if (miniapp) {
       this.props.dispatch(navigatorReset({ miniapp: miniapp }));
     }

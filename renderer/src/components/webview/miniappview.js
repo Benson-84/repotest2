@@ -6,9 +6,11 @@ import {
 } from "@weconnect/appkit";
 import './style.css';
 
+const Store = require('electron-store');
+
+const store = new Store();
 
 export default class MiniAppView extends React.Component {
-
   static propTypes = {
     page: PropTypes.object.isRequired,
   }
@@ -22,7 +24,7 @@ export default class MiniAppView extends React.Component {
   }
 
   render() {
-    
+
     return (
       <div className='miniapp-container' >
         {this.renderNavigationTitleBar()}
@@ -72,6 +74,7 @@ export default class MiniAppView extends React.Component {
   getUrl() {
     var url = null;
     let page = this.state.page;
+    let env = this.getEnv();
 
     if (page) {
       let miniappclass = page.miniapp.moduleClass;
@@ -79,9 +82,9 @@ export default class MiniAppView extends React.Component {
         url = '../miniapps/' + page.miniapp.url.replace('module:/', '') + '/index.html';
       } else if (miniappclass == 'spacestation') {
         if (page.miniapp.url == "module:/miniapp-spacestation") {
-          url = "https://spacestation-staging.wework.com";
+          url = this.getSpacestationUrl(env);
         } else if (page.miniapp.url == "module:/miniapp-spacestation-china") {
-          url = "https://spacestation-staging.wework.cn";
+          url = this.getSpacestationChinaUrl(env);
         }
       } else {
         console.log("Error: unknown miniapp: " + JSON.stringify(page.miniapp));
@@ -89,7 +92,7 @@ export default class MiniAppView extends React.Component {
 
       url = url + "?";
       if (page.params) {
-        page.params.forEach((value, key, ) => {
+        page.params.forEach((value, key,) => {
           url = url + key + '=' + value + '&';
         })
       }
@@ -114,4 +117,32 @@ export default class MiniAppView extends React.Component {
     return title ? title : "";
   }
 
+  getEnv() {
+    var env = 'production'
+
+    let envParamPrefix = 'env=';
+    let envparam = document.location.search.substring(1).split('&').find((item) => {
+      return item.startsWith(envParamPrefix );
+    });
+
+    if (envparam) {
+      env = envparam.substring(envParamPrefix.length);
+    }
+
+    return env
+  }
+
+  getSpacestationUrl(env) {
+    if (env == 'staging') {
+      return 'https://spacestation-staging.wework.com';
+    }
+    return 'https://spacestation.wework.com';
+  }
+
+  getSpacestationChinaUrl(env) {
+    if (env == 'staging') {
+      return 'https://spacestation-staging.wework.cn';
+    }
+    return 'https://spacestation.wework.cn';
+  }
 }
