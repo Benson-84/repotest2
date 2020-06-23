@@ -1,11 +1,11 @@
 [
   {
     "url": "module:/miniapp-companylist",
-    "moduleClass": "miniapp"
+    "moduleClass": "under.construction"
   },
   {
       "url": "module:/miniapp-spacestation",
-      "moduleClass": "spacestation"
+      "moduleClass": "under.construction"
   },
   {
       "url": "module:/miniapp-spacestation-china",
@@ -13,7 +13,7 @@
   },
   {
       "url": "module:/miniapp-accesscontrol",
-      "moduleClass": "miniapp"
+      "moduleClass": "under.construction"
   }
 
 ]
