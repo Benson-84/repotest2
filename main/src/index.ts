@@ -59,11 +59,10 @@ function createWindow () {
     store.set('refreshToken', argument.refreshToken);
   });
 
-  win.loadFile('../renderer/index.html');
   if(process.env.ENV && process.env.ENV == "development") {
-    win.loadFile('../renderer/index.html');
+    win.loadFile('../renderer/index.html', {query: {env: "staging"}});
   } else {
-    win.loadFile('./dist/renderer/index.html');
+    win.loadFile('./dist/renderer/index.html', {query: {env: "producation"}});
   }
   mainWindowId = win.id;
 
