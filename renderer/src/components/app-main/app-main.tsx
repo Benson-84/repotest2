@@ -29,7 +29,7 @@ import NavigationBar from '../navigationbar/navigation-bar';
 import MiniappGroup from '../navigator/miniapp-group';
 import './style.css';
 
-const modulelist: any[] = require('../../../modules.json');
+const modulelist: any[] = require('../../../main-menu.json');
 
 interface Props {
   navigatorState: NavigatorState,
@@ -307,7 +307,7 @@ class AppMain extends React.Component<Props, State> {
     }
 
     if (miniapp) {
-      this.props.dispatch(navigatorReset({ miniapp: miniapp }));
+      this.props.dispatch(navigatorReset({ miniapp: miniapp as Miniapp }));
     }
   }
 
