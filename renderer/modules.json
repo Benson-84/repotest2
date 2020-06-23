@@ -11,7 +11,7 @@
                 "icon": "",
                 "type": "feature",
                 "url": "module:/miniapp-companylist",
-                "moduleClass": "under.construction",
+                "moduleClass": "miniapp",
                 "privilegeId": "member.company_list"
             }
         ]
@@ -31,7 +31,16 @@
         "icon": "spacestation",
         "type": "feature",
         "url": "https://spacestation-staging.wework.cn",
-        "moduleClass": "under.construction",
+        "moduleClass": "spacestation",
         "privilegeId": "spacestation.china"
+    },
+    {
+        "name": "权限管理",
+        "label": "tars_desktop_app_access_control",
+        "icon": "",
+        "type": "feature",
+        "url": "module:/miniapp-accesscontrol",
+        "moduleClass": "miniapp",
+        "privilegeId": "management.access_control"
     }
 ]

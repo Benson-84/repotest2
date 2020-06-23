@@ -154,9 +154,11 @@ class AppMain extends React.Component<Props, State> {
           } else {
             mppages.push(<SpacestationView page={p} key={p.miniapp.name + i} zIndex={i} />)
           }
-        } else {
+        } else if(p.miniapp.moduleClass == "under.construction") {
           mppages.push(<UnderConstruction  key={p.miniapp.name + i} />)
-        }
+        } else {
+          mppages.push(<MiniAppView page={p} key={p.miniapp.name + i} zIndex={i} />)
+        } 
       }
 
       currentMiniappName = this.state.openedPages[0].miniapp.name;
