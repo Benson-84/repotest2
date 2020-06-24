@@ -72,35 +72,16 @@ export default class MiniAppView extends React.Component {
   }
 
   getUrl() {
-    var url = null;
     let page = this.state.page;
-    let env = this.getEnv();
+    var url = '../miniapps/' + page.miniapp.url.replace('module:/', '') + '/index.html' + "?";
 
-    if (page) {
-      let miniappclass = page.miniapp.moduleClass;
-      if (miniappclass == 'miniapp') {
-        url = '../miniapps/' + page.miniapp.url.replace('module:/', '') + '/index.html';
-      } else if (miniappclass == 'spacestation') {
-        if (page.miniapp.url == "module:/miniapp-spacestation") {
-          url = this.getSpacestationUrl(env);
-        } else if (page.miniapp.url == "module:/miniapp-spacestation-china") {
-          url = this.getSpacestationChinaUrl(env);
-        }
-      } else {
-        console.log("Error: unknown miniapp: " + JSON.stringify(page.miniapp));
-      }
-
-      url = url + "?";
-      if (page.params) {
-        page.params.forEach((value, key,) => {
-          url = url + key + '=' + value + '&';
-        })
-      }
-
-      url = url.substring(0, url.length - 1);
+    if (page.params) {
+      page.params.forEach((value, key,) => {
+        url = url + key + '=' + value + '&';
+      })
     }
 
-    return url;
+    return url.substring(0, url.length - 1);
   }
 
   getTitle() {
@@ -115,34 +96,5 @@ export default class MiniAppView extends React.Component {
     }
 
     return title ? title : "";
-  }
-
-  getEnv() {
-    var env = 'production'
-
-    let envParamPrefix = 'env=';
-    let envparam = document.location.search.substring(1).split('&').find((item) => {
-      return item.startsWith(envParamPrefix );
-    });
-
-    if (envparam) {
-      env = envparam.substring(envParamPrefix.length);
-    }
-
-    return env
-  }
-
-  getSpacestationUrl(env) {
-    if (env == 'staging') {
-      return 'https://spacestation-staging.wework.com';
-    }
-    return 'https://spacestation.wework.com';
-  }
-
-  getSpacestationChinaUrl(env) {
-    if (env == 'staging') {
-      return 'https://spacestation-staging.wework.cn';
-    }
-    return 'https://spacestation.wework.cn';
   }
 }

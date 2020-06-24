@@ -30,10 +30,28 @@ export default class SpacestationView extends MiniAppView {
     }
   }
 
+  // override
   renderNavigationTitleBar() {
     return (
       <div></div>
     )
+  }
+
+  // override
+  getUrl() {
+    var url = "";
+    let page = this.state.page;
+    let env = this.getEnv();
+
+    if (page.miniapp.url == "module:/miniapp-spacestation") {
+      url = this.getSpacestationUrl(env);
+    } else if (page.miniapp.url == "module:/miniapp-spacestation-china") {
+      url = this.getSpacestationChinaUrl(env);
+    } else {
+      console.log("unknown spacestation miniapp url: " + page.miniapp.url);
+    }
+
+    return url;
   }
 
   handleNavigatorBackward() {
@@ -44,5 +62,34 @@ export default class SpacestationView extends MiniAppView {
         this.props.dispatch(navigatorPop());
       }
     }
+  }
+
+  private getEnv() {
+    var env = 'production'
+
+    let envParamPrefix = 'env=';
+    let envparam = document.location.search.substring(1).split('&').find((item) => {
+      return item.startsWith(envParamPrefix );
+    });
+
+    if (envparam) {
+      env = envparam.substring(envParamPrefix.length);
+    }
+
+    return env
+  }
+
+  private getSpacestationUrl(env:string) {
+    if (env == 'staging') {
+      return 'https://spacestation-staging.wework.com';
+    }
+    return 'https://spacestation.wework.com';
+  }
+
+  private getSpacestationChinaUrl(env:string) {
+    if (env == 'staging') {
+      return 'https://spacestation-staging.wework.cn';
+    }
+    return 'https://spacestation.wework.cn';
   }
 }
