@@ -5,7 +5,10 @@ export var mainWindowId: number = 0
 import { createMacMenu } from "./menu-macos";
 const Store = require('electron-store');
 const store = new Store();
+let globalWin:BrowserWindow;
 
+const entryFile = (process.env.ENV && process.env.ENV == "development") ? '../renderer/index.html' : './dist/renderer/index.html';
+const defaultEnv = (process.env.ENV && process.env.ENV == "development") ? "staging" : "production";
 
 function createMenu(window: Electron.BrowserWindow) {
   const template = createMacMenu(window)
@@ -59,16 +62,18 @@ function createWindow () {
     store.set('refreshToken', argument.refreshToken);
   });
 
-  if(process.env.ENV && process.env.ENV == "development") {
-    win.loadFile('../renderer/index.html', {query: {env: "staging"}});
-  } else {
-    win.loadFile('./dist/renderer/index.html', {query: {env: "producation"}});
-  }
+  globalWin = win;
   mainWindowId = win.id;
 
+  reload();
   createMenu(win);
+
 }
 
+
+export function reload(env=defaultEnv) {
+  globalWin.loadFile(entryFile, {query: {env: env}});
+}
 
 app.on('ready', createWindow);
 

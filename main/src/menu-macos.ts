@@ -1,5 +1,6 @@
 import { app } from "electron"
 import { setWeWorkServer } from "./channels/network";
+import { reload } from "./index";
 
 export function createMacMenu(
   window: Electron.BrowserWindow,
@@ -44,8 +45,10 @@ export function createMacMenu(
 
 function handleSelectStagingServer() {
   setWeWorkServer("staging");
+  reload("staging");
 }
 
 function handleSelectProductionServer() {
   setWeWorkServer("production");
+  reload("production");
 }
