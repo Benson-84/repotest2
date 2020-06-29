@@ -17,3 +17,5 @@ jobs:
       - run: npm run build-main 
       - run: npm run build-renderer
       - run: npm run package
+      - store_artifacts:
+        path: /Users/distiller/project/builds
