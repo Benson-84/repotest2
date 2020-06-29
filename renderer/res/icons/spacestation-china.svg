@@ -1,0 +1,21 @@
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="登录" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="注销-/-确认" transform="translate(-24.000000, -434.000000)">
+            <g id="Navigation" transform="translate(0.000000, 22.000000)">
+                <g id="List" transform="translate(0.000000, 232.000000)">
+                    <g id="一级导航" transform="translate(0.000000, 162.000000)">
+                        <g id="Icon" transform="translate(24.000000, 19.000000)">
+                            <path d="M11.5,0.5 C9.843,0.5 8.5,1.91 8.5,3.65 C8.5,6.013 11.5,9.25 11.5,9.25 C11.5,9.25 14.5,6.013 14.5,3.65 C14.5,1.91 13.157,0.5 11.5,0.5 Z" id="路径" stroke="#FFFFFF"></path>
+                            <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="11.5" cy="3.5" r="1"></circle>
+                            <path d="M15.4999989,8 C15.499216,11.2357432 13.4233235,14.1061776 10.3506085,15.1203062 C7.27789345,16.1344349 3.90120748,15.0635868 1.97451112,12.4639954 C0.0478147661,9.86440394 0.00554937934,6.32223831 1.86966898,3.67741458 C3.73378858,1.03259084 7.08396194,-0.118522615 10.18,0.822" id="路径" stroke="#FFFFFF"></path>
+                            <path d="M7.643,15.5 C6.929,14.429 5.881,11.214 8.357,11.214 C9.772,11.214 9.869,12.742 12.286,11.929 C12.993,11.69 13.469,12.048 13.714,13 M3.714,1.929 C4.415,1.929 6.618,4.524 4.786,5.857 C3.776,6.592 2.643,6.93 2.643,8 C2.643,8.752 3,9.071 3.714,9.786 C4.429,10.5 4.058,11.729 3.337,12.596 C3,13 2.643,13.357 2.643,13.357" id="形状" stroke="#FFFFFF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

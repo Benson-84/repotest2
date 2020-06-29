@@ -7,6 +7,7 @@ const Icons = {
   location: require('./location.svg'),
   memberGallery: require('./member-gallery.svg'),
   spacestation: require('./spacestation.svg'),
+  spacestationChina: require('./spacestation-china.svg'),
   arrowRight: require('./arrow-right.svg'),
 }
 

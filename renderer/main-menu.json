@@ -24,7 +24,7 @@
     {
         "name": "miniapp-spacestation-china",
         "label": "tars_desktop_app_ss_china",
-        "icon": "spacestation",
+        "icon": "spacestationChina",
         "type": "menu-item",
         "privilegeId": "spacestation.china"
     }
