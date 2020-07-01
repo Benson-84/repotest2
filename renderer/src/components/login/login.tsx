@@ -40,7 +40,7 @@ class LoginPage extends React.Component< any, LoginPageState> {
 
     const errorEmailMessage = this.state.displayErrorForEmailAddress ? (<Typography.Text type="danger">*请输入正确的公司邮箱地址</Typography.Text>):  (<div />);
     return (
-      <div className="login-page" style={{backgroundImage: `url(${background_image})`}}>
+      <div onKeyDown={this.onKeyDown.bind(this)} className="login-page" style={{backgroundImage: `url(${background_image})`}}>
         <div className="login-form">
           <div className="login-form-logo">
             {Icons.TARS()}
@@ -61,6 +61,12 @@ class LoginPage extends React.Component< any, LoginPageState> {
         </div>
       </div>
     )
+  }
+  onKeyDown(e:KeyboardEvent) {
+    console.log(e.keyCode)
+    if (e.keyCode == 13 || e.keyCode == 32) {
+      this.onLoginPressed()
+    }
   }
 
   loginErrorView() {
