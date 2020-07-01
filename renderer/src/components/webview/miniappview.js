@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import { Typography } from '@weconnect/tars-widgets';
+import { Typography, Dropdown, Menu, Icons } from '@weconnect/tars-widgets';
 import {
   intl,
 } from "@weconnect/appkit";
@@ -19,12 +19,14 @@ export default class MiniAppView extends React.Component {
     super(props)
 
     this.state = {
-      page: props.page
+      page: props.page,
+      debuggerServer: ""
     }
   }
 
   render() {
 
+    const url = this.state.debuggerServer.length > 0 ? this.state.debuggerServer : this.getUrl();
     return (
       <div className='miniapp-container' >
         {this.renderNavigationTitleBar()}
@@ -33,7 +35,7 @@ export default class MiniAppView extends React.Component {
         <webview
           ref="webview"
           style={{ width: '100%', height: '100%' }}
-          src={this.getUrl()}
+          src={url}
           nodeintegration="true"
           webpreferences="'web-security'=false"
           useragent="Mozilla/5.0 (Desktop; Chrome; WeWork;)"
@@ -56,9 +58,34 @@ export default class MiniAppView extends React.Component {
   }
 
   renderDebug = () => {
+    const { debuggerServer } = this.state;
+    const menu = (
+      <Menu onClick={this.handleDebugEnvSelectClick}>
+        <Menu.Item key="1" >Local File</Menu.Item>
+        <Menu.Item key="2" >http://localhost:8080</Menu.Item>
+      </Menu>
+    );
+    const localEnv = debuggerServer.length > 0 ? debuggerServer : "Local File";
     return (
-      <button onClick={this.handleDebugClick} style={{ float: 'right', clear: 'both', position: 'absolute', top: '16px', right: '16px', padding: '4px' }}>Debug</button>
+      <div className="debug-menu">
+        <Dropdown overlay={menu} >
+          <div>
+            <b>Env:</b> {localEnv}
+          </div>
+        </Dropdown>
+        <button onClick={this.handleDebugClick} style={{marginLeft: "10px"}} >Debug</button>
+      </div>
     )
+  }
+
+  handleDebugEnvSelectClick = (e) => {
+    var debuggerServer = "";
+    if(e.key == "2") {
+      debuggerServer = "http://localhost:8080";
+    }
+    this.setState({
+      debuggerServer: debuggerServer
+    })
   }
 
   handleDebugClick = () => {
@@ -72,6 +99,7 @@ export default class MiniAppView extends React.Component {
   }
 
   getUrl() {
+
     let page = this.state.page;
     var url = '../miniapps/' + page.miniapp.url.replace('module:/', '') + '/index.html' + "?";
 
