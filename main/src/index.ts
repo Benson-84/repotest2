@@ -62,6 +62,20 @@ function createWindow () {
     store.set('refreshToken', argument.refreshToken);
   });
 
+  win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+    if (frameName === 'modal') {
+      // open window as modal
+      event.preventDefault()
+      Object.assign(options, {
+        modal: true,
+        parent: win,
+        width: 100,
+        height: 100
+      })
+      event.newGuest = new BrowserWindow(options)
+    }
+  });
+  
   globalWin = win;
   mainWindowId = win.id;
 

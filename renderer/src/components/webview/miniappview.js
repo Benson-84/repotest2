@@ -37,9 +37,10 @@ export default class MiniAppView extends React.Component {
           style={{ width: '100%', height: '100%' }}
           src={url}
           nodeintegration="true"
-          webpreferences="'web-security'=false"
+          webpreferences="nativeWindowOpen=yes"
           useragent="Mozilla/5.0 (Desktop; Chrome; WeWork;)"
-          preload="../../preload/preload.js" />
+          preload="../../preload/preload.js" 
+          allowpopups="true" />
 
       </div>
     )

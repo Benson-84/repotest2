@@ -16,12 +16,13 @@ export function createMacMenu(
     ],
   }
 
-  const accountMenu: Electron.MenuItemConstructorOptions = {
-    label: "Account",
+  const editMenu: Electron.MenuItemConstructorOptions = {
+    label: "Edit",
     submenu: [
+      {label: 'Copy', role:'copy'},
+      {label: 'Paste', role:'paste'},
     ]
   }
-
 
   const developerMenu: Electron.MenuItemConstructorOptions = {
     label: "Developer",
@@ -40,7 +41,7 @@ export function createMacMenu(
     ]
   }
 
-  return [appMenu, accountMenu, developerMenu, helpMenu]
+  return [appMenu, editMenu, developerMenu, helpMenu]
 }
 
 function handleSelectStagingServer() {
