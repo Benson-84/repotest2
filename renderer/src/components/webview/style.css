@@ -27,6 +27,9 @@
 }
 
 .debug-menu {
+    width: 100%;
+    position: absolute;
+    float: left;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
