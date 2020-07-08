@@ -39,6 +39,15 @@ export default class NetWorkChannel implements MethodChannel {
             req.on('response', (response) => {
                 if (response.statusCode == 401) {
                     console.log("=[net.request][token expired]==================================================================");
+                    reject({
+                        id:this.id,
+                        method:method,
+                        response:{
+                            code:401,
+                            message:null,
+                            data:null
+                        }
+                    })
                     return;
                 }
                 var resp:ObjAnyType = {
