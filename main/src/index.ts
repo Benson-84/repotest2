@@ -45,8 +45,6 @@ function createWindow () {
     }
     channel.invoke(args)
     .then(res=> {
-      console.log("on internalMiniAppJsBridge, res = " + JSON.stringify(res));
-      
       event.reply('internalMiniAppJsBridgeCallback', res)
     }).catch(err => {
       if(err == 'tokenExprired') {

@@ -25,17 +25,18 @@ export default class NetWorkChannel implements MethodChannel {
         return new Promise((resolve,reject)=> {
             let request = new ChannelRequest(params)
             
+            console.log("=[net.request]==================================================================");
+            console.log(request)
             var req =  net.request({
                 method:request.method,
                 host:request.host,
                 path:request.path,
                 protocol:request.protocol
-            }) 
+            })
             for (var key in request.header){
                 req.setHeader(key,request.header[key])
             }
-            console.log("=[net.request]==================================================================");
-            console.log(req);
+            
             req.on('response', (response) => {
                 if (response.statusCode == 401) {
                     console.log("=[net.request][token expired]==================================================================");
@@ -70,6 +71,8 @@ export default class NetWorkChannel implements MethodChannel {
                         }
                     }
                     resp['data'] = json
+                    console.log("=[net.response]==================================================================");
+                    console.log(json);
                     resolve({
                         id:this.id,
                         method:method,
