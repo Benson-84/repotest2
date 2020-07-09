@@ -25,7 +25,7 @@ export default class NetWorkChannel implements MethodChannel {
         return new Promise((resolve,reject)=> {
             let request = new ChannelRequest(params)
             
-            console.log("=[net.request]==================================================================");
+            console.log("=====[net.request][" + Date() +"]==================================================================");
             console.log(request)
             var req =  net.request({
                 method:request.method,
@@ -39,7 +39,7 @@ export default class NetWorkChannel implements MethodChannel {
             
             req.on('response', (response) => {
                 if (response.statusCode == 401) {
-                    console.log("=[net.request][token expired]==================================================================");
+                    console.log("=====[net.request][token expired][" + Date() +"]==================================================================");
                     reject({
                         id:this.id,
                         method:method,
@@ -71,7 +71,7 @@ export default class NetWorkChannel implements MethodChannel {
                         }
                     }
                     resp['data'] = json
-                    console.log("=[net.response]==================================================================");
+                    console.log("=====[net.response][" + Date() +"]==================================================================");
                     console.log(json);
                     resolve({
                         id:this.id,
@@ -84,7 +84,7 @@ export default class NetWorkChannel implements MethodChannel {
                     })
                 })
                 response.on('error', (error:any) => {
-                    console.log("=[net.request][response error]==================================================================");
+                    console.log("=====[net.request][response error][" + Date() +"]==================================================================");
                     console.log(error)
                   resolve({
                     id:this.id,
