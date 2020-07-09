@@ -1,11 +1,19 @@
 
-rm -rf WeWork-China-MiniApps/
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+DIR="WeWork-China-MiniApps/"
+if [ -d "$DIR" ]; then
+  # checkout
+  git clone git@github.com:WeConnect/WeWork-China-MiniApps.git  -b $BRANCH 
+fi
+
+
 rm -rf ./dist/miniapps/
 mkdir -p ./dist/miniapps/
 
-`git clone git@github.com:WeConnect/WeWork-China-MiniApps.git  -b $1` || `rm -rf WeWork-China-MiniApps/ && echo 'checkout master branch...' && git clone git@github.com:WeConnect/WeWork-China-MiniApps.git -b master`
-
 pushd WeWork-China-MiniApps
+
+git checkout $BRANCH
+git pull origin $BRANCH 
 
 # build tars library
 ./build.sh build-tars
