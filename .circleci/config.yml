@@ -11,11 +11,9 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: ./build-miniapps.sh $CIRCLE_BRANCH
-      - run: echo -e "//npm.pkg.github.com/:_authToken=c362864c2539a07463a8e1067bfc1d817162c202 \nregistry=https://npm.pkg.github.com/WeConnect" > ./.npmrc
-      - run: npm install
-      - run: npm run build-main 
-      - run: npm run build-renderer
-      - run: npm run package
+      - run: ./build-miniapps.sh
+      - run: yarn run build-main 
+      - run: yarn run build-renderer
+      - run: yarn run package
       - store_artifacts:
           path: /Users/distiller/project/builds
