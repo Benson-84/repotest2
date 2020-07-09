@@ -1,3 +1,4 @@
+yarn --registry https://registry.npmjs.org
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 DIR="WeWork-China-MiniApps/"
