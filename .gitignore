@@ -4,3 +4,4 @@ dist
 .npmrc
 WeWork-China-MiniApps
 builds
+yarn.lock

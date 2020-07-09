@@ -136,10 +136,9 @@ class LoginPage extends React.Component< any, LoginPageState> {
         defaultEncoding: "utf-8",
         devTools: true,
         nodeIntegrationInSubFrames: false
-      },
-      useragent: "Mozilla/5.0 (Desktop; Chrome; WeWork;)"
+      }
     });
-    win.loadURL(url)
+    win.loadURL(url, {userAgent: "Mozilla/5.0 (Desktop; Chrome; WeWork;)"})
     win.webContents.on('will-redirect',  async function(e:any,redirectUrl:string) {
       
       if(redirectUrl.indexOf("https://wework.localhost/login-success") != -1) {

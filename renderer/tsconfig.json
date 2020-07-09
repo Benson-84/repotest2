@@ -17,10 +17,15 @@
       "*": ["*", "*.web"],
       "@weconnect/appkit": [
         "../node_modules/@weconnect/appkit/dist/desktop"
-      ],
-      "@weconnect/tars-foundation": [
-        "../node_modules/@weconnect/tars-foundation"
-      ],
+      ]
     }
-  }
+  },
+  "include": [
+    "../node_modules/@weconnect",
+    "../renderer"
+  ],
+  "exclude": [
+    "../node_modules/**/*.test.ts",
+    "../node_modules/**/*.test.tsx",
+  ]
 }
