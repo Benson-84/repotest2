@@ -1,12 +1,13 @@
-yarn --registry https://registry.npmjs.org
+
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 DIR="WeWork-China-MiniApps/"
-if [ -d "$DIR" ]; then
+if [[ ! -e "$DIR" ]]; then
   # checkout
-  git clone git@github.com:WeConnect/WeWork-China-MiniApps.git  -b $BRANCH 
+  `git clone git@github.com:WeConnect/WeWork-China-MiniApps.git  -b $BRANCH`
 fi
 
+yarn --registry https://registry.npmjs.org
 
 rm -rf ./dist/miniapps/
 mkdir -p ./dist/miniapps/
